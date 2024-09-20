@@ -1,18 +1,15 @@
 # Kick Back Make Change Website
 This repository contains the source code for the Kick Back Make Change website.
 
-Kick back is a charitible trust that aims to help homeless youth in New Zealand. The website is a platform for the trust to share information about their work and helps to connect young people with their services.
+- Sandbox [https://kickback.sparefish.dev](https://kickback.sparefish.dev)
+- Production [https://kickbackmakechange.org.nz](https://kickbackmakechange.org.nz)
 
-If your interested in developing this website, feel freee to clone the repository and make changes as needed.
+Kick back is a charitable trust that aims to help homeless youth in New Zealand. The website is a platform for the trust to share information about their work and helps to connect young people with their services.
+
+If your interested in developing this website, feel free to update this repository and make changes as needed.
 
 ## Contact
-`kia.ora@sparefish.co.nz`
-
-## Sandbox Environment
-`https://kickback.sparefish.dev`
-
-## Production Environment
-`https://kickbackmakechange.org.nz`
+[kia.ora@sparefish.co.nz](mailto:kia.ora@sparefish.co.nz)
 
 ## Articles and Videos for Reference
 - [Minister defends lack of spending to tackle homelessness](https://www.1news.co.nz/2023/04/28/minister-defends-lack-of-spending-to-tackle-homelessness/)
