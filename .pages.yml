@@ -1,0 +1,231 @@
+# .pages.yml
+media:
+  - name: images
+    label: Images
+    input: images
+    output: /images
+    categories: [ image ]   # png, jpg, webp, svg, etc.
+
+# Reusable field groups (used by blocks & lists)
+components:
+  hero:
+    label: Hero
+    type: object
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: subtitle, label: Subtitle, type: string }
+      - name: background
+        label: Background Image
+        type: image
+  rich_text_section:
+    label: Rich Text
+    type: object
+    fields:
+      - { name: heading, label: Heading, type: string }
+      - name: content
+        label: Content
+        type: rich-text
+        options:
+          media: images
+  news_block:
+    label: News Block
+    type: object
+    fields:
+      - { name: heading, label: Heading, type: string, default: "Latest news" }
+      - { name: limit, label: Max items, type: number, default: 6 }
+      - name: filter
+        label: Filter
+        type: object
+        fields:
+          - { name: onHomePage, label: Only items flagged 'onHomePage', type: boolean, default: true }
+  partners_block:
+    label: Partners Block
+    type: object
+    fields:
+      - { name: heading, label: Heading, type: string, default: "Partners" }
+      - name: types
+        label: Partner types to include
+        type: select
+        options:
+          multiple: true
+          values: [ seed, corporate, local ]
+  projects_block:
+    label: Projects Block
+    type: object
+    fields:
+      - { name: heading, label: Heading, type: string, default: "Projects" }
+      - { name: limit, label: Max items, type: number, default: 12 }
+  cta_block:
+    label: Call To Action
+    type: object
+    fields:
+      - { name: text, label: Button Text, type: string, required: true }
+      - name: kind
+        label: Button Type
+        type: select
+        options:
+          values:
+            - { value: internal, label: Internal }
+            - { value: external, label: External }
+            - { value: form,     label: Form }
+      - { name: target, label: Target (path or URL), type: string }
+      - { name: note, label: Note, type: text, description: "Optional helper text for editors" }
+
+content:
+  # Home page: flexible blocks with order control
+  - name: home
+    label: Home
+    type: file
+    path: content/pages/home.md
+    format: yaml-frontmatter
+    fields:
+      - { name: title, label: Title, type: string, default: "Home" }
+      - name: sections
+        label: Page Sections
+        type: block
+        list: true
+        blockKey: _block
+        blocks:
+          - { name: hero,     label: Hero,     component: hero }
+          - { name: richtext, label: Rich Text, component: rich_text_section }
+          - { name: news,     label: News,     component: news_block }
+          - { name: partners, label: Partners, component: partners_block }
+          - { name: projects, label: Projects, component: projects_block }
+          - { name: cta,      label: CTA,      component: cta_block }
+
+  # Generic pages: each page has a "type" and its own ordered blocks
+  - name: pages
+    label: Pages
+    type: collection
+    path: content/pages
+    filename: "{primary}.md"
+    format: yaml-frontmatter
+    view:
+      fields: [ title, type, "sections.length" ]
+      primary: title
+      sort: [ title ]
+      default:
+        sort: title
+        order: asc
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - name: type
+        label: Page Type
+        type: select
+        options:
+          values: [ standard, landing, contact, legal ]
+      - name: sections
+        label: Page Sections
+        type: block
+        list: true
+        blockKey: _block
+        blocks:
+          - { name: hero,     label: Hero,     component: hero }
+          - { name: richtext, label: Rich Text, component: rich_text_section }
+          - { name: news,     label: News,     component: news_block }
+          - { name: partners, label: Partners, component: partners_block }
+          - { name: projects, label: Projects, component: projects_block }
+          - { name: cta,      label: CTA,      component: cta_block }
+
+  # News articles
+  - name: news
+    label: News
+    type: collection
+    path: content/news
+    filename: "{year}-{month}-{day}-{primary}.md"
+    format: yaml-frontmatter
+    view:
+      fields: [ title, source, date, sortOrder, onHomePage ]
+      primary: title
+      sort: [ date, sortOrder, title ]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: source, label: Source, type: string }
+      - name: logo
+        label: Logo
+        type: image
+        options: { media: images }
+      - { name: date, label: Date, type: date, required: true }
+      - { name: sortOrder, label: Sort order (override), type: number, description: "Lower = earlier in lists" }
+      - { name: url, label: Article URL, type: string }
+      - { name: onHomePage, label: Show on Home, type: boolean, default: false }
+
+  # Partners (with type enum)
+  - name: partners
+    label: Partners
+    type: collection
+    path: content/partners
+    filename: "{primary}.md"
+    format: yaml-frontmatter
+    view:
+      fields: [ name, type ]
+      primary: name
+      sort: [ type, name ]
+      default:
+        sort: name
+        order: asc
+    fields:
+      - { name: name, label: Name, type: string, required: true }
+      - name: type
+        label: Type
+        type: select
+        options:
+          values: [ seed, corporate, local ]
+      - name: logo
+        label: Logo
+        type: image
+        options: { media: images }
+      - { name: url, label: Website, type: string }
+
+  # Projects
+  - name: projects
+    label: Projects
+    type: collection
+    path: content/projects
+    filename: "{primary}.md"
+    format: yaml-frontmatter
+    view:
+      fields: [ title, subtitle ]
+      primary: title
+      sort: [ title ]
+      default:
+        sort: title
+        order: asc
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: subtitle, label: Subtitle, type: string }
+      - name: headerImage
+        label: Header Image
+        type: image
+        options: { media: images }
+      - name: description
+        label: Description
+        type: rich-text
+        options: { media: images }
+      - name: socials
+        label: Socials
+        type: object
+        list: true
+        fields:
+          - { name: url, label: URL, type: string, required: true }
+          - name: logo
+            label: Logo
+            type: image
+            options: { media: images }
+      - { name: buttonText, label: Button Text, type: string }
+      - name: buttonType
+        label: Button Type
+        type: select
+        options:
+          values:
+            - { value: internal, label: Internal }
+            - { value: external, label: External }
+            - { value: form,     label: Form }
+      - { name: buttonTarget, label: Button Target (path/URL/form id), type: string }
+
+settings:
+  content:
+    merge: true  # preserve unknown fields in existing files
