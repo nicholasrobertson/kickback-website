@@ -1,165 +1,323 @@
-# pages.cms.yaml
-# Top-level config + all page/content schemas for editors.
-# Editors only touch files under pages.cms/
+# .pages.yml
 
-config:
-  assets:
-    images: public/images
-    fonts: public/fonts
+# --- Media libraries editors can upload to ---
+media:
+  - name: images
+    label: Images
+    input: images
+    output: /public/images
+    categories: [ image ]   # png, jpg, webp, svg, etc.
 
-# ---- Single-page content (fixed files) ----
-singletons:
-  home:
-    label: "Home"
-    files:
-      - path: pages.cms/home/hero.yml
-        label: "Hero"
-        fields:
-          - { name: headline, label: "Headline", type: string, required: true }
-          - { name: subheadline, label: "Subheadline", type: string }
-          - { name: backgroundImage, label: "Background Image", type: image }
-          - name: cta
-            label: "Call To Action"
-            type: object
-            fields:
-              - { name: label, label: "Button Text", type: string }
-              - { name: href,  label: "Target (URL or path)", type: string }
-      - path: pages.cms/home/socials.yml
-        label: "Socials & Map"
-        fields:
-          - { name: facebook,  label: "Facebook URL",  type: url }
-          - { name: instagram, label: "Instagram URL", type: url }
-          - { name: tiktok,    label: "TikTok URL",    type: url }
-          - { name: mapsLink,  label: "Google Maps Link", type: url }
-      - path: pages.cms/home/highlights.yml
-        label: "Highlights"
-        fields:
-          - name: items
-            label: "Highlight Items"
-            type: list
-            of:
-              type: object
-              fields:
-                - { name: title, label: "Title", type: string, required: true }
-                - { name: value, label: "Value (number)", type: number, required: true }
+  - name: docs
+    label: Documents
+    input: files
+    output: /public/files
+    categories: [ document, pdf ]  # pdf, docx, etc.
 
-  mission:
-    label: "Mission"
-    files:
-      - path: pages.cms/mission/hero.yml
-        label: "Hero"
-        fields:
-          - { name: image, label: "Hero Image", type: image }
-          - { name: title, label: "Title", type: string, required: true }
-          - name: cta
-            label: "Call To Action"
-            type: object
-            fields:
-              - { name: label, label: "Button Text", type: string }
-              - { name: href,  label: "Target (URL or path)", type: string }
-      - path: pages.cms/mission/body.mdx
-        label: "Body Content"
-        fields:
-          - { name: body, label: "Body (MDX)", type: markdown }
-
-  volunteer:
-    label: "Volunteer"
-    files:
-      - path: pages.cms/volunteer/info.yml
-        label: "Info"
-        fields:
-          - { name: title, label: "Title", type: string, required: true }
-          - { name: blurb, label: "Blurb", type: text }
-          - name: cta
-            label: "Call To Action"
-            type: object
-            fields:
-              - { name: label, label: "Button Text", type: string }
-              - { name: href,  label: "Target (URL or path)", type: string }
-      - path: pages.cms/volunteer/form.yml
-        label: "Form Schema"
-        fields:
-          - name: fields
-            label: "Fields"
-            type: list
-            of:
-              type: object
-              fields:
-                - { name: type, label: "Type", type: enum, options: ["text","email","tel","select","textarea"] }
-                - { name: name, label: "Name (field key)", type: string, required: true }
-                - { name: label, label: "Label", type: string, required: true }
-                - { name: required, label: "Required", type: boolean, default: false }
-                - { name: options, label: "Options (for select)", type: list, of: { type: string } }
-          - name: submit
-            label: "Submit"
-            type: object
-            fields:
-              - { name: label,  label: "Button Text", type: string }
-              - { name: action, label: "Form Action URL", type: string }
-
-# ---- Collections (one file per item) ----
-collections:
-  partners:
-    label: "Partners"
-    path: pages.cms/partners/items
-    filename: "{{order | padstart:3}}-{{name | slug}}.yml"
-    sort:
-      - { by: order, dir: asc }
-      - { by: name,  dir: asc }
+# --- Reusable field groups (for blocks & lists) ---
+components:
+  hero:
+    label: Hero
+    type: object
     fields:
-      - { name: name,  label: "Name",  type: string, required: true }
-      - { name: type,  label: "Type",  type: enum, options: ["seed","corporate","local"], required: true }
-      - { name: logo,  label: "Logo",  type: image }
-      - { name: url,   label: "Website", type: url }
-      - { name: onHomePage, label: "Show on Home", type: boolean, default: false }
-      - { name: order, label: "Order", type: number, default: 9999 }
+      - { name: title, label: Title, type: string, required: true }
+      - { name: subtitle, label: Subtitle, type: string }
+      - name: background
+        label: Background Image
+        type: image
+        options: { media: images }
+      - name: cta
+        label: Call To Action
+        type: object
+        fields:
+          - { name: text, label: Button Text, type: string }
+          - name: kind
+            label: Button Type
+            type: select
+            options:
+              values: [ internal, external, form ]
+          - { name: target, label: Target (path/URL/form id), type: string }
 
-  reports:
-    label: "Reports"
-    path: pages.cms/reports/items
-    filename: "{{date}}-{{name | slug}}.yml"
-    sort:
-      - { by: date,  dir: desc }
-      - { by: order, dir: asc }
+  rich_text_section:
+    label: Rich Text
+    type: object
     fields:
-      - { name: name, label: "Name", type: string, required: true }
-      - { name: date, label: "Date (YYYY-MM-DD)", type: date, required: true }
-      - { name: file, label: "File Upload (PDF)", type: file }
-      - { name: link, label: "External Link", type: url }
-      - { name: onHomePage, label: "Show on Home", type: boolean, default: false }
-      - { name: order, label: "Order", type: number, default: 9999 }
-    validations:
-      - rule: "file || link"
-        message: "Provide a file upload or an external link."
+      - { name: heading, label: Heading, type: string }
+      - name: content
+        label: Content
+        type: rich-text
+        options:
+          media: images
 
-  projects:
-    label: "Projects"
-    path: pages.cms/projects/items
-    filename: "{{order | padstart:3}}-{{name | slug}}.yml"
-    sort:
-      - { by: order, dir: asc }
-      - { by: name,  dir: asc }
+  partners_block:
+    label: Partners Block
+    type: object
     fields:
-      - { name: name,        label: "Name", type: string, required: true }
-      - { name: description, label: "Description", type: text }
-      - { name: link,        label: "Link (internal or external)", type: string }
-      - { name: onHomePage,  label: "Show on Home", type: boolean, default: false }
-      - { name: order,       label: "Order", type: number, default: 9999 }
+      - { name: heading, label: Heading, type: string, default: "Partners" }
+      - name: types
+        label: Partner types to include
+        type: select
+        options:
+          multiple: true
+          values: [ seed, corporate, local ]
+      - { name: onHomePage, label: Only show items flagged 'onHomePage', type: boolean, default: true }
+      - { name: limit, label: Max items, type: number, default: 12 }
 
-  team:
-    label: "Team"
-    path: pages.cms/team/items
-    filename: "{{order | padstart:3}}-{{name | slug}}.yml"
-    sort:
-      - { by: dept,  dir: asc }
-      - { by: order, dir: asc }
+  reports_block:
+    label: Reports Block
+    type: object
     fields:
-      - { name: name,  label: "Name", type: string, required: true }
-      - { name: role,  label: "Role/Title", type: string, required: true }
-      - { name: dept,  label: "Department", type: enum, options: ["board","staff","volunteer"], required: true }
-      - { name: phone, label: "Phone", type: string }
-      - { name: email, label: "Email", type: email }
-      - { name: photo, label: "Photo", type: image }
-      - { name: bio,   label: "Short Bio", type: text }
-      - { name: onHomePage, label: "Show on Home", type: boolean, default: false }
-      - { name: order, label: "Order", type: number, default: 9999 }
+      - { name: heading, label: Heading, type: string, default: "Reports" }
+      - { name: onHomePage, label: Only show items flagged 'onHomePage', type: boolean, default: true }
+      - { name: limit, label: Max items, type: number, default: 6 }
+
+  projects_block:
+    label: Projects Block
+    type: object
+    fields:
+      - { name: heading, label: Heading, type: string, default: "Projects" }
+      - { name: onHomePage, label: Only show items flagged 'onHomePage', type: boolean, default: true }
+      - { name: limit, label: Max items, type: number, default: 12 }
+
+  team_block:
+    label: Team Block
+    type: object
+    fields:
+      - { name: heading, label: Heading, type: string, default: "Our Team" }
+      - name: depts
+        label: Departments to include
+        type: select
+        options:
+          multiple: true
+          values: [ board, staff, volunteer ]
+      - { name: onHomePage, label: Only show members flagged 'onHomePage', type: boolean, default: true }
+      - { name: limit, label: Max items, type: number, default: 12 }
+
+  cta_block:
+    label: Call To Action
+    type: object
+    fields:
+      - { name: text, label: Button Text, type: string, required: true }
+      - name: kind
+        label: Button Type
+        type: select
+        options:
+          values:
+            - { value: internal, label: Internal }
+            - { value: external, label: External }
+            - { value: form,     label: Form }
+      - { name: target, label: Target (path or URL)", type: string }
+      - { name: note, label: Note, type: text, description: "Optional helper text for editors" }
+
+  volunteer_info_block:
+    label: Volunteer Info
+    type: object
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - name: blurb
+        label: Blurb
+        type: rich-text
+        options: { media: images }
+      - name: cta
+        label: Call To Action
+        type: object
+        fields:
+          - { name: text, label: Button Text, type: string }
+          - { name: target, label: Target (path/URL/form id), type: string }
+
+  volunteer_form_block:
+    label: Volunteer Form
+    type: object
+    fields:
+      - name: fields
+        label: Fields
+        type: list
+        of:
+          type: object
+          fields:
+            - { name: type, label: Type, type: select, options: { values: [ text, email, tel, select, textarea ] } }
+            - { name: name, label: Name (field key), type: string, required: true }
+            - { name: label, label: Label, type: string, required: true }
+            - { name: required, label: Required, type: boolean, default: false }
+            - { name: options, label: Options (for select)", type: list, of: { type: string } }
+      - name: submit
+        label: Submit
+        type: object
+        fields:
+          - { name: text,  label: Button Text, type: string }
+          - { name: action, label: Form Action URL", type: string }
+
+# --- Content definitions ---
+content:
+  # Home: flexible, ordered blocks
+  - name: home
+    label: Home
+    type: file
+    path: content/pages/home.md
+    format: yaml-frontmatter
+    fields:
+      - { name: title, label: Title, type: string, default: "Home" }
+      - name: sections
+        label: Page Sections
+        type: block
+        list: true
+        blockKey: _block
+        blocks:
+          - { name: hero,     label: Hero,     component: hero }
+          - { name: richtext, label: Rich Text, component: rich_text_section }
+          - { name: partners, label: Partners, component: partners_block }
+          - { name: reports,  label: Reports,  component: reports_block }
+          - { name: projects, label: Projects, component: projects_block }
+          - { name: team,     label: Team,     component: team_block }
+          - { name: cta,      label: CTA,      component: cta_block }
+
+  # Mission: hero + rich text
+  - name: mission
+    label: Mission
+    type: file
+    path: content/pages/mission.md
+    format: yaml-frontmatter
+    fields:
+      - { name: title, label: Title, type: string, default: "Our Mission" }
+      - name: sections
+        label: Sections
+        type: block
+        list: true
+        blockKey: _block
+        blocks:
+          - { name: hero,     label: Hero,     component: hero }
+          - { name: richtext, label: Rich Text, component: rich_text_section }
+          - { name: cta,      label: CTA,      component: cta_block }
+
+  # Volunteer: info + configurable form
+  - name: volunteer
+    label: Volunteer
+    type: file
+    path: content/pages/volunteer.md
+    format: yaml-frontmatter
+    fields:
+      - { name: title, label: Title, type: string, default: "Volunteer" }
+      - name: sections
+        label: Sections
+        type: block
+        list: true
+        blockKey: _block
+        blocks:
+          - { name: info, label: Info, component: volunteer_info_block }
+          - { name: form, label: Form, component: volunteer_form_block }
+          - { name: cta,  label: CTA,  component: cta_block }
+
+  # Partners (with type enum + onHomePage + order)
+  - name: partners
+    label: Partners
+    type: collection
+    path: content/partners
+    filename: "{primary}.md"
+    format: yaml-frontmatter
+    view:
+      fields: [ name, type, onHomePage, order ]
+      primary: name
+      sort: [ type, order, name ]
+      default:
+        sort: name
+        order: asc
+    fields:
+      - { name: name, label: Name, type: string, required: true }
+      - name: type
+        label: Type
+        type: select
+        options:
+          values: [ seed, corporate, local ]
+      - name: logo
+        label: Logo
+        type: image
+        options: { media: images }
+      - { name: url, label: Website, type: string }
+      - { name: onHomePage, label: Show on Home, type: boolean, default: false }
+      - { name: order, label: Order (lower = earlier), type: number, default: 9999 }
+
+  # Reports (file or external link) + onHomePage + order
+  - name: reports
+    label: Reports
+    type: collection
+    path: content/reports
+    filename: "{year}-{month}-{day}-{primary}.md"
+    format: yaml-frontmatter
+    view:
+      fields: [ name, date, onHomePage, order ]
+      primary: name
+      sort: [ date, order, name ]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - { name: name, label: Name, type: string, required: true }
+      - { name: date, label: Date, type: date, required: true }
+      - name: file
+        label: Upload (PDF)
+        type: file
+        options: { media: docs }
+      - { name: link, label: External Link (optional)", type: string }
+      - { name: onHomePage, label: Show on Home, type: boolean, default: false }
+      - { name: order, label: Order (lower = earlier), type: number, default: 9999 }
+
+  # Projects
+  - name: projects
+    label: Projects
+    type: collection
+    path: content/projects
+    filename: "{primary}.md"
+    format: yaml-frontmatter
+    view:
+      fields: [ title, onHomePage, order ]
+      primary: title
+      sort: [ order, title ]
+      default:
+        sort: title
+        order: asc
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - name: description
+        label: Description
+        type: rich-text
+        options: { media: images }
+      - { name: link, label: Link (internal or external), type: string }
+      - { name: onHomePage, label: Show on Home, type: boolean, default: false }
+      - { name: order, label: Order (lower = earlier), type: number, default: 9999 }
+
+  # Team
+  - name: team
+    label: Team
+    type: collection
+    path: content/team
+    filename: "{primary}.md"
+    format: yaml-frontmatter
+    view:
+      fields: [ name, dept, role, onHomePage, order ]
+      primary: name
+      sort: [ dept, order, name ]
+      default:
+        sort: dept
+        order: asc
+    fields:
+      - { name: name,  label: Name, type: string, required: true }
+      - { name: role,  label: Role/Title, type: string, required: true }
+      - name: dept
+        label: Department
+        type: select
+        options:
+          values: [ board, staff, volunteer ]
+      - { name: phone, label: Phone, type: string }
+      - { name: email, label: Email, type: string }
+      - name: photo
+        label: Photo
+        type: image
+        options: { media: images }
+      - { name: bio, label: Short Bio, type: text }
+      - { name: onHomePage, label: Show on Home, type: boolean, default: false }
+      - { name: order, label: Order (lower = earlier), type: number, default: 9999 }
+
+# Keep unknown fields in existing files when saving (handy if you hand-edit)
+settings:
+  content:
+    merge: true
