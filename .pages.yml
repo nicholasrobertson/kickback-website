@@ -14,138 +14,6 @@ media:
     output: /public/files
     categories: [ document, pdf ]  # pdf, docx, etc.
 
-# --- Reusable field groups (for blocks & lists) ---
-components:
-  hero:
-    label: Hero
-    type: object
-    fields:
-      - { name: title, label: Title, type: string, required: true }
-      - { name: subtitle, label: Subtitle, type: string }
-      - name: background
-        label: Background Image
-        type: image
-        options: { media: images }
-      - name: cta
-        label: Call To Action
-        type: object
-        fields:
-          - { name: text, label: Button Text, type: string }
-          - name: kind
-            label: Button Type
-            type: select
-            options:
-              values: [ internal, external, form ]
-          - { name: target, label: Target (path/URL/form id), type: string }
-
-  rich_text_section:
-    label: Rich Text
-    type: object
-    fields:
-      - { name: heading, label: Heading, type: string }
-      - name: content
-        label: Content
-        type: rich-text
-        options:
-          media: images
-
-  partners_block:
-    label: Partners Block
-    type: object
-    fields:
-      - { name: heading, label: Heading, type: string, default: "Partners" }
-      - name: types
-        label: Partner types to include
-        type: select
-        options:
-          multiple: true
-          values: [ seed, corporate, local ]
-      - { name: onHomePage, label: Only show items flagged 'onHomePage', type: boolean, default: true }
-      - { name: limit, label: Max items, type: number, default: 12 }
-
-  reports_block:
-    label: Reports Block
-    type: object
-    fields:
-      - { name: heading, label: Heading, type: string, default: "Reports" }
-      - { name: onHomePage, label: Only show items flagged 'onHomePage', type: boolean, default: true }
-      - { name: limit, label: Max items, type: number, default: 6 }
-
-  projects_block:
-    label: Projects Block
-    type: object
-    fields:
-      - { name: heading, label: Heading, type: string, default: "Projects" }
-      - { name: onHomePage, label: Only show items flagged 'onHomePage', type: boolean, default: true }
-      - { name: limit, label: Max items, type: number, default: 12 }
-
-  team_block:
-    label: Team Block
-    type: object
-    fields:
-      - { name: heading, label: Heading, type: string, default: "Our Team" }
-      - name: depts
-        label: Departments to include
-        type: select
-        options:
-          multiple: true
-          values: [ board, staff, volunteer ]
-      - { name: onHomePage, label: Only show members flagged 'onHomePage', type: boolean, default: true }
-      - { name: limit, label: Max items, type: number, default: 12 }
-
-  cta_block:
-    label: Call To Action
-    type: object
-    fields:
-      - { name: text, label: Button Text, type: string, required: true }
-      - name: kind
-        label: Button Type
-        type: select
-        options:
-          values:
-            - { value: internal, label: Internal }
-            - { value: external, label: External }
-            - { value: form,     label: Form }
-      - { name: target, label: Target (path or URL)", type: string }
-      - { name: note, label: Note, type: text, description: "Optional helper text for editors" }
-
-  volunteer_info_block:
-    label: Volunteer Info
-    type: object
-    fields:
-      - name: blurb
-        label: Blurb
-        type: rich-text
-        options: { media: images }
-      - name: cta
-        label: Call To Action
-        type: object
-        fields:
-          - { name: text, label: Button Text, type: string }
-          - { name: target, label: Target (path/URL/form id), type: string }
-
-  volunteer_form_block:
-    label: Volunteer Form
-    type: object
-    fields:
-      - name: fields
-        label: Fields
-        type: list
-        of:
-          type: object
-          fields:
-            - { name: type, label: Type, type: select, options: { values: [ text, email, tel, select, textarea ] } }
-            - { name: name, label: Name (field key), type: string, required: true }
-            - { name: label, label: Label, type: string, required: true }
-            - { name: required, label: Required, type: boolean, default: false }
-            - { name: options, label: Options (for select)", type: list, of: { type: string } }
-      - name: submit
-        label: Submit
-        type: object
-        fields:
-          - { name: text,  label: Button Text, type: string }
-          - { name: action, label: Form Action URL", type: string }
-
 # --- Content definitions ---
 content:
   # Home: flexible, ordered blocks
@@ -156,21 +24,8 @@ content:
     format: yaml-frontmatter
     fields:
       - { name: title, label: Title, type: string, default: "Home" }
-      - name: sections
-        label: Page Sections
-        type: block
-        list: true
-        blockKey: _block
-        blocks:
-          - { name: hero,     label: Hero,     component: hero }
-          - { name: richtext, label: Rich Text, component: rich_text_section }
-          - { name: partners, label: Partners, component: partners_block }
-          - { name: reports,  label: Reports,  component: reports_block }
-          - { name: projects, label: Projects, component: projects_block }
-          - { name: team,     label: Team,     component: team_block }
-          - { name: cta,      label: CTA,      component: cta_block }
 
-  # Mission: hero + rich text
+  # Mission:
   - name: mission
     label: Mission
     type: file
@@ -178,15 +33,7 @@ content:
     format: yaml-frontmatter
     fields:
       - { name: title, label: Title, type: string, default: "Our Mission" }
-      - name: sections
-        label: Sections
-        type: block
-        list: true
-        blockKey: _block
-        blocks:
-          - { name: hero,     label: Hero,     component: hero }
-          - { name: richtext, label: Rich Text, component: rich_text_section }
-          - { name: cta,      label: CTA,      component: cta_block }
+      - { name: blurb, label: Blurb, type: text }
 
   # Volunteer: info + configurable form
   - name: volunteer
@@ -196,7 +43,7 @@ content:
     format: yaml-frontmatter
     fields:
       - { name: title, label: Title, type: string, default: "Volunteer" }
-      - { name: text, label: Info Section, component: volunteer_info_block }
+      - { name: blurb, label: Blurb, type: text }
 
   # Partners (with type enum + onHomePage + order)
   - name: partners
