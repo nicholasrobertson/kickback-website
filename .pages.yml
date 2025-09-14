@@ -90,6 +90,7 @@ content:
           - { name: url, label: URL, type: string, required: true }
           - { name: icon, label: Icon, type: image, options: { media: images }, required: true }
           - { name: alt, label: Alt Text (for icon), type: string }
+          - { name: order, label: Order (lower = earlier), type: number, default: 9999 }
 
 
   # Reports (file or external link) + onHomePage + order
