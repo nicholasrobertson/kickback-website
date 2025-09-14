@@ -85,7 +85,8 @@ content:
       - name: social
         label: Social Media Links
         type: object
-        repeatable: true
+        options:
+          multiple: true
         fields:
           - { name: url, label: URL, type: string, required: true }
           - { name: icon, label: Icon, type: image, options: { media: images }, required: true }
