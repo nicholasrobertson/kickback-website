@@ -4,7 +4,7 @@ role: Founder
 dept: staff
 phone: 027 534 4417
 email: ajhendry@kickbackmakechange.org
-photo: /public/images/profile-aaron.jpg
+photo: /images/profile-aaron.jpg
 bio: >-
   Aaron Hendry is a Youth Development Worker, rangatahi advocate, writer, and
   political commentator on social justice issues. He lives in an intentional
