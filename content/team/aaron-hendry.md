@@ -24,4 +24,9 @@ bio: >-
   lines of social justice mahi
 onHomePage: true
 order: 0
+social:
+  url: https://www.instagram.com/a.j.hendry/
+  icon: /public/images/logo-w-insta.png
+  alt: Instagram
+  order: 0
 ---
