@@ -3,7 +3,7 @@ media:
   - name: images
     label: Images
     input: images
-    output: /images
+    output: /public/images
     categories: [ image ]   # png, jpg, webp, svg, etc.
 
 # Reusable field groups (used by blocks & lists)
