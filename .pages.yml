@@ -81,6 +81,15 @@ content:
       - { name: bio, label: Short Bio, type: text }
       - { name: onHomePage, label: Show on Home, type: boolean, default: false }
       - { name: order, label: Order (lower = earlier), type: number, default: 9999 }
+      # social media links repeatable - url and local and alt text
+      - name: social
+        label: Social Media Links
+        type: list
+        fields:
+          - { name: url, label: URL, type: string, required: true }
+          - { name: icon, label: Icon, type: image, options: { media: images }, required: true }
+          - { name: alt, label: Alt Text (for icon), type: string }
+
 
   # Reports (file or external link) + onHomePage + order
   - name: reports
