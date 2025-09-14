@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Circles Propagating Entire Screen</title>
+<style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 100%;
+  }
+
+  .container {
+    display: grid;
+    width: 100vw;
+    height: 100vh;
+    grid-template-columns: repeat(auto-fill, 20px);
+    grid-template-rows: repeat(auto-fill, 20px);
+    gap: 10px; /* Spacing between circles */
+    justify-content: center;
+    align-content: center;
+  }
+
+  .circle {
+    width: 10px;
+    height: 10px;
+    border: 1px solid black;
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 255, 0, 0.5);
+    animation: float 3s ease-in-out infinite, shadowColor 3s ease-in-out infinite;
+    transition: transform 0.3s;
+    justify-self: center;
+    align-self: center;
+  }
+
+  @keyframes float {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes shadowColor {
+    0% {
+      box-shadow: 0 2px 4px rgba(0, 255, 0, 0.5);
+    }
+    50% {
+      box-shadow: 0 2px 4px rgba(255, 0, 255, 0.5);
+    }
+    100% {
+      box-shadow: 0 2px 4px rgba(0, 255, 0, 0.5);
+    }
+  }
+
+  .circle.hovered {
+    transform: translateY(-10px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <!-- Circles will be generated here -->
+  </div>
+
+  <script>
+    const container = document.querySelector('.container');
+
+    // Get viewport dimensions
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+
+    // Circle and gap size
+    const circleSize = 10; // 10px circle
+    const gapSize = 10; // 10px gap
+    const totalSize = circleSize + gapSize; // 20px total spacing
+
+    // Calculate number of columns and rows needed
+    const columns = Math.ceil(viewportWidth / totalSize);
+    const rows = Math.ceil(viewportHeight / totalSize);
+    const totalCircles = columns * rows;
+
+    // Generate circles
+    for (let i = 0; i < totalCircles; i++) {
+      const circle = document.createElement('div');
+      circle.classList.add('circle');
+
+      // Assign random animation delays
+      const floatDelay = (Math.random() * 3).toFixed(2); // Random delay between 0 and 3 seconds
+      const colorDelay = (Math.random() * 3).toFixed(2); // Random delay between 0 and 3 seconds
+
+      circle.style.animationDelay = `${floatDelay}s, ${colorDelay}s`;
+
+      // Make hover effect stick
+      circle.addEventListener('mouseenter', () => {
+        circle.classList.add('hovered');
+      });
+
+      container.appendChild(circle);
+    }
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      // Clear existing circles
+      container.innerHTML = '';
+
+      // Update viewport dimensions
+      const viewportWidth = window.innerWidth;
+      const viewportHeight = window.innerHeight;
+
+      // Recalculate columns, rows, and total circles
+      const columns = Math.ceil(viewportWidth / totalSize);
+      const rows = Math.ceil(viewportHeight / totalSize);
+      const totalCircles = columns * rows;
+
+      // Generate circles again
+      for (let i = 0; i < totalCircles; i++) {
+        const circle = document.createElement('div');
+        circle.classList.add('circle');
+
+        const floatDelay = (Math.random() * 3).toFixed(2);
+        const colorDelay = (Math.random() * 3).toFixed(2);
+
+        circle.style.animationDelay = `${floatDelay}s, ${colorDelay}s`;
+
+        circle.addEventListener('mouseenter', () => {
+          circle.classList.add('hovered');
+        });
+
+        container.appendChild(circle);
+      }
+    });
+  </script>
+</body>
+</html>
