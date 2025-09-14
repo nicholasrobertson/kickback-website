@@ -16,11 +16,11 @@ media:
 
 # --- Content definitions ---
 content:
-  # Home: flexible, ordered blocks
+  # Home
   - name: home
     label: Home
     type: file
-    path: content/pages/home.md
+    path: src/content/pages/home.md
     format: yaml-frontmatter
     fields:
       - { name: title, label: Title, type: string, default: "Home" }
@@ -31,11 +31,11 @@ content:
       - { name: showReports, label: Show Reports section, type: boolean, default: true }
       - { name: showTeam, label: Show Team section, type: boolean, default: true }
 
-  # Mission:
+  # Mission
   - name: mission
     label: Mission
     type: file
-    path: content/pages/mission.md
+    path: src/content/pages/mission.md
     format: yaml-frontmatter
     fields:
       - { name: title, label: Title, type: string, default: "Our Mission" }
@@ -48,7 +48,7 @@ content:
   - name: volunteer
     label: Volunteer
     type: file
-    path: content/pages/volunteer.md
+    path: src/content/pages/volunteer.md
     format: yaml-frontmatter
     fields:
       - { name: title, label: Title, type: string, default: "Volunteer" }
@@ -61,7 +61,7 @@ content:
   - name: team
     label: Team
     type: collection
-    path: content/team
+    path: src/content/team
     filename: "{primary}.md"
     format: yaml-frontmatter
     view:
@@ -99,12 +99,11 @@ content:
           - { name: alt, label: Alt Text (for icon), type: string }
           - { name: order, label: Order (lower = earlier), type: number, default: 9999 }
 
-
-  # Reports (file or external link) + onHomePage + order
+  # Reports
   - name: reports
     label: Reports
     type: collection
-    path: content/reports
+    path: src/content/reports
     filename: "{year}-{month}-{day}-{primary}.md"
     format: yaml-frontmatter
     view:
@@ -129,7 +128,7 @@ content:
   - name: projects
     label: Projects
     type: collection
-    path: content/projects
+    path: src/content/projects
     filename: "{primary}.md"
     format: yaml-frontmatter
     view:
@@ -153,7 +152,7 @@ content:
   - name: partners
     label: Partners
     type: collection
-    path: content/partners
+    path: src/content/partners
     filename: "{primary}.md"
     format: yaml-frontmatter
     view:
