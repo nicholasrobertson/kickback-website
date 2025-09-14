@@ -84,7 +84,8 @@ content:
       # social media links repeatable - url and local and alt text
       - name: social
         label: Social Media Links
-        type: list
+        type: object
+        repeatable: true
         fields:
           - { name: url, label: URL, type: string, required: true }
           - { name: icon, label: Icon, type: image, options: { media: images }, required: true }
