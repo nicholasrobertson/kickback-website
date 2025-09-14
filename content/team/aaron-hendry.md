@@ -29,4 +29,24 @@ social:
     icon: /public/images/logo-w-insta.png
     alt: instagram
     order: 0
+  - url: https://www.facebook.com/aejayhendry/
+    icon: /public/images/logo-w-fb.png
+    alt: facebook
+    order: 1
+  - url: https://www.linkedin.com/in/aaron-hendry-2687929b/?trk=public_post_follow-view-profile&originalSubdomain=nz
+    icon: /public/images/logo-w-linkedin.png
+    alt: linkedin
+    order: 2
+  - url: https://twitter.com/AeJayHendry
+    icon: /public/images/logo-w-x.png
+    alt: x
+    order: 3
+  - url: https://open.spotify.com/show/5bNyvdQuTlicXECh340j2U
+    icon: /public/images/logo-w-spotify.png
+    alt: spotify
+    order: 4
+  - url: https://www.tiktok.com/@a_j_hendry
+    icon: /public/images/logo-w-tiktok.webp
+    alt: tiktok
+    order: 5
 ---
