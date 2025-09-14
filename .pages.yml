@@ -24,6 +24,12 @@ content:
     format: yaml-frontmatter
     fields:
       - { name: title, label: Title, type: string, default: "Home" }
+      # bools to show/hide sections
+      - { name: showMission, label: Show Mission section, type: boolean, default: true }
+      - { name: showProjects, label: Show Projects section, type: boolean, default: true }
+      - { name: showPartners, label: Show Partners section, type: boolean, default: true }
+      - { name: showReports, label: Show Reports section, type: boolean, default: true }
+      - { name: showTeam, label: Show Team section, type: boolean, default: true }
 
   # Mission:
   - name: mission
@@ -33,9 +39,9 @@ content:
     format: yaml-frontmatter
     fields:
       - { name: title, label: Title, type: string, default: "Our Mission" }
-      - { name: blurb, label: Blurb, type: text }
+      - { name: blurb, label: Blurb, type: rich-text, options: { media: images } }
 
-  # Volunteer: info + configurable form
+  # Volunteer
   - name: volunteer
     label: Volunteer
     type: file
@@ -43,34 +49,36 @@ content:
     format: yaml-frontmatter
     fields:
       - { name: title, label: Title, type: string, default: "Volunteer" }
-      - { name: blurb, label: Blurb, type: text }
 
-  # Partners (with type enum + onHomePage + order)
-  - name: partners
-    label: Partners
+  # Team
+  - name: team
+    label: Team
     type: collection
-    path: content/partners
+    path: content/team
     filename: "{primary}.md"
     format: yaml-frontmatter
     view:
-      fields: [ name, type, onHomePage, order ]
+      fields: [ name, dept, role, onHomePage, order ]
       primary: name
-      sort: [ type, order, name ]
+      sort: [ dept, order, name ]
       default:
-        sort: name
+        sort: dept
         order: asc
     fields:
-      - { name: name, label: Name, type: string, required: true }
-      - name: type
-        label: Type
+      - { name: name,  label: Name, type: string, required: true }
+      - { name: role,  label: Role/Title, type: string, required: true }
+      - name: dept
+        label: Department
         type: select
         options:
-          values: [ seed, corporate, local ]
-      - name: logo
-        label: Logo
+          values: [ board, staff, volunteer ]
+      - { name: phone, label: Phone, type: string }
+      - { name: email, label: Email, type: string }
+      - name: photo
+        label: Photo
         type: image
         options: { media: images }
-      - { name: url, label: Website, type: string }
+      - { name: bio, label: Short Bio, type: text }
       - { name: onHomePage, label: Show on Home, type: boolean, default: false }
       - { name: order, label: Order (lower = earlier), type: number, default: 9999 }
 
@@ -123,35 +131,32 @@ content:
       - { name: onHomePage, label: Show on Home, type: boolean, default: false }
       - { name: order, label: Order (lower = earlier), type: number, default: 9999 }
 
-  # Team
-  - name: team
-    label: Team
+  # Partners
+  - name: partners
+    label: Partners
     type: collection
-    path: content/team
+    path: content/partners
     filename: "{primary}.md"
     format: yaml-frontmatter
     view:
-      fields: [ name, dept, role, onHomePage, order ]
+      fields: [ name, type, onHomePage, order ]
       primary: name
-      sort: [ dept, order, name ]
+      sort: [ type, order, name ]
       default:
-        sort: dept
+        sort: name
         order: asc
     fields:
-      - { name: name,  label: Name, type: string, required: true }
-      - { name: role,  label: Role/Title, type: string, required: true }
-      - name: dept
-        label: Department
+      - { name: name, label: Name, type: string, required: true }
+      - name: type
+        label: Type
         type: select
         options:
-          values: [ board, staff, volunteer ]
-      - { name: phone, label: Phone, type: string }
-      - { name: email, label: Email, type: string }
-      - name: photo
-        label: Photo
+          values: [ seed, corporate, local ]
+      - name: logo
+        label: Logo
         type: image
         options: { media: images }
-      - { name: bio, label: Short Bio, type: text }
+      - { name: url, label: Website, type: string }
       - { name: onHomePage, label: Show on Home, type: boolean, default: false }
       - { name: order, label: Order (lower = earlier), type: number, default: 9999 }
 
