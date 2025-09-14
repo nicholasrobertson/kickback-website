@@ -196,7 +196,6 @@ content:
     format: yaml-frontmatter
     fields:
       - { name: title, label: Title, type: string, default: "Volunteer" }
-      - { name: hero, label: Hero Section, component: hero }
       - { name: text, label: Info Section, component: volunteer_info_block }
 
   # Partners (with type enum + onHomePage + order)
