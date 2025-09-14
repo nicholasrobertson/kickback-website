@@ -113,7 +113,6 @@ components:
     label: Volunteer Info
     type: object
     fields:
-      - { name: title, label: Title, type: string, required: true }
       - name: blurb
         label: Blurb
         type: rich-text
@@ -197,15 +196,8 @@ content:
     format: yaml-frontmatter
     fields:
       - { name: title, label: Title, type: string, default: "Volunteer" }
-      - name: sections
-        label: Sections
-        type: block
-        list: true
-        blockKey: _block
-        blocks:
-          - { name: info, label: Info, component: volunteer_info_block }
-          - { name: form, label: Form, component: volunteer_form_block }
-          - { name: cta,  label: CTA,  component: cta_block }
+      - { name: hero, label: Hero Section, component: hero }
+      - { name: text, label: Info Section, component: volunteer_info_block }
 
   # Partners (with type enum + onHomePage + order)
   - name: partners
