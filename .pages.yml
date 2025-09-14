@@ -40,6 +40,9 @@ content:
     fields:
       - { name: title, label: Title, type: string, default: "Our Mission" }
       - { name: blurb, label: Blurb, type: rich-text, options: { media: images } }
+      - { name: downloads, label: Downloads, type: object, list: true, fields:
+          [ { name: name, label: Name, type: string, required: true },
+            { name: file, label: File (PDF), type: file, options: { media: docs }, required: true } ] }
 
   # Volunteer
   - name: volunteer
@@ -49,6 +52,10 @@ content:
     format: yaml-frontmatter
     fields:
       - { name: title, label: Title, type: string, default: "Volunteer" }
+      - { name: blurb, label: Blurb, type: rich-text, options: { media: images } }
+      - { name: downloads, label: Downloads, type: object, list: true, fields:
+          [ { name: name, label: Name, type: string, required: true },
+            { name: file, label: File (PDF), type: file, options: { media: docs }, required: true } ] }
 
   # Team
   - name: team
