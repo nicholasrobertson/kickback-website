@@ -4,14 +4,14 @@
 media:
   - name: images
     label: Images
-    input: images
-    output: /public/images
+    input: public/images
+    output: /images
     categories: [ image ]   # png, jpg, webp, svg, etc.
 
   - name: docs
     label: Documents
-    input: files
-    output: /public/files
+    input: public/files
+    output: /files
     categories: [ document, pdf ]  # pdf, docx, etc.
 
 # --- Content definitions ---
