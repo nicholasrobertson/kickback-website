@@ -114,6 +114,7 @@ content:
         sort: date
         order: desc
     fields:
+      - { name: id, label: ID, type: string, required: true }
       - { name: name, label: Name, type: string, required: true }
       - { name: date, label: Date, type: date, required: true }
       - name: file
@@ -122,7 +123,7 @@ content:
         options: { media: docs }
       - { name: link, label: External Link (optional)", type: string }
       - { name: onHomePage, label: Show on Home, type: boolean, default: false }
-      - { name: order, label: Order (lower = earlier), type: number, default: 9999 }
+      - { name: order, label: Order (lower = earlier), type: number, default: 9 }
 
   # Projects
   - name: projects
@@ -139,14 +140,26 @@ content:
         sort: title
         order: asc
     fields:
+      - { name: id, label: ID, type: string, required: true }
       - { name: title, label: Title, type: string, required: true }
+      - { name: order, label: Order (lower = earlier), type: number, default: 9999 }
+      - { name: font, label: Font Name, type: select, options: ['default', 'Hyperwave', 'Edo', 'Raleway', 'Anton', 'Bebas Nueue', 'Family'] }
+      - { name: banner, label: Banner Image, type: image, options: { media: images } }
+      - { name: link, label: External Link (optional), type: string }
+      - { name: onHomePage, label: Show on Home, type: boolean, default: false }
+      - name: actions
+        label: Call to Action Buttons
+        type: object
+        list: true
+        fields:
+          - { name: icon, label: Button Icon, type: image, options: { media: images }}
+          - { name: label, label: Button Label, type: string }
+          - { name: url, label: Button URL, type: string, required: true }
+          - { name: order, label: Order (lower = earlier), type: number, default: 0 }
       - name: description
         label: Description
         type: rich-text
         options: { media: images }
-      - { name: link, label: Link (internal or external), type: string }
-      - { name: onHomePage, label: Show on Home, type: boolean, default: false }
-      - { name: order, label: Order (lower = earlier), type: number, default: 9999 }
 
   # Partners
   - name: partners
@@ -163,19 +176,40 @@ content:
         sort: name
         order: asc
     fields:
+      - { name: id, label: ID, type: string, required: true }
       - { name: name, label: Name, type: string, required: true }
-      - name: type
-        label: Type
-        type: select
-        options:
-          values: [ seed, corporate, local ]
-      - name: logo
-        label: Logo
-        type: image
-        options: { media: images }
-      - { name: url, label: Website, type: string }
-      - { name: onHomePage, label: Show on Home, type: boolean, default: false }
+      - { name: onHomePage, label: Show on Home, type: boolean, default: false, required: true }
+      - { name: order, label: Order (lower = earlier), type: number, default: 0 }
+      - { name: logo, label: Logo (for listing), type: image, options: { media: images }, required: true }
+      - { name: type, label: Type, type: select, options: { values: [ seed, corporate, local ] }, required: true }
+      - { name: url, label: Website (optional), type: string }
+      - { name: description, label: Description, type: rich-text, options: { media: images } }
+
+  # Articles
+  - name: articles
+    label: Articles
+    type: collection
+    path: src/content/articles
+    filename: "{primary}.md"
+    format: yaml-frontmatter
+    view:
+      fields: [ title, onHomePage, order ]
+      primary: title
+      sort: [ order, title ]
+      default:
+        sort: title
+        order: asc
+    fields:
+      - { name: id, label: ID, type: string, required: true }
+      - { name: title, label: Title, type: string, required: true }
+      - { name: type, label: Type, type: select, options: { values: [ article, video ] }, default: article }
+      - { name: image, label: Featured Image, type: image, options: { media: images } }
       - { name: order, label: Order (lower = earlier), type: number, default: 9999 }
+      - { name: date, label: Date, type: date }
+      - { name: url, label: External Link (optional), type: string }
+      - { name: onHomePage, label: Show on Home, type: boolean, default: true }
+      - { name: isPromoted, label: Promote this Article to top of the page, type: boolean, default: false }
+      - { name: description, label: Short Description, type: text }
 
 # Keep unknown fields in existing files when saving (handy if you hand-edit)
 settings:
