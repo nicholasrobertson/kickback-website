@@ -23,13 +23,36 @@ content:
     path: src/content/pages/home.md
     format: yaml-frontmatter
     fields:
-      - { name: title, label: Title, type: string, default: "Home" }
+      - { name: headerText, label: Header Text, type: string, required: true }
+      - { name: headerButtonText, label: Header Button Text, type: string, required: true }
+      - { name: messengerLink, label: Messenger Link (URL), type: string, required: true }
+      - { name: instagramLink, label: Instagram Link (URL), type: string, required: true }
+      - { name: phoneDisplay, label: Phone Number (display), type: string, required: true }
+      - { name: phoneLink, label: Phone Number (link), type: string, required: true }
+      - { name: email, label: Contact Email, type: string, required: true }
+      - { name: h1Text, label: H1 Text, type: string, required: true }
+      - { name: h2Text, label: H2 Text, type: string, required: true }
+      - name: actions
+        label: Call to Action Buttons
+        type: object
+        list: true
+        fields:
+          - { name: label, label: Button Label, type: string }
+          - { name: url, label: Button URL, type: string, required: true }
+          - { name: order, label: Order (lower = earlier), type: number, default: 0 }
       # bools to show/hide sections
       - { name: showMission, label: Show Mission section, type: boolean, default: true }
+      - { name: orderMission, label: Sort Order for Mission section, type: number }
+      - { name: showArticles, label: Show Articles section, type: boolean, default: true }
+      - { name: orderArticles, label: Sort Order for Articles section, type: number }
       - { name: showProjects, label: Show Projects section, type: boolean, default: true }
+      - { name: orderProjects, label: Sort Order for Projects section, type: number }
       - { name: showPartners, label: Show Partners section, type: boolean, default: true }
+      - { name: orderPartners, label: Sort Order for Partners section, type: number }
       - { name: showReports, label: Show Reports section, type: boolean, default: true }
+      - { name: orderReports, label: Sort Order for Reports section, type: number }
       - { name: showTeam, label: Show Team section, type: boolean, default: true }
+      - { name: orderTeam, label: Sort Order for Team section, type: number }
 
   # Mission
   - name: mission
@@ -147,6 +170,7 @@ content:
       - { name: banner, label: Banner Image, type: image, options: { media: images } }
       - { name: link, label: External Link (optional), type: string }
       - { name: onHomePage, label: Show on Home, type: boolean, default: false }
+      - { name: mapsUrl, label: Maps URL (optional), type: string }
       - name: actions
         label: Call to Action Buttons
         type: object
@@ -211,6 +235,30 @@ content:
       - { name: isPromoted, label: Promote this Article to top of the page, type: boolean, default: false }
       - { name: description, label: Short Description, type: text }
 
+  # Testimonials id, title, author, organisation, images, video, appearOnHome
+  - name: testimonials
+    label: Testimonials
+    type: collection
+    path: src/content/testimonials
+    filename: "{primary}.md"
+    format: yaml-frontmatter
+    view:
+      fields: [ name, order ]
+      primary: name
+      sort: [ order, name ]
+      default:
+        sort: order
+        order: asc
+    fields:
+      - { name: id, label: ID, type: string, required: true }
+      - { name: name, label: Name, type: string, required: true }
+      - { name: author, label: Author, type: string, required: true }
+      - { name: organisation, label: Organisation, type: string }
+      - { name: image, label: Image, type: image, options: { media: images } }
+      - { name: video, label: Video URL (optional), type: string }
+      - { name: content, label: Testimonial Content, type: rich-text, options: { media: images }, required: true }
+      - { name: order, label: Order (lower = earlier), type: number, default: 9 }
+      - { name: appearOnHome, label: Appear on Home Page, type: boolean, default: false }
 # Keep unknown fields in existing files when saving (handy if you hand-edit)
 settings:
   content:
