@@ -166,7 +166,7 @@ content:
       - { name: id, label: ID, type: string, required: true }
       - { name: title, label: Title, type: string, required: true }
       - { name: order, label: Order (lower = earlier), type: number, default: 9999 }
-      - { name: font, label: Font Name, type: select, options: ['default', 'Hyperwave', 'Edo', 'Raleway', 'Anton', 'Bebas Nueue', 'Family'] }
+      
       - { name: banner, label: Banner Image, type: image, options: { media: images } }
       - { name: link, label: External Link (optional), type: string }
       - { name: onHomePage, label: Show on Home, type: boolean, default: false }
