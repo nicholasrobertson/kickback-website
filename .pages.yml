@@ -20,8 +20,8 @@ content:
   - name: home
     label: Home
     type: file
-    path: src/content/pages/home.md
-    format: yaml-frontmatter
+    path: src/content/pages/home.json
+    format: json
     fields:
       - { name: headerText, label: Header Text, type: string, required: true }
       - { name: headerButtonText, label: Header Button Text, type: string, required: true }
@@ -58,8 +58,8 @@ content:
   - name: mission
     label: Mission
     type: file
-    path: src/content/pages/mission.md
-    format: yaml-frontmatter
+    path: src/content/pages/mission.json
+    format: json
     fields:
       - { name: title, label: Title, type: string, default: "Our Mission" }
       - { name: blurb, label: Blurb, type: rich-text, options: { media: images } }
@@ -71,8 +71,8 @@ content:
   - name: volunteer
     label: Volunteer
     type: file
-    path: src/content/pages/volunteer.md
-    format: yaml-frontmatter
+    path: src/content/pages/volunteer.json
+    format: json
     fields:
       - { name: title, label: Title, type: string, default: "Volunteer" }
       - { name: blurb, label: Blurb, type: rich-text, options: { media: images } }
@@ -85,8 +85,8 @@ content:
     label: Team
     type: collection
     path: src/content/team
-    filename: "{primary}.md"
-    format: yaml-frontmatter
+    filename: "{primary}.json"
+    format: json
     view:
       fields: [ name, dept, role, onHomePage, order ]
       primary: name
@@ -127,8 +127,8 @@ content:
     label: Reports
     type: collection
     path: src/content/reports
-    filename: "{year}-{month}-{day}-{primary}.md"
-    format: yaml-frontmatter
+    filename: "{year}-{month}-{day}-{primary}.json"
+    format: json
     view:
       fields: [ name, date, onHomePage, order ]
       primary: name
@@ -153,8 +153,8 @@ content:
     label: Projects
     type: collection
     path: src/content/projects
-    filename: "{primary}.md"
-    format: yaml-frontmatter
+    filename: "{primary}.json"
+    format: json
     view:
       fields: [ title, onHomePage, order ]
       primary: title
@@ -190,8 +190,8 @@ content:
     label: Partners
     type: collection
     path: src/content/partners
-    filename: "{primary}.md"
-    format: yaml-frontmatter
+    filename: "{primary}.json"
+    format: json
     view:
       fields: [ name, type, onHomePage, order ]
       primary: name
@@ -214,8 +214,8 @@ content:
     label: Articles
     type: collection
     path: src/content/articles
-    filename: "{primary}.md"
-    format: yaml-frontmatter
+    filename: "{primary}.json"
+    format: json
     view:
       fields: [ title, onHomePage, order ]
       primary: title
@@ -240,8 +240,8 @@ content:
     label: Testimonials
     type: collection
     path: src/content/testimonials
-    filename: "{primary}.md"
-    format: yaml-frontmatter
+    filename: "{primary}.json"
+    format: json
     view:
       fields: [ name, order ]
       primary: name

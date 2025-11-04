@@ -1,7 +1,0 @@
----
-name: Title of the Report
-date: 2025-11-04
-file: /files/STRATA PLUS - NZ6975-2 Body Corporate Liability App Form 04-24_web.pdf
-onHomePage: true
-order: 0
----
