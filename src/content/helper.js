@@ -1,5 +1,6 @@
 const collections = {
   projects: import.meta.glob('./projects/*.json', { eager: true }),
+  articles: import.meta.glob('./articles/*.json', { eager: true }),
 };
 
 const byOrder = (a, b) => {

@@ -4,6 +4,7 @@ import homeContent from './content/pages/home.json'
 import { getContent } from './content/helper.js'
 
 const projectContent = getContent('projects');
+const articleContent = getContent('articles');
 
 const projectTitleClasses = {
   frontdoor: 'center italic edo boxer',
@@ -122,7 +123,7 @@ const subheadingRest = subheadingRestWords.join(' ');
         <Gallery />
         <PromotedArticles />
         <Partners scrollToId={scrollToId} />
-        <Articles />
+        <Articles articles={articleContent} />
         <Team />
     </main>
     <footer>
@@ -527,7 +528,19 @@ function Partners({ scrollToId }) {
   );
 }
 
-function Articles() {
+function Articles({ articles = [] }) {
+  const items = Array.isArray(articles)
+    ? articles.filter((article) => article?.onHomePage !== false)
+    : [];
+
+  const openArticle = (url) => {
+    if (!url) {
+      return;
+    }
+
+    window.open(url, '_blank');
+  };
+
   return (
     <section className="project full" id="advocacy">
       <div className="header-2">
@@ -536,143 +549,21 @@ function Articles() {
         </h2>
       </div>
       <div className="adv-cards">
-        <div
-          className="news-card"
-          onClick={() =>
-            window.open(
-              'https://www.rnz.co.nz/news/national/505952/auckland-couple-going-without-to-help-homeless-youth',
-              '_blank',
-            )
-          }
-        >
-          <div className="cd-logo">
-            <img src="./images/logo-rnz.png" alt="News 1" />
+        {items.map((article) => (
+          <div
+            key={article.id ?? article.slug ?? article.url}
+            className="news-card"
+            onClick={() => openArticle(article.url)}
+          >
+            {article.image && (
+              <div className="cd-logo">
+                <img src={article.image} alt={article.title} />
+              </div>
+            )}
+            <div className="cd-header">{article.title}</div>
+            {article.description && <div className="italic">{article.description}</div>}
           </div>
-          <div className="cd-header">RNZ</div>
-          <div className="italic">Auckland couple going without to help homeless youth</div>
-        </div>
-        <div
-          className="news-card"
-          onClick={() =>
-            window.open(
-              'https://www.nzherald.co.nz/nz/a-social-workers-novel-solution-for-homeless-youth-his-own-home/3HQMB5DRFFBL5D37DYA2KUAQY4/',
-              '_blank',
-            )
-          }
-        >
-          <div className="cd-logo">
-            <img src="./images/logo-herald.png" alt="News 2" />
-          </div>
-          <div className="cd-header">NZ Herald</div>
-          <div className="italic">A youth worker came up with a novel solution for homeless teens: His own home</div>
-        </div>
-        <div
-          className="news-card"
-          onClick={() =>
-            window.open(
-              'https://www.newshub.co.nz/home/politics/2024/03/advocate-accuses-government-of-failing-children-slams-military-style-boot-camps-but-minister-says-youth-crime-is-out-of-control.html',
-              '_blank',
-            )
-          }
-        >
-          <div className="cd-logo">
-            <img src="./images/logo-newshub.svg" alt="News 9" />
-          </div>
-          <div className="cd-header">Newshub</div>
-          <div className="italic">Advocate accuses Government of failing children, slams...</div>
-        </div>
-        <div
-          className="news-card"
-          onClick={() =>
-            window.open(
-              'https://www.odt.co.nz/news/national/couple-spend-savings-centre-homeless-youth',
-              '_blank',
-            )
-          }
-        >
-          <div className="cd-logo">
-            <img src="./images/logo-odt.png" alt="News 3" />
-          </div>
-          <div className="cd-header">ODT</div>
-          <div className="italic">Couple spend savings on centre for homeless youth</div>
-        </div>
-        <div
-          className="news-card"
-          onClick={() =>
-            window.open(
-              'https://www.1news.co.nz/2023/04/28/minister-defends-lack-of-spending-to-tackle-homelessness/',
-              '_blank',
-            )
-          }
-        >
-          <div className="cd-logo">
-            <img src="./images/logo-1news.svg" alt="News 4" />
-          </div>
-          <div className="cd-header">1 News</div>
-          <div className="italic">Minister defends lack of spending to tackle homelessness</div>
-        </div>
-        <div
-          className="news-card"
-          onClick={() =>
-            window.open(
-              'https://www.stuff.co.nz/national/128707393/homeless-rangatahi-missed-out-in-budget-lifewise-says',
-              '_blank',
-            )
-          }
-        >
-          <div className="cd-logo">
-            <img src="./images/logo-stuff.svg" alt="News 6" />
-          </div>
-          <div className="cd-header">Stuff</div>
-          <div className="italic">Homeless rangatahi missed out in budget, Lifewise says</div>
-        </div>
-        <div
-          className="news-card"
-          onClick={() =>
-            window.open(
-              'https://www.scoop.co.nz/stories/PO2402/S00116/kick-back-youth-organizations-fears-sanctions-will-increase-risks-for-homeless-youth.htm',
-              '_blank',
-            )
-          }
-        >
-          <div className="cd-logo">
-            <img src="./images/logo-scoop.png" alt="News 7" />
-          </div>
-          <div className="cd-header">Scoop</div>
-          <div className="italic">
-            Kick Back youth organization's fears sanctions will increase risks for..
-          </div>
-        </div>
-        <div
-          className="news-card"
-          onClick={() =>
-            window.open(
-              'https://www.newshub.co.nz/home/new-zealand/2024/01/young-auckland-couple-using-own-savings-to-build-new-zealand-s-first-24-hour-youth-emergency-centre.html',
-              '_blank',
-            )
-          }
-        >
-          <div className="cd-logo">
-            <img src="./images/logo-newshub.svg" alt="News 8" />
-          </div>
-          <div className="cd-header">Newshub</div>
-          <div className="italic">Young Auckland couple using own savings to build...</div>
-        </div>
-        <div
-          className="news-card"
-          onClick={() =>
-            window.open(
-              'https://www.1news.co.nz/2024/02/21/sanctions-dont-work-hipkins-on-govts-benefit-changes',
-              '_blank',
-            )
-          }
-        >
-          <div className="cd-logo">
-            <img src="./images/logo-1news.svg" alt="News 10" />
-          </div>
-          <div className="cd-header">1 News</div>
-          <div className="italic">Sanctions don't work: Hipkins on Govt's benefit changes</div>
-        </div>
+        ))}
       </div>
     </section>
   );

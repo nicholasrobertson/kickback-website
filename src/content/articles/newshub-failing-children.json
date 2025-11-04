@@ -1,0 +1,10 @@
+{
+  "id": "newshub-failing-children",
+  "title": "Newshub",
+  "description": "Advocate accuses Government of failing children, slams...",
+  "type": "article",
+  "image": "/images/logo-newshub.svg",
+  "url": "https://www.newshub.co.nz/home/politics/2024/03/advocate-accuses-government-of-failing-children-slams-military-style-boot-camps-but-minister-says-youth-crime-is-out-of-control.html",
+  "order": 2,
+  "onHomePage": true
+}

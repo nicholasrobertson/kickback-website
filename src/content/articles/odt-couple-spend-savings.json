@@ -1,0 +1,11 @@
+{
+  "id": "odt-couple-spend-savings",
+  "title": "ODT",
+  "description": "Couple spend savings on centre for homeless youth",
+  "type": "article",
+  "image": "/images/logo-odt.png",
+  "url": "https://www.odt.co.nz/news/national/couple-spend-savings-centre-homeless-youth",
+  "order": 3,
+  "onHomePage": true,
+  "isPromoted": true
+}
