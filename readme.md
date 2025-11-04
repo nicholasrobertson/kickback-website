@@ -1,12 +1,32 @@
-# React + Vite
+# Kickback Website
+This repository contains the source code for the Kickback website, a youth-focused organisation committed to ending homelessness in New Zealand.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Components
+The website is built using the following components:
+- JavaScript
+- React
+- Vite
+- Pages CMS
 
-Currently, two official plugins are available:
+# Getting Started
+- Clone the repository to your local machine.
+- Install the necessary dependencies using `npm install`
+- Run the development server with `npm run dev`
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Deployment
+The development website is currently hosted on Cloudflare Pages. Deployment is automated through Cloudflare Pages' integration with this GitHub repository.
+- Commit changes to the `main` branch to trigger a deployment.
+- Monitor the deployment status on the Cloudflare Pages dashboard.
 
-## Expanding the ESLint configuration
+# CMS Integration
+The website uses Pages CMS for non-technical content management. Content editors can log in to the Pages CMS dashboard to update website content without needing to modify the codebase.
+- See `./.pages.yml` for configuration details.
+- Media assets are stored in the `./public/` directory.
+- Content files are located in the `./content/` directory.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+# Contributing
+Contributions to the Kickback website are welcome!
+
+We are currently looking for help with web design and styling.
+
+If this sounds like you, please reach out to Nick at nicholas.robertson@sparefish.co.nz
