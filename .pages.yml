@@ -166,11 +166,20 @@ content:
       - { name: id, label: ID, type: string, required: true }
       - { name: title, label: Title, type: string, required: true }
       - { name: order, label: Order (lower = earlier), type: number, default: 9999 }
-      
+      - { name: font, label: Font Name, type: select, options: { values: ['default', 'Hyperwave', 'Edo', 'Raleway', 'Anton', 'Bebas Nueue', 'Family'] }}
       - { name: banner, label: Banner Image, type: image, options: { media: images } }
       - { name: link, label: External Link (optional), type: string }
       - { name: onHomePage, label: Show on Home, type: boolean, default: false }
       - { name: mapsUrl, label: Maps URL (optional), type: string }
+      - name: actions
+        label: Call to Action Buttons
+        type: object
+        list: true
+        fields:
+          - { name: icon, label: Button Icon, type: image, options: { media: images }}
+          - { name: label, label: Button Label, type: string }
+          - { name: url, label: Button URL, type: string, required: true }
+          - { name: order, label: Order (lower = earlier), type: number, default: 0 }
       - name: description
         label: Description
         type: rich-text
