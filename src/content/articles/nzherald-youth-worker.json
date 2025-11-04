@@ -1,0 +1,11 @@
+{
+  "id": "nzherald-youth-worker-home",
+  "title": "NZ Herald",
+  "description": "A youth worker came up with a novel solution for homeless teens: His own home",
+  "type": "article",
+  "image": "/images/logo-herald.png",
+  "url": "https://www.nzherald.co.nz/nz/a-social-workers-novel-solution-for-homeless-youth-his-own-home/3HQMB5DRFFBL5D37DYA2KUAQY4/",
+  "order": 1,
+  "onHomePage": true,
+  "isPromoted": true
+}
