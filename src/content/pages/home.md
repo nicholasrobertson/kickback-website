@@ -15,4 +15,17 @@ showProjects: true
 showPartners: true
 showReports: true
 showTeam: true
+actions:
+  - label: 🫱🏼‍🫲🏾 Partner 💼
+    url: "#contact"
+    order: 0
+  - label: 🧑🏽‍🤝‍🧑🏼 Volunteer 🦺
+    url: "#contact"
+    order: 1
+orderMission: 0
+orderArticles: 1
+orderProjects: 2
+orderPartners: 3
+orderReports: 4
+orderTeam: 5
 ---
