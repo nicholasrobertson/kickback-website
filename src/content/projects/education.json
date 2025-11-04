@@ -7,12 +7,32 @@
   "id": "education",
   "font": "Bebas Nueue",
   "banner": "/images/header-ed.jpg",
-  "actions": [
+  "imageLink": "https://maps.app.goo.gl/nmLaCAnuJk3yz1Z57",
+  "social": [
     {
       "icon": "/images/logo-insta.png",
-      "label": "insta",
+      "alt": "instagram",
       "url": "https://www.instagram.com/kick_back_make_change/",
-      "order": 3
+      "order": 0
+    },
+    {
+      "icon": "/images/logo-facebook.png",
+      "alt": "facebook",
+      "url": "https://www.facebook.com/p/Kick-Back-100091386001694/",
+      "order": 1
+    },
+    {
+      "icon": "/images/logo-linkedin.png",
+      "alt": "linkedin",
+      "url": "https://www.linkedin.com/company/kickbackmakechange/?originalSubdomain=nz",
+      "order": 2
+    }
+  ],
+  "actions": [
+    {
+      "label": "Start the Conversation",
+      "url": "#contact",
+      "order": 0
     }
   ]
 }
