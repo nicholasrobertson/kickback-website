@@ -1,7 +1,17 @@
 {
   "title": "The Front Door",
-  "description": "**Emergency Support** _on K-road_\n\nOur vision is to provide free emergency accommodation, GP consultations, and education to young people in need.  \n  \nWe've signed a commercial lease and we've moved in to our new place on K-Road!  \n  \nCheck out our socials for updates on our progress and to find out more about about getting involved",
+  "description": "**Emergency Support** _on K-road_\n\nOur vision is to provide free emergency accommodation, GP consultations, and education to young people in need.\n\nWe've signed a commercial lease and we've moved in to our new place on K-Road!\n\nCheck out our socials for updates on our progress and to find out more about about getting involved",
   "link": "/frontdoor",
   "onHomePage": true,
-  "order": 0
+  "order": 0,
+  "id": "frontdoor",
+  "font": "Hyperwave",
+  "banner": "/images/frontdoor-sign.jpg",
+  "actions": [
+    {
+      "label": "Give a Little",
+      "url": "https://givealittle.co.nz/cause/help-us-kick-back-against-youth-homelessness",
+      "order": 0
+    }
+  ]
 }
