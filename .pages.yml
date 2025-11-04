@@ -92,7 +92,7 @@ content:
       primary: name
       sort: [ dept, order, name ]
       default:
-        sort: dept
+        sort: order
         order: asc
     fields:
       - { name: name,  label: Name, type: string, required: true }
@@ -130,12 +130,12 @@ content:
     filename: "{year}-{month}-{day}-{primary}.json"
     format: json
     view:
-      fields: [ name, date, onHomePage, order ]
+      fields: [id, name, date, onHomePage, order ]
       primary: name
       sort: [ date, order, name ]
       default:
-        sort: date
-        order: desc
+        sort: order
+        order: asc
     fields:
       - { name: id, label: ID, type: string, required: true }
       - { name: name, label: Name, type: string, required: true }
@@ -156,7 +156,7 @@ content:
     filename: "{primary}.json"
     format: json
     view:
-      fields: [ title, onHomePage, order ]
+      fields: [ id, title, onHomePage, order ]
       primary: title
       sort: [ order, title ]
       default:
@@ -195,9 +195,9 @@ content:
     view:
       fields: [ name, type, onHomePage, order ]
       primary: name
-      sort: [ type, order, name ]
+      sort: [ id, type, order, name ]
       default:
-        sort: name
+        sort: order
         order: asc
     fields:
       - { name: id, label: ID, type: string, required: true }
@@ -217,11 +217,11 @@ content:
     filename: "{primary}.json"
     format: json
     view:
-      fields: [ title, onHomePage, order ]
+      fields: [ id, title, onHomePage, order ]
       primary: title
       sort: [ order, title ]
       default:
-        sort: title
+        sort: order
         order: asc
     fields:
       - { name: id, label: ID, type: string, required: true }
