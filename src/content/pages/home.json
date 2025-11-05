@@ -25,11 +25,6 @@
       "label": "🧑🏽‍🤝‍🧑🏼 Volunteer 🦺",
       "url": "#contacts",
       "order": 1
-    },
-    {
-      "label": "Test Button",
-      "url": "https://unit.nz",
-      "order": 2
     }
   ],
   "orderMission": 0,
