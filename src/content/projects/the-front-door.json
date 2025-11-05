@@ -1,11 +1,11 @@
 {
-  "title": "The Front Doors",
+  "title": "The Front Door",
   "description": "**Emergency Support** _on K-road_\n\nOur vision is to provide free emergency accommodation, GP consultations, and education to young people in need.\n\nWe've signed a commercial lease and we've moved in to our new place on K-Road!\n\nCheck out our socials for updates on our progress and to find out more about about getting involved",
   "link": "/frontdoor",
   "onHomePage": true,
   "order": 0,
   "id": "frontdoor",
-  "font": "Edo",
+  "font": "Hyperwave",
   "banner": "/images/frontdoor-sign.jpg",
   "imageLink": "https://maps.app.goo.gl/nmLaCAnuJk3yz1Z57",
   "social": [
