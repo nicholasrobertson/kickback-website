@@ -157,7 +157,7 @@ content:
     format: json
     view:
       fields: [ id, title, onHomePage, order ]
-      primary: title
+      primary: id
       sort: [ order, title ]
       default:
         sort: title
@@ -208,6 +208,7 @@ content:
       - { name: type, label: Type, type: select, options: { values: [ seed, corporate, local ] }, required: true }
       - { name: url, label: Website (optional), type: string }
       - { name: description, label: Description, type: rich-text, options: { media: images } }
+      - { name: backgroundColor, label: Card Background Color, type: string, hint: "Any valid CSS color value" }
 
   # Articles
   - name: articles
@@ -217,9 +218,9 @@ content:
     filename: "{primary}.json"
     format: json
     view:
-      fields: [ id, title, onHomePage, order ]
+      fields: [  order, id, title, shortDescription, date, onHomePage ]
       primary: title
-      sort: [ order, title ]
+      sort: [ order, title, shortDescription ]
       default:
         sort: order
         order: asc

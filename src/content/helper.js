@@ -1,13 +1,16 @@
 const collections = {
   projects: import.meta.glob('./projects/*.json', { eager: true }),
   articles: import.meta.glob('./articles/*.json', { eager: true }),
+  partners: import.meta.glob('./partners/*.json', { eager: true }),
 };
 
 const byOrder = (a, b) => {
   const left = typeof a.order === 'number' ? a.order : Number.MAX_SAFE_INTEGER;
   const right = typeof b.order === 'number' ? b.order : Number.MAX_SAFE_INTEGER;
   if (left === right) {
-    return (a.title ?? '').localeCompare(b.title ?? '');
+    const aLabel = a.title ?? a.name ?? '';
+    const bLabel = b.title ?? b.name ?? '';
+    return aLabel.localeCompare(bLabel);
   }
   return left - right;
 };

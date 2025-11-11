@@ -1,0 +1,8 @@
+{
+  "id": "skycity",
+  "name": "SkyCity",
+  "type": "corporate",
+  "logo": "/images/logo-skycity.svg",
+  "onHomePage": true,
+  "order": 1
+}

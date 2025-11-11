@@ -5,12 +5,21 @@ import { getContent } from './content/helper.js'
 
 const projectContent = getContent('projects');
 const articleContent = getContent('articles');
+const partnerContent = getContent('partners');
 
 const projectTitleClasses = {
   frontdoor: 'center italic edo boxer',
   safetynet: 'center raleway',
   education: 'center bebas light',
 };
+
+const partnerTypeLabels = {
+  seed: 'Visionary Seed Funders',
+  corporate: 'Corporate Supporters',
+  local: 'Local Socially Conscious Businesses',
+};
+
+const partnerTypeOrder = ['seed', 'corporate', 'local'];
 
 const formatInline = (value = '') =>
   value
@@ -122,7 +131,7 @@ const subheadingRest = subheadingRestWords.join(' ');
         <Projects scrollToId={scrollToId} openUrl={openUrl} projects={projectContent} />
         <Gallery />
         <PromotedArticles />
-        <Partners scrollToId={scrollToId} />
+        <Partners scrollToId={scrollToId} partners={partnerContent} />
         <Articles articles={articleContent} />
         <Team />
     </main>
@@ -452,7 +461,32 @@ function PromotedArticles() {
   );
 }
 
-function Partners({ scrollToId }) {
+function Partners({ scrollToId, partners = partnerContent }) {
+  const items = Array.isArray(partners)
+    ? partners.filter((partner) => partner?.onHomePage !== false)
+    : [];
+
+  const renderLogo = (partner) => {
+    const logoSrc = partner.logo || '/images/logo-kickback-dark.svg';
+    const altText = partner.name ? `${partner.name} logo` : 'Partner logo';
+    const logoImage = <img src={logoSrc} alt={altText} />;
+
+    if (partner.url) {
+      return (
+        <a
+          href={partner.url}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`Visit ${partner.name ?? 'partner'} website`}
+        >
+          {logoImage}
+        </a>
+      );
+    }
+
+    return logoImage;
+  };
+
   return (
     <>
       <section className="partners full">
@@ -461,60 +495,33 @@ function Partners({ scrollToId }) {
             <span className="italic prom-2">Our </span>Partners
           </h2>
         </div>
-        <div className="cd-header">Visionary Seed Funders</div>
-        <div className="partner-cards">
-          <div className="partner-card">
-            <div className="cd-logo big">
-              <img src="./images/logo-mana.png" alt="mana logo" />
+        {partnerTypeOrder.map((type) => {
+          const sectionPartners = items.filter((partner) => partner.type === type);
+          if (sectionPartners.length === 0) {
+            return null;
+          }
+
+          return (
+            <div key={type}>
+              <div className="cd-header">{partnerTypeLabels[type]}</div>
+              <div className="partner-cards">
+                {sectionPartners.map((partner) => (
+                  <div
+                    className="partner-card"
+                    key={partner.id ?? partner.slug ?? partner.name ?? partner.logo}
+                    style={
+                      partner.backgroundColor
+                        ? { backgroundColor: partner.backgroundColor }
+                        : undefined
+                    }
+                  >
+                    <div className="cd-logo big">{renderLogo(partner)}</div>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-          <div className="partner-card">
-            <div className="cd-logo big">
-              <img className="huerotate" src="./images/logo-mct.png" alt="mct logo" />
-            </div>
-          </div>
-        </div>
-        <div className="cd-header">Corporate Supporters</div>
-        <div className="partner-cards">
-          <div className="partner-card">
-            <div className="cd-logo big">
-              <img src="./images/logo-council.svg" alt="mana logo" />
-            </div>
-          </div>
-          <div className="partner-card">
-            <div className="cd-logo big">
-              <img src="./images/logo-skycity.svg" alt="mana logo" />
-            </div>
-          </div>
-          <div className="partner-card">
-            <div className="cd-logo big">
-              <img src="./images/logo-xx.svg" alt="logo" />
-            </div>
-          </div>
-        </div>
-        <div className="cd-header">Local Socially Conscious Businesses</div>
-        <div className="partner-cards">
-          <div className="partner-card" id="circleit">
-            <div className="cd-logo big">
-              <img src="./images/logo-circle.png" alt="circle logo" />
-            </div>
-          </div>
-          <div className="partner-card" id="edtech">
-            <div className="cd-logo big">
-              <img id="ed" src="./images/logo-ed.jpg" alt="ed logo" />
-            </div>
-          </div>
-          <div className="partner-card">
-            <div className="cd-logo big">
-              <img src="./images/logo-unit" alt="logo" />
-            </div>
-          </div>
-          <div className="partner-card">
-            <div className="cd-logo big">
-              <img src="./images/logo-unit" alt="logo" />
-            </div>
-          </div>
-        </div>
+          );
+        })}
       </section>
       <section className="partner-links full">
         <div className="partner-link">

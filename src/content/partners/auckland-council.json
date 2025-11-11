@@ -1,0 +1,8 @@
+{
+  "id": "auckland-council",
+  "name": "Auckland Council",
+  "type": "corporate",
+  "logo": "/images/logo-council.svg",
+  "onHomePage": true,
+  "order": 0
+}

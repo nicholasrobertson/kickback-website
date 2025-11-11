@@ -1,0 +1,9 @@
+{
+  "id": "edtech",
+  "name": "EdTech",
+  "type": "local",
+  "logo": "/images/logo-ed.jpg",
+  "onHomePage": true,
+  "order": 1,
+  "backgroundColor": "#343434"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "circle-it",
+  "name": "Circle IT",
+  "type": "local",
+  "logo": "/images/logo-circle.png",
+  "onHomePage": true,
+  "order": 0,
+  "backgroundColor": "rgb(1,57,70)"
+}

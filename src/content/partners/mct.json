@@ -1,0 +1,8 @@
+{
+  "id": "mct",
+  "name": "MCT",
+  "type": "seed",
+  "logo": "/images/logo-mct.png",
+  "onHomePage": true,
+  "order": 1
+}
