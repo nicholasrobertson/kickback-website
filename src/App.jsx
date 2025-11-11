@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import homeContent from './content/pages/home.json';
 import { getContent } from './content/helper.js';
 import ProjectPage from './ProjectPage.jsx';
-import { getProjectTitleClass, parseDescription, getDescriptionPreview } from './utils/projects.js';
+import { ProjectMiniCard } from './components/ProjectMiniCard.jsx';
+import SafeHeader from './components/SafeHeader.jsx';
 
 const projectContent = getContent('projects');
 const articleContent = getContent('articles');
@@ -33,15 +33,8 @@ function App() {
 }
 
 function HomePage() {
-  const [isHeaderOpen, setIsHeaderOpen] = useState(false);
-  const buttonInnerText = isHeaderOpen ? '⬅️ Go Back 🙅' : '📞 Hit us up 💬';
-  const modalDisplay = isHeaderOpen ? "flex" : "none";
-  const headerButtonPrompt = homeContent.headerButtonText ?? '';
-  const textInnerText = isHeaderOpen ? "" : headerButtonPrompt;
-  const phoneLink = homeContent.phoneLink ?? 'tel:0800-5425-2225';
-  const phoneDisplay = homeContent.phoneDisplay ?? 'Call 0800 kick back 📞';
   const sortedActions = [...(homeContent.actions ?? [])].sort(
-    (a, b) => (a.order ?? 0) - (b.order ?? 0)
+    (a, b) => (a.order ?? 0) - (b.order ?? 0),
   );
   const rawHeroHeading = (homeContent.headerText ?? homeContent.h1Text ?? '').trim();
   const heroWords = rawHeroHeading ? rawHeroHeading.split(' ') : [];
@@ -59,16 +52,12 @@ function HomePage() {
     : [];
 const subheadingRest = subheadingRestWords.join(' ');
 
-  const handleHeader = () => {
-    setIsHeaderOpen(!isHeaderOpen);
-  }
-
   const scrollToId = (id) => {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
-  }
+  };
   const handleHeroAction = (action) => {
     if (!action?.url) {
       return;
@@ -78,40 +67,12 @@ const subheadingRest = subheadingRestWords.join(' ');
     } else {
       window.open(action.url, '_blank');
     }
-  }
-  const openUrl = (url) => {
-    if (!url) {
-      return;
-    }
-    window.open(url, '_blank');
-  }
+  };
 
   return (
-    <main>
-       <header>
-        <div className="header" onClick={handleHeader}>
-            <div id="hit-us-up-txt">{textInnerText}</div>
-            <div id="hit-us-up-btn" className="btn cool green">{buttonInnerText}</div>
-        </div>
-        <div id="hit-us-up" className="modal" style={{ display: modalDisplay }}>
-            <div className="modal-footer mc">
-                <a className="call-icon btn" href={phoneLink}>{phoneDisplay}</a>
-            </div>
-            <div className="modal-image-container">
-                <div className="modal-image-overlay">Go to 307 K-Road</div>
-                <img className="modal-header-img" src="./images/frontdoor-sign.jpg" alt="Front Door Sign" onClick={() => openUrl('https://maps.app.goo.gl/nmLaCAnuJk3yz1Z57')}/>
-            </div>
-            <div className="modal-body mc">
-                <div className="messenger" onClick={() => openUrl(homeContent.messengerLink)}>
-                    {/*<svg id="messenger"  fill="none" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 80 80"><path fill-rule="evenodd" clip-rule="evenodd" d="M40 .914C17.995.914.937 17.033.937 38.804c0 11.389 4.668 21.23 12.268 28.026a3.12 3.12 0 011.05 2.227l.212 6.95c.068 2.215 2.358 3.658 4.386 2.763l7.753-3.423a3.115 3.115 0 012.087-.153A42.602 42.602 0 0040 76.695c22.005 0 39.063-16.118 39.063-37.89C79.063 17.033 62.005.915 40 .915z" fill="url(#paint0_radial)"/><path fill-rule="evenodd" clip-rule="evenodd" d="M16.543 49.886L28.018 31.68a5.86 5.86 0 018.472-1.563l9.127 6.844c.837.628 1.989.625 2.823-.008L60.765 27.6c1.645-1.248 3.793.72 2.692 2.467L51.982 48.272a5.86 5.86 0 01-8.472 1.563l-9.127-6.845A2.344 2.344 0 0031.56 43l-12.325 9.354c-1.646 1.248-3.793-.72-2.692-2.467z" fill="#fff"/><defs><radialGradient id="paint0_radial" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="rotate(-57.092 80.25 24.628) scale(85.1246)"><stop stop-color="#09F"/><stop offset=".61" stop-color="#A033FF"/><stop offset=".935" stop-color="#FF5280"/><stop offset="1" stop-color="#FF7061"/></radialGradient></defs></svg>*/}
-                </div>
-                <div className="messenger" onClick={() => openUrl(homeContent.instagramLink)}>
-                    <img id="messenger" src="./images/logo-insta-full.png" alt="Instagram"/>
-                </div>
-            </div>
-        </div>        
-    </header>
-    <main>
+    <>
+      <SafeHeader />
+      <main>
         <Hero
           rawHeroHeading={rawHeroHeading}
           heroHighlight={heroHighlight}
@@ -127,13 +88,17 @@ const subheadingRest = subheadingRestWords.join(' ');
         <Partners scrollToId={scrollToId} partners={partnerContent} />
         <Articles articles={articleContent} />
         <Team />
-    </main>
-    <footer>
-        <div className="footer">website donated with 🩷 by <span className="prom bold sf" onClick={() => window.open('https://sparefish.co.nz', '_blank')}>SPAREFISH</span></div>
-    </footer>
-    </main>
-
-  )
+      </main>
+      <footer>
+        <div className="footer">
+          website donated with 🩷 by{' '}
+          <span className="prom bold sf" onClick={() => window.open('https://sparefish.co.nz', '_blank')}>
+            SPAREFISH
+          </span>
+        </div>
+      </footer>
+    </>
+  );
 }
 
 function Hero({
@@ -167,7 +132,7 @@ function Hero({
             <span>{rawHeroHeading}</span>
           )}
         </h1>
-        <img id="header-logo" src="./images/logo-kickback-dark.svg" alt="Kick Back Logo" />
+        <img id="header-logo" src="/images/logo-kickback-dark.svg" alt="Kick Back Logo" />
       </section>
       <section className="">
         <div className="end edo">
@@ -210,26 +175,7 @@ function Projects({ projects = projectContent }) {
       <section className="project full project-grid" id="front-door">
         {items.map((project) => {
           const projectId = project.id ?? project.slug ?? project.title;
-          const titleClass = getProjectTitleClass(project);
-          const preview = getDescriptionPreview(project.description ?? '', 100);
-          const bannerSrc =
-            project.banner ||
-            (Array.isArray(project.gallery) ? project.gallery[0] : '') ||
-            './images/header-placeholder.jpg';
-
-          return (
-            <Link
-              to={`/projects/${projectId}`}
-              className="project-card project-card--mini"
-              key={projectId}
-            >
-              <div className="project-thumb">
-                <img src={bannerSrc} alt={`${project.title} banner`} />
-              </div>
-              <h3 className={titleClass}>{project.title}</h3>
-              {preview && <p className="project-preview">{preview}</p>}
-            </Link>
-          );
+          return <ProjectMiniCard key={projectId} project={project} />;
         })}
       </section>
     </>
@@ -246,29 +192,29 @@ function Gallery() {
         </h2>
       </div>
       <div className="p-images">
-        <a href="./images/fd-1.jpg" data-lightbox="gallery">
-          <img src="./images/fd-1.jpg" alt="Thumbnail" />
+        <a href="/images/fd-1.jpg" data-lightbox="gallery">
+          <img src="/images/fd-1.jpg" alt="Thumbnail" />
         </a>
-        <a href="./images/fd-2.jpg" data-lightbox="gallery">
-          <img src="./images/fd-2.jpg" alt="Thumbnail" />
+        <a href="/images/fd-2.jpg" data-lightbox="gallery">
+          <img src="/images/fd-2.jpg" alt="Thumbnail" />
         </a>
-        <a href="./images/fd-3.jpg" data-lightbox="gallery">
-          <img src="./images/fd-3.jpg" alt="Thumbnail" />
+        <a href="/images/fd-3.jpg" data-lightbox="gallery">
+          <img src="/images/fd-3.jpg" alt="Thumbnail" />
         </a>
-        <a href="./images/fd-4.jpg" data-lightbox="gallery">
-          <img src="./images/fd-4.jpg" alt="Thumbnail" />
+        <a href="/images/fd-4.jpg" data-lightbox="gallery">
+          <img src="/images/fd-4.jpg" alt="Thumbnail" />
         </a>
-        <a href="./images/fd-5.jpg" data-lightbox="gallery">
-          <img src="./images/fd-5.jpg" alt="Thumbnail" />
+        <a href="/images/fd-5.jpg" data-lightbox="gallery">
+          <img src="/images/fd-5.jpg" alt="Thumbnail" />
         </a>
-        <a href="./images/fd-6.jpg" data-lightbox="gallery">
-          <img src="./images/fd-6.jpg" alt="Thumbnail" />
+        <a href="/images/fd-6.jpg" data-lightbox="gallery">
+          <img src="/images/fd-6.jpg" alt="Thumbnail" />
         </a>
-        <a href="./images/fd-7.jpg" data-lightbox="gallery">
-          <img src="./images/fd-7.jpg" alt="Thumbnail" />
+        <a href="/images/fd-7.jpg" data-lightbox="gallery">
+          <img src="/images/fd-7.jpg" alt="Thumbnail" />
         </a>
-        <a href="./images/fd-8.jpg" data-lightbox="gallery">
-          <img src="./images/fd-8.jpg" alt="Thumbnail" />
+        <a href="/images/fd-8.jpg" data-lightbox="gallery">
+          <img src="/images/fd-8.jpg" alt="Thumbnail" />
         </a>
       </div>
     </section>
@@ -294,7 +240,7 @@ function PromotedArticles() {
           }
         >
           <div className="cd-logo">
-            <img src="./images/logo-rnz.png" alt="News 1" />
+            <img src="/images/logo-rnz.png" alt="News 1" />
           </div>
           <div className="cd-header">RNZ</div>
           <div className="italic">Auckland couple going without to help homeless youth</div>
@@ -309,7 +255,7 @@ function PromotedArticles() {
           }
         >
           <div className="cd-logo">
-            <img src="./images/logo-herald.png" alt="News 2" />
+            <img src="/images/logo-herald.png" alt="News 2" />
           </div>
           <div className="cd-header">NZ Herald</div>
           <div className="italic">A youth worker came up with a novel solution for homeless teens: His own home</div>
@@ -324,7 +270,7 @@ function PromotedArticles() {
           }
         >
           <div className="cd-logo">
-            <img src="./images/logo-odt.png" alt="News 3" />
+            <img src="/images/logo-odt.png" alt="News 3" />
           </div>
           <div className="cd-header">ODT</div>
           <div className="italic">Couple spend savings on centre for homeless youth</div>
@@ -332,7 +278,7 @@ function PromotedArticles() {
       </div>
       <div className="videos">
         <div className="video-wrapper">
-          <img className="video" src="./images/video_2.png" alt="Video 2" />
+          <img className="video" src="/images/video_2.png" alt="Video 2" />
           <div
             className="play-icon cambo"
             onClick={() =>
@@ -350,7 +296,7 @@ function PromotedArticles() {
           </div>
         </div>
         <div className="video-wrapper">
-          <img className="video" src="./images/video_1.png" alt="Video 1" />
+          <img className="video" src="/images/video_1.png" alt="Video 1" />
           <div
             className="play-icon newshub"
             onClick={() =>
@@ -526,14 +472,14 @@ function Team() {
             <div className="soc-item">
               <a href="https://www.instagram.com/a.j.hendry/" target="_blank">
                 <span className="socicon socicon-instagram">
-                  <img src="./images/logo-w-insta.png" />
+                  <img src="/images/logo-w-insta.png" />
                 </span>
               </a>
             </div>
             <div className="soc-item">
               <a href="https://www.facebook.com/aejayhendry/" target="_blank">
                 <span className="socicon socicon-facebook">
-                  <img src="./images/logo-w-fb.png" />
+                  <img src="/images/logo-w-fb.png" />
                 </span>
               </a>
             </div>
@@ -543,28 +489,28 @@ function Team() {
                 target="_blank"
               >
                 <span className="socicon socicon-linkedin">
-                  <img src="./images/logo-w-linkedin.png" />
+                  <img src="/images/logo-w-linkedin.png" />
                 </span>
               </a>
             </div>
             <div className="soc-item">
               <a href="https://twitter.com/AeJayHendry" target="_blank">
                 <span className="socicon socicon-linkedin">
-                  <img src="./images/logo-w-x.png" />
+                  <img src="/images/logo-w-x.png" />
                 </span>
               </a>
             </div>
             <div className="soc-item">
               <a href="https://open.spotify.com/show/5bNyvdQuTlicXECh340j2U" target="_blank">
                 <span className="socicon socicon-linkedin">
-                  <img src="./images/logo-w-spotify.png" />
+                  <img src="/images/logo-w-spotify.png" />
                 </span>
               </a>
             </div>
             <div className="soc-item">
               <a href="https://www.tiktok.com/@a_j_hendry" target="_blank">
                 <span className="socicon socicon-linkedin">
-                  <img src="./images/logo-w-tiktok.webp" />
+                  <img src="/images/logo-w-tiktok.webp" />
                 </span>
               </a>
             </div>

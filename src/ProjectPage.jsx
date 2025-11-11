@@ -1,6 +1,14 @@
+import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import './App.css';
-import { getProjectTitleClass, parseDescription } from './utils/projects.js';
+import { ProjectMiniCard } from './components/ProjectMiniCard.jsx';
+import SafeHeader from './components/SafeHeader.jsx';
+import {
+  formatInline,
+  getPrimaryGalleryImage,
+  getProjectTitleClass,
+  parseDescription,
+} from './utils/projects.js';
 
 function normalizeActions(project = {}) {
   if (!Array.isArray(project.actions)) {
@@ -31,20 +39,27 @@ function ProjectPage({ projects = [] }) {
   const project =
     projects.find((item) => (item.id ?? item.slug ?? item.title) === projectId) ?? null;
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  }, [projectId]);
+
   if (!project) {
     return (
-      <main className="project full">
-        <section className="project full">
-          <div className="header-2">
-            <h2 className="italic edo">
-              <span className="prom-2">Project </span>Not Found
-            </h2>
-          </div>
-          <Link className="btn cool" to="/">
-            Back to home
-          </Link>
-        </section>
-      </main>
+      <>
+        <SafeHeader />
+        <main className="project full">
+          <section className="project full">
+            <div className="header-2">
+              <h2 className="italic edo">
+                <span className="prom-2">Project </span>Not Found
+              </h2>
+            </div>
+            <Link className="btn cool" to="/">
+              Back to home
+            </Link>
+          </section>
+        </main>
+      </>
     );
   }
 
@@ -52,26 +67,29 @@ function ProjectPage({ projects = [] }) {
   const { taglineHtml, bodyHtml } = parseDescription(project.description ?? '');
   const actions = normalizeActions(project);
   const bannerSrc =
-    project.banner ||
-    (Array.isArray(project.gallery) ? project.gallery[0] : '') ||
-    './images/header-placeholder.jpg';
-  const gallery = Array.isArray(project.gallery) ? project.gallery : [];
+    project.banner || getPrimaryGalleryImage(project) || '/images/header-placeholder.jpg';
+  const galleryBlocks = Array.isArray(project.gallery)
+    ? project.gallery.map((block) => {
+        if (typeof block === 'string') {
+          return { images: [block] };
+        }
+        const images = Array.isArray(block?.images) ? block.images : [];
+        return {
+          title: block?.title ?? block?.tile ?? '',
+          body: block?.body ?? '',
+          images,
+        };
+      })
+    : [];
+  const otherProjects = Array.isArray(projects)
+    ? projects.filter((item) => (item.id ?? item.slug ?? item.title) !== projectId)
+    : [];
 
   return (
-    <main>
-      <section className="project full">
-        <div className="header-2">
-          <h2 className="italic edo">
-            <span className="prom-2">Our </span>Mahi
-          </h2>
-        </div>
-      </section>
-      <section className="project full project-detail">
-        <div className="project-detail-header">
-          <Link className="back-link" to="/">
-            ← Back to projects
-          </Link>
-        </div>
+    <>
+      <SafeHeader showBackLink />
+      <main>
+        <section className="project full project-detail">
         <div className="project-card project-card--detail">
           <div className="modal-image-container detail">
             <img
@@ -166,17 +184,55 @@ function ProjectPage({ projects = [] }) {
             </div>
           )}
         </div>
-        {gallery.length > 0 && (
+        {galleryBlocks.length > 0 && (
           <div className="project-gallery">
-            {gallery.map((imageSrc, index) => (
-              <div className="project-gallery-item" key={`${projectId}-gallery-${index}`}>
-                <img src={imageSrc} alt={`${project.title} gallery ${index + 1}`} />
+            {galleryBlocks.map((block, index) => (
+              <div className="project-gallery-block" key={`${projectId}-gallery-${index}`}>
+                {(block.title || block.body) && (
+                  <div className="project-gallery-meta">
+                    {block.title && <h3 className="project-gallery-title">{block.title}</h3>}
+                    {block.body && (
+                      <div
+                        className="project-gallery-body"
+                        dangerouslySetInnerHTML={{ __html: formatInline(block.body) }}
+                      />
+                    )}
+                  </div>
+                )}
+                {Array.isArray(block.images) && block.images.length > 0 && (
+                  <div className="project-gallery-images">
+                    {block.images.map((imageSrc, imageIndex) => (
+                      <div
+                        className="project-gallery-thumb"
+                        key={`${projectId}-gallery-${index}-${imageIndex}`}
+                      >
+                        <img src={imageSrc} alt={`${block.title ?? project.title} image`} />
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             ))}
           </div>
         )}
       </section>
+      {otherProjects.length > 0 && (
+        <section className="project full">
+          <div className="header-2">
+            <h2 className="italic edo">
+              <span className="prom-2">Other </span>Projects
+            </h2>
+          </div>
+          <div className="project-grid">
+            {otherProjects.map((other) => {
+              const otherId = other.id ?? other.slug ?? other.title;
+              return <ProjectMiniCard key={otherId} project={other} />;
+            })}
+          </div>
+        </section>
+      )}
     </main>
+    </>
   );
 }
 

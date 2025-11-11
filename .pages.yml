@@ -172,10 +172,17 @@ content:
       - { name: onHomePage, label: Show on Home, type: boolean, default: false }
       - { name: mapsUrl, label: Maps URL (optional), type: string }
       - name: gallery
-        label: Image Gallery
-        type: image
+        label: Image Gallery Blocks
+        type: object
         list: true
-        options: { media: images }
+        fields:
+          - { name: title, label: Block Title, type: string }
+          - { name: body, label: Block Body, type: rich-text, options: { media: images } }
+          - name: images
+            label: Images
+            type: image
+            list: true
+            options: { media: images }
       - name: actions
         label: Call to Action Buttons
         type: object

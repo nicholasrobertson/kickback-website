@@ -237,7 +237,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: black;
-    /*background-image: url('./images/bg-large.jpg');
+    /*background-image: url('/images/bg-large.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -319,6 +319,37 @@ header {
     margin: 1.5rem;
 }
 
+.safe-header {
+    width: 100%;
+}
+
+.safe-header-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.safe-header-bar .header {
+    flex: 1;
+}
+
+.header-back-link {
+    color: black;
+    text-decoration: none;
+    font-size: 3rem;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.header-back-link:hover {
+    text-decoration: none;
+}
+
+.header-back-link.placeholder {
+    visibility: hidden;
+}
+
 .header-2 {
     font-family: Anton, sans-serif;
     max-height: 16rem;
@@ -359,7 +390,7 @@ header section:nth-child(1) {
 
 main {
     min-height: 100vh;
-    padding-top: 20rem;
+    padding-top: 15rem;
 }
 
 main, header, footer {
@@ -734,7 +765,7 @@ footer {
     width: 16.063rem; /* Adjust as needed */
     height: 16.063rem; /* Should be equal to width for a perfect circle */
     border-radius: 50%;
-    background-image: url('./images/profile-aaron.jpg');
+    background-image: url('/images/profile-aaron.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;

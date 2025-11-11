@@ -9,8 +9,14 @@
   "banner": "/images/header-ed.jpg",
   "imageLink": "https://maps.app.goo.gl/nmLaCAnuJk3yz1Z57",
   "gallery": [
-    "/images/header-ed.jpg",
-    "/images/undraw_educator_re_ju47.svg"
+    {
+      "title": "Training Sessions",
+      "body": "We co-design wānanga with partners so every programme feels local.",
+      "images": [
+        "/images/header-ed.jpg",
+        "/images/undraw_educator_re_ju47.svg"
+      ]
+    }
   ],
   "actions": [
     {

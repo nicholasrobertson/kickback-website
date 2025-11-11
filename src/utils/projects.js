@@ -63,3 +63,22 @@ export const getDescriptionPreview = (value = '', length = 100) => {
   }
   return `${cleanText.slice(0, length).trim()}…`;
 };
+
+export const getPrimaryGalleryImage = (project = {}) => {
+  const gallery = project.gallery;
+  if (Array.isArray(gallery)) {
+    for (const block of gallery) {
+      if (typeof block === 'string') {
+        if (block) {
+          return block;
+        }
+        continue;
+      }
+      const images = block?.images;
+      if (Array.isArray(images) && images.length > 0) {
+        return images[0];
+      }
+    }
+  }
+  return '';
+};

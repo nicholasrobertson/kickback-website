@@ -9,14 +9,25 @@
   "banner": "/images/frontdoor-sign.jpg",
   "imageLink": "https://maps.app.goo.gl/nmLaCAnuJk3yz1Z57",
   "gallery": [
-    "/images/fd-1.jpg",
-    "/images/fd-2.jpg",
-    "/images/fd-3.jpg",
-    "/images/fd-4.jpg",
-    "/images/fd-5.jpg",
-    "/images/fd-6.jpg",
-    "/images/fd-7.jpg",
-    "/images/fd-8.jpg"
+    {
+      "title": "Progress Update 2024",
+      "body": "**Fit-out** is underway and each room is getting its own personality.",
+      "images": [
+        "/images/fd-1.jpg",
+        "/images/fd-2.jpg",
+        "/images/fd-3.jpg"
+      ]
+    },
+    {
+      "title": "Sneak peeks",
+      "images": [
+        "/images/fd-4.jpg",
+        "/images/fd-5.jpg",
+        "/images/fd-6.jpg",
+        "/images/fd-7.jpg",
+        "/images/fd-8.jpg"
+      ]
+    }
   ],
   "actions": [
     {

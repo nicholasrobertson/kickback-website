@@ -9,7 +9,15 @@
   "banner": "/images/header-sn.png",
   "imageLink": "https://maps.app.goo.gl/nmLaCAnuJk3yz1Z57",
   "gallery": [
-    "/images/header-sn.png"
+    {
+      "title": "Community Homes",
+      "body": "Snapshots from our host whare network across Tāmaki Makaurau.",
+      "images": [
+        "/images/header-sn.png",
+        "/images/undraw_neighbors_ciwb.svg",
+        "/images/undraw_sweet_home_dkhr.svg"
+      ]
+    }
   ],
   "actions": [
     {
