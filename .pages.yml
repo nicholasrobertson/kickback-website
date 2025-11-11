@@ -171,6 +171,11 @@ content:
       - { name: link, label: External Link (optional), type: string }
       - { name: onHomePage, label: Show on Home, type: boolean, default: false }
       - { name: mapsUrl, label: Maps URL (optional), type: string }
+      - name: gallery
+        label: Image Gallery
+        type: image
+        list: true
+        options: { media: images }
       - name: actions
         label: Call to Action Buttons
         type: object

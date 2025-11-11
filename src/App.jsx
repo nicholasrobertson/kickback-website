@@ -1,17 +1,14 @@
-import { useState } from 'react'
-import './App.css'
-import homeContent from './content/pages/home.json'
-import { getContent } from './content/helper.js'
+import { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import './App.css';
+import homeContent from './content/pages/home.json';
+import { getContent } from './content/helper.js';
+import ProjectPage from './ProjectPage.jsx';
+import { getProjectTitleClass, parseDescription, getDescriptionPreview } from './utils/projects.js';
 
 const projectContent = getContent('projects');
 const articleContent = getContent('articles');
 const partnerContent = getContent('partners');
-
-const projectTitleClasses = {
-  frontdoor: 'center italic edo boxer',
-  safetynet: 'center raleway',
-  education: 'center bebas light',
-};
 
 const partnerTypeLabels = {
   seed: 'Visionary Seed Funders',
@@ -21,25 +18,21 @@ const partnerTypeLabels = {
 
 const partnerTypeOrder = ['seed', 'corporate', 'local'];
 
-const formatInline = (value = '') =>
-  value
-    .replace(/\*\*(.*?)\*\*/g, '<span class="bold">$1</span>')
-    .replace(/_(.*?)_/g, '<span class="italic">$1</span>')
-    .replace(/\n/g, '<br />');
-
-const parseDescription = (value = '') => {
-  if (!value) {
-    return { taglineHtml: '', bodyHtml: '' };
-  }
-  const parts = value.split('\n\n');
-  const [first, ...rest] = parts;
-  return {
-    taglineHtml: formatInline(first?.trim() ?? ''),
-    bodyHtml: formatInline(rest.join('\n\n').trim()),
-  };
-};
-
 function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route
+          path="/projects/:projectId"
+          element={<ProjectPage projects={projectContent} />}
+        />
+      </Routes>
+    </Router>
+  );
+}
+
+function HomePage() {
   const [isHeaderOpen, setIsHeaderOpen] = useState(false);
   const buttonInnerText = isHeaderOpen ? '⬅️ Go Back 🙅' : '📞 Hit us up 💬';
   const modalDisplay = isHeaderOpen ? "flex" : "none";
@@ -128,7 +121,7 @@ const subheadingRest = subheadingRestWords.join(' ');
           actions={sortedActions}
           onHeroAction={handleHeroAction}
         />
-        <Projects scrollToId={scrollToId} openUrl={openUrl} projects={projectContent} />
+        <Projects projects={projectContent} />
         <Gallery />
         <PromotedArticles />
         <Partners scrollToId={scrollToId} partners={partnerContent} />
@@ -199,24 +192,8 @@ function Hero({
   );
 }
 
-function Projects({ scrollToId, openUrl, projects = projectContent }) {
+function Projects({ projects = projectContent }) {
   const items = Array.isArray(projects) ? [...projects] : [];
-
-  const openLink = (rawUrl) => {
-    const url = rawUrl?.trim();
-    if (!url) {
-      return;
-    }
-    if (url.startsWith('#')) {
-      scrollToId?.(url.slice(1));
-      return;
-    }
-    if (openUrl) {
-      openUrl(url);
-      return;
-    }
-    window.open(url, '_blank');
-  };
 
   return (
     <>
@@ -230,101 +207,35 @@ function Projects({ scrollToId, openUrl, projects = projectContent }) {
           </h2>
         </div>
       </section>
-      <section className="project sidescroll full" id="front-door">
+      <section className="project full project-grid" id="front-door">
         {items.map((project) => {
-          const projectId = project.id ?? project.title;
-          const titleClass = projectTitleClasses[project.id ?? ''] ?? 'center italic';
-          const bannerSrc = project.banner ?? '';
-          const { taglineHtml, bodyHtml } = parseDescription(project.description ?? '');
-          const socials = Array.isArray(project.social)
-            ? [...project.social].sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
-            : [];
-          const actions = Array.isArray(project.actions)
-            ? [...project.actions].sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
-            : [];
-          const hasSocial = socials.length > 0;
-          const hasActions = actions.length > 0;
-
-          const handleImageClick = () => {
-            if (project.imageLink) {
-              openLink(project.imageLink);
-              return;
-            }
-            if (project.link) {
-              openLink(project.link);
-            }
-          };
+          const projectId = project.id ?? project.slug ?? project.title;
+          const titleClass = getProjectTitleClass(project);
+          const preview = getDescriptionPreview(project.description ?? '', 100);
+          const bannerSrc =
+            project.banner ||
+            (Array.isArray(project.gallery) ? project.gallery[0] : '') ||
+            './images/header-placeholder.jpg';
 
           return (
-            <div className="project-card" key={projectId}>
-              <div className="modal-image-container">
-                <img
-                  className="p-header-img"
-                  src={bannerSrc || './images/header-placeholder.jpg'}
-                  alt={`${project.title} banner`}
-                  onClick={handleImageClick}
-                />
+            <Link
+              to={`/projects/${projectId}`}
+              className="project-card project-card--mini"
+              key={projectId}
+            >
+              <div className="project-thumb">
+                <img src={bannerSrc} alt={`${project.title} banner`} />
               </div>
-              <h2 className={titleClass}>{project.title}</h2>
-              {taglineHtml && (
-                <div className="p-header bold" dangerouslySetInnerHTML={{ __html: taglineHtml }} />
-              )}
-              {bodyHtml && (
-                <div className="p-body italic" dangerouslySetInnerHTML={{ __html: bodyHtml }} />
-              )}
-              {(hasSocial || hasActions) && (
-                <div className="socials">
-                  {socials.map((item) => {
-                    const isHash = item.url?.startsWith('#');
-                    const handleClick = (event) => {
-                      event.preventDefault();
-                      openLink(item.url);
-                    };
-                    const iconAlt = item.alt ?? project.title;
-                    return (
-                      <div className="soc-item" key={`${projectId}-social-${item.url}`}>
-                        {isHash ? (
-                          <span
-                            className={`socicon socicon-${item.alt ?? 'link'}`}
-                            onClick={handleClick}
-                            onKeyDown={(event) => {
-                              if (event.key === 'Enter' || event.key === ' ') {
-                                handleClick(event);
-                              }
-                            }}
-                            role="button"
-                            tabIndex={0}
-                          >
-                            <img src={item.icon} alt={iconAlt} />
-                          </span>
-                        ) : (
-                          <a href={item.url} target="_blank" rel="noreferrer" onClick={handleClick}>
-                            <span className={`socicon socicon-${item.alt ?? 'link'}`}>
-                              <img src={item.icon} alt={iconAlt} />
-                            </span>
-                          </a>
-                        )}
-                      </div>
-                    );
-                  })}
-                  {actions.map((action) => (
-                    <div
-                      key={`${projectId}-action-${action.url}`}
-                      className="btn give"
-                      onClick={() => openLink(action.url)}
-                    >
-                      {action.label}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+              <h3 className={titleClass}>{project.title}</h3>
+              {preview && <p className="project-preview">{preview}</p>}
+            </Link>
           );
         })}
       </section>
     </>
   );
 }
+
 
 function Gallery() {
   return (

@@ -5,40 +5,43 @@
   "onHomePage": true,
   "order": 0,
   "id": "frontdoor",
-  "font": "Hyperwave",
+  "font": "Edo",
   "banner": "/images/frontdoor-sign.jpg",
   "imageLink": "https://maps.app.goo.gl/nmLaCAnuJk3yz1Z57",
-  "social": [
+  "gallery": [
+    "/images/fd-1.jpg",
+    "/images/fd-2.jpg",
+    "/images/fd-3.jpg"
+  ],
+  "actions": [
     {
       "icon": "/images/logo-maps.svg",
-      "alt": "maps",
+      "label": "Maps",
       "url": "https://maps.app.goo.gl/uHECEc3TY1x3qQF28",
       "order": 0
     },
     {
       "icon": "/images/logo-insta.png",
-      "alt": "instagram",
+      "label": "Instagram",
       "url": "https://www.instagram.com/kick_back_make_change/",
       "order": 1
     },
     {
       "icon": "/images/logo-facebook.png",
-      "alt": "facebook",
+      "label": "Facebook",
       "url": "https://www.facebook.com/p/Kick-Back-100091386001694/",
       "order": 2
     },
     {
       "icon": "/images/logo-linkedin.png",
-      "alt": "linkedin",
+      "label": "LinkedIn",
       "url": "https://www.linkedin.com/company/kickbackmakechange/?originalSubdomain=nz",
       "order": 3
-    }
-  ],
-  "actions": [
+    },
     {
       "label": "Give a Little!",
       "url": "https://givealittle.co.nz/cause/help-us-kick-back-against-youth-homelessness",
-      "order": 0
+      "order": 10
     }
   ]
 }

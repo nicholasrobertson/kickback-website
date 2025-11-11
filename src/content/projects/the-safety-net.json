@@ -5,33 +5,36 @@
   "onHomePage": true,
   "order": 1,
   "id": "safetynet",
+  "font": "Raleway",
   "banner": "/images/header-sn.png",
   "imageLink": "https://maps.app.goo.gl/nmLaCAnuJk3yz1Z57",
-  "social": [
+  "gallery": [
+    "/images/header-sn.png",
+    "/images/undraw_neighbors_ciwb.svg"
+  ],
+  "actions": [
     {
       "icon": "/images/logo-insta.png",
-      "alt": "instagram",
+      "label": "Instagram",
       "url": "https://www.instagram.com/thesafetynetprojectnz/?fbclid=IwAR1uFPhxR-x0fU6tfGbqLXQ8eK0tzVPAfCrlj0s7qxMADb7Be47_jMjxnfo",
       "order": 0
     },
     {
       "icon": "/images/logo-facebook.png",
-      "alt": "facebook",
+      "label": "Facebook",
       "url": "https://www.facebook.com/thesafetynetprojectnz",
       "order": 1
     },
     {
       "icon": "/images/logo-linkedin.png",
-      "alt": "linkedin",
+      "label": "LinkedIn",
       "url": "https://www.linkedin.com/company/kickbackmakechange/?originalSubdomain=nz",
       "order": 2
-    }
-  ],
-  "actions": [
+    },
     {
       "label": "Become a Host!",
       "url": "#contact",
-      "order": 0
+      "order": 10
     }
   ]
 }

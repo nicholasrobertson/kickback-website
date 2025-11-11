@@ -8,31 +8,33 @@
   "font": "Bebas Nueue",
   "banner": "/images/header-ed.jpg",
   "imageLink": "https://maps.app.goo.gl/nmLaCAnuJk3yz1Z57",
-  "social": [
+  "gallery": [
+    "/images/header-ed.jpg",
+    "/images/undraw_educator_re_ju47.svg"
+  ],
+  "actions": [
     {
       "icon": "/images/logo-insta.png",
-      "alt": "instagram",
+      "label": "Instagram",
       "url": "https://www.instagram.com/kick_back_make_change/",
       "order": 0
     },
     {
       "icon": "/images/logo-facebook.png",
-      "alt": "facebook",
+      "label": "Facebook",
       "url": "https://www.facebook.com/p/Kick-Back-100091386001694/",
       "order": 1
     },
     {
       "icon": "/images/logo-linkedin.png",
-      "alt": "linkedin",
+      "label": "LinkedIn",
       "url": "https://www.linkedin.com/company/kickbackmakechange/?originalSubdomain=nz",
       "order": 2
-    }
-  ],
-  "actions": [
+    },
     {
       "label": "Start the Conversation",
       "url": "#contact",
-      "order": 0
+      "order": 10
     }
   ]
 }
