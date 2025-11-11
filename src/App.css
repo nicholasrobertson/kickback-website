@@ -199,14 +199,15 @@
 
 
 .project-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
-    gap: 4rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 5rem;
 }
 
 .project-card {
     border-radius: 2rem;
-    padding: 2rem;
+    padding: 1.5rem;
     text-decoration: none;
     color: black;
     background-color: white;
@@ -225,8 +226,8 @@
 }
 
 .project-card--mini {
-    aspect-ratio: 1 / 1;
-    min-height: 28rem;
+    width: 40rem;
+    height: 40rem;
     gap: 1.5rem;
 }
 
@@ -237,7 +238,7 @@
 
 .project-thumb {
     width: 100%;
-    height: 30rem;
+    height: 22rem;
     border-radius: 1.5rem;
     overflow: hidden;
     background-color: rgba(0, 0, 0, 0.35);
@@ -249,10 +250,15 @@
     object-fit: cover;
 }
 
+.project-card h3 {
+    font-size: 4rem;
+    margin: 0;
+}
+
 .project-preview {
-    font-size: 1.8rem;
+    font-size: 2rem;
     line-height: 1.4;
-    
+    color: rgba(0, 0, 0, 0.7);
 }
 
 .project-detail {
