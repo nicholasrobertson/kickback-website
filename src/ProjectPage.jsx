@@ -1,14 +1,17 @@
 import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import './App.css';
+import { getContent } from './content/helper.js';
 import { ProjectMiniCard } from './components/ProjectMiniCard.jsx';
-import SafeHeader from './components/SafeHeader.jsx';
+import StickyContent from './components/StickyContent.jsx';
 import {
   formatInline,
   getPrimaryGalleryImage,
   getProjectTitleClass,
   parseDescription,
 } from './utils/projects.js';
+
+const fallbackProjects = getContent('projects');
 
 function normalizeActions(project = {}) {
   if (!Array.isArray(project.actions)) {
@@ -34,7 +37,7 @@ function openLink(url) {
   window.open(target, '_blank');
 }
 
-function ProjectPage({ projects = [] }) {
+function ProjectPage({ projects = fallbackProjects }) {
   const { projectId } = useParams();
   const project =
     projects.find((item) => (item.id ?? item.slug ?? item.title) === projectId) ?? null;
@@ -46,7 +49,7 @@ function ProjectPage({ projects = [] }) {
   if (!project) {
     return (
       <>
-        <SafeHeader />
+        <StickyContent />
         <main className="project full">
           <section className="project full">
             <div className="header-2">
@@ -54,7 +57,7 @@ function ProjectPage({ projects = [] }) {
                 <span className="prom-2">Project </span>Not Found
               </h2>
             </div>
-            <Link className="btn cool" to="/">
+            <Link className="btn cool" to="/home">
               Back to home
             </Link>
           </section>
@@ -87,7 +90,7 @@ function ProjectPage({ projects = [] }) {
 
   return (
     <>
-      <SafeHeader showBackLink />
+      <StickyContent showBackLink />
       <main>
         <section className="project full project-detail">
         <div className="project-card project-card--detail">

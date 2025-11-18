@@ -1,0 +1,45 @@
+.landing {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.landing-logo {
+  width: auto;
+  height: 40rem;
+}
+
+.landing-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10rem;
+}
+
+.landing-actions {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 4rem;
+}
+
+.btn.cool.landing-btn {
+  font-size: 4rem;
+  white-space: nowrap;
+  text-decoration: none;
+  padding: 1.5rem 4rem;
+  font-weight: 600;
+
+}
+
+.route-fallback {
+  padding: 4rem 2rem;
+  text-align: center;
+  font-family: 'Edo', sans-serif;
+  font-size: 2.4rem;
+  color: var(--color-highlight);
+}

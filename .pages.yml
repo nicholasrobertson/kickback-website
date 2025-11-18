@@ -54,6 +54,27 @@ content:
       - { name: showTeam, label: Show Team section, type: boolean, default: true }
       - { name: orderTeam, label: Sort Order for Team section, type: number }
 
+  - name: landing
+    label: Landing Page
+    type: file
+    path: src/content/pages/landing.json
+    format: json
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - name: logo
+        label: Logo
+        type: image
+        options: { media: images }
+        required: true
+      - name: buttons
+        label: Buttons
+        type: object
+        list: true
+        fields:
+          - { name: label, label: Button Label, type: string, required: true }
+          - { name: url, label: Button URL, type: string, required: true }
+          - { name: order, label: Order (lower = earlier), type: number, default: 0 }
+
   # Mission
   - name: mission
     label: Mission
@@ -272,6 +293,32 @@ content:
       - { name: content, label: Testimonial Content, type: rich-text, options: { media: images }, required: true }
       - { name: order, label: Order (lower = earlier), type: number, default: 9 }
       - { name: appearOnHome, label: Appear on Home Page, type: boolean, default: false }
+
+  # Testimonies (stories/updates)
+  - name: testimonies
+    label: Testimonies
+    type: collection
+    path: src/content/testimonies
+    filename: "{primary}.json"
+    format: json
+    view:
+      fields: [ title, author, organisation, appearOnHome ]
+      primary: title
+      sort: [ order, title ]
+      default:
+        sort: order
+        order: asc
+    fields:
+      - { name: id, label: ID, type: string, required: true }
+      - { name: title, label: Title, type: string, required: true }
+      - { name: author, label: Author, type: string, required: true }
+      - { name: organisation, label: Organisation, type: string }
+      - { name: image, label: Image, type: image, options: { media: images } }
+      - { name: video, label: Video URL (optional), type: string }
+      - { name: body, label: Body Content, type: rich-text, options: { media: images }, required: true }
+      - { name: body, label: Body Content, type: rich-text, options: { media: images } }
+      - { name: appearOnHome, label: Show on Home Page, type: boolean, default: false }
+      - { name: order, label: Order (lower = earlier), type: number, default: 9999 }
 # Keep unknown fields in existing files when saving (handy if you hand-edit)
 settings:
   content:

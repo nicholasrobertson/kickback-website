@@ -17,12 +17,12 @@
   "showTeam": true,
   "actions": [
     {
-      "label": "🫱🏼‍🫲🏾 Partner 💼",
+      "label": "Partner 🫱🏼‍🫲🏾",
       "url": "#contact",
       "order": 0
     },
     {
-      "label": "🧑🏽‍🤝‍🧑🏼 Volunteer 🦺",
+      "label": "Volunteer 🦺",
       "url": "#contact",
       "order": 1
     }

@@ -5,20 +5,7 @@
     --color-tertiary: #7ed957;
     --color-quarter: #FF66c4;
     --color-charcoal: #252525;
-    --color-background: var(--color-tertiary);
-    --color-background-trans: #7ed957d8;
-    --color-text-primary: var(--color-primary);
-    --color-card-background: var(--color-secondary);
-    --color-button-bg: var(--color-secondary);
-    --color-shadow-color: var(--color-quarter);
-    --color-video-icon: var(--color-quarter);
-    --color-highlight: var(--color-secondary);
-    --color-header-prom: var(--color-primary);
-    --color-logo: var(--color-primary);
-    --color-text-shadow: var(--color-background);
-    --color-kb-card: white;
-    --color-kb-card-stroke: black;
-    --color-background: var(--color-charcoal);
+    --color-background: var(--color-primary);
     --color-background-trans: #000000be;
     --color-text-primary: var(--color-secondary);
     --color-card-background: var(--color-secondary);
@@ -348,6 +335,143 @@ header {
 
 .header-back-link.placeholder {
     visibility: hidden;
+}
+
+.safe-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 1200;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.safe-sidebar-toggle {
+    margin: 1.5rem;
+    padding: 1rem 1.5rem;
+    border-radius: 999rem;
+    border: 0.2rem solid var(--color-kb-card-stroke);
+    background: var(--color-card-background);
+    font-size: 1.6rem;
+    font-family: 'Edo', sans-serif;
+    cursor: pointer;
+    pointer-events: auto;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0.5rem 0.5rem 0 var(--color-quarter);
+}
+
+.safe-sidebar-toggle:active {
+    transform: translateY(0.125rem);
+    box-shadow: none;
+}
+
+.safe-sidebar-panel {
+    width: min(28rem, 80vw);
+    max-height: calc(100vh - 3rem);
+    margin: 1.5rem 0;
+    padding: 2rem;
+    border-radius: 1.5rem;
+    border: 0.2rem solid var(--color-kb-card-stroke);
+    background: rgba(0, 0, 0, 0.9);
+    box-shadow: 1rem 1rem 0 var(--color-quarter);
+    overflow-y: auto;
+    transform: translateX(-110%);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.safe-sidebar-panel[data-open="true"] {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.sidebar-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--color-highlight);
+    font-size: 1.8rem;
+    text-decoration: none;
+    margin-bottom: 1.5rem;
+}
+
+.safe-sidebar-group + .safe-sidebar-group {
+    margin-top: 2.5rem;
+}
+
+.safe-sidebar-heading {
+    font-family: 'Edo', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+    color: var(--color-highlight);
+    margin-bottom: 1rem;
+}
+
+.safe-sidebar-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.safe-sidebar-links a {
+    color: var(--color-kb-card);
+    text-decoration: none;
+    font-size: 1.7rem;
+    padding: 0.8rem 1rem;
+    border-radius: 0.8rem;
+    border: 0.15rem solid transparent;
+    transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.safe-sidebar-links a:hover,
+.safe-sidebar-links a:focus-visible {
+    border-color: var(--color-highlight);
+    color: var(--color-highlight);
+}
+
+.safe-sidebar-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.safe-sidebar-action {
+    padding: 0.9rem 1.2rem;
+    border-radius: 0.8rem;
+    border: 0.15rem solid var(--color-kb-card-stroke);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--color-kb-card);
+    text-align: left;
+    font-size: 1.6rem;
+    cursor: pointer;
+    transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.safe-sidebar-action:hover,
+.safe-sidebar-action:focus-visible {
+    border-color: var(--color-highlight);
+    color: var(--color-highlight);
+    transform: translateX(0.2rem);
+}
+
+.safe-sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    border: none;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    backdrop-filter: blur(0.5rem);
+    z-index: 1100;
 }
 
 .header-2 {
@@ -805,11 +929,12 @@ footer {
     flex-flow: row wrap;
     justify-content: flex-start;
     align-items: flex-start;
+    gap: 5rem;
 }
 
-.adv-cards .news-card {
+/*.adv-cards .news-card {
     margin: 1rem 10rem 5rem 0rem;
-}
+}*/
 
 .modal {
     background-color: white;

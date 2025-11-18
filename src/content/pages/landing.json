@@ -1,0 +1,11 @@
+{
+  "title": "Landing",
+  "logo" : "/images/logo-kickback-dark-animated.svg",
+  "buttons" :[
+    {
+      "label": "Find out more 💚",
+      "url": "/home",
+      "order": 0
+    }
+  ]
+}
