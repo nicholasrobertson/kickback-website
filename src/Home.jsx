@@ -69,12 +69,12 @@ export default function Home() {
           actions={sortedActions}
           onHeroAction={handleHeroAction}
         />
-        <Projects projects={projectContent} />
+        <ProjectsSection projects={projectContent} />
         <PromotedArticles />
         <Testimonies testimonies={testimonyContent} />
         <Partners scrollToId={scrollToId} partners={partnerContent} />
         <Articles articles={articleContent} />
-        <Team />
+        <ContactSection />
       </main>
       <footer>
         <div className="footer">
@@ -144,7 +144,7 @@ function Hero({
   );
 }
 
-function Projects({ projects = projectContent }) {
+export function ProjectsSection({ projects = projectContent }) {
   const items = Array.isArray(projects) ? [...projects] : [];
 
   return (
@@ -483,12 +483,17 @@ function Articles({ articles = [] }) {
   );
 }
 
-function Team() {
+export function ContactSection({
+  sectionId = 'contact',
+  headingPrefix = 'Contact ',
+  headingHighlight = 'Us',
+}) {
   return (
-    <section className="people" id="contact">
+    <section className="people" id={sectionId}>
       <div className="header-2">
         <h2>
-          <span className="italic prom-2">Contact </span>Us
+          <span className="italic prom-2">{headingPrefix}</span>
+          {headingHighlight}
         </h2>
       </div>
       <div className="people-cards">

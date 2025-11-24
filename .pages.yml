@@ -40,6 +40,13 @@ content:
           - { name: label, label: Button Label, type: string }
           - { name: url, label: Button URL, type: string, required: true }
           - { name: order, label: Order (lower = earlier), type: number, default: 0 }
+      - name: staticRoutes
+        label: Header Navigation Links
+        type: object
+        list: true
+        fields:
+          - { name: label, label: Link Label, type: string, required: true }
+          - { name: to, label: Destination Path, type: string, required: true }
       # bools to show/hide sections
       - { name: showMission, label: Show Mission section, type: boolean, default: true }
       - { name: orderMission, label: Sort Order for Mission section, type: number }

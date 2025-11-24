@@ -3,12 +3,6 @@ import { Link, useLocation } from 'react-router-dom';
 import homeContent from '../content/pages/home.json';
 
 const LANDING_PATHS = new Set(['/', '/landing']);
-const STATIC_ROUTES = Object.freeze([
-  { label: 'Home', to: '/home' },
-  { label: 'Projects', to: '/projects' },
-  { label: 'Testimonials', to: '/testimonies' },
-  
-]);
 
 const detectInputMode = () => {
   if (typeof window === 'undefined') {
@@ -57,6 +51,10 @@ export default function StickyContent({ showBackLink = false, backLinkTo = '/hom
   const phoneLink = homeContent.phoneLink ?? 'tel:0800-5425-2225';
   const phoneDisplay = homeContent.phoneDisplay ?? 'Call 0800 kick back 📞';
   const actions = useMemo(() => sortActions(homeContent.actions ?? []), []);
+  const staticRoutes = useMemo(
+    () => (Array.isArray(homeContent.staticRoutes) ? homeContent.staticRoutes : []),
+    []
+  );
   const isLandingPage = LANDING_PATHS.has(location.pathname);
   const shouldShowSidebar = !isLandingPage && inputMode === 'pointer';
 
@@ -71,7 +69,7 @@ export default function StickyContent({ showBackLink = false, backLinkTo = '/hom
 
   const closeSidebar = () => setIsSidebarOpen(false);
 
-  const routeLinks = useMemo(() => STATIC_ROUTES.concat(projectRoutes), [projectRoutes]);
+  const routeLinks = useMemo(() => staticRoutes.concat(projectRoutes), [staticRoutes]);
 
   useEffect(() => {
     if (typeof window === 'undefined') {
@@ -228,7 +226,6 @@ export default function StickyContent({ showBackLink = false, backLinkTo = '/hom
             </div>
             {actions.length > 0 && (
               <div className="safe-sidebar-group">
-                <div className="safe-sidebar-heading">Home actions</div>
                 <div className="safe-sidebar-actions">
                   {actions.map((action) => (
                     <button

@@ -5,8 +5,13 @@ import landingContent from './content/pages/landing.json';
 import './Landing.css';
 
 const Home = lazy(() => import('./Home.jsx'));
+const ProjectsPage = lazy(() => import('./ProjectsPage.jsx'));
 const ProjectPage = lazy(() => import('./ProjectPage.jsx'));
 const TestimoniesPage = lazy(() => import('./TestimoniesPage.jsx'));
+const ReportsPage = lazy(() => import('./ReportsPage.jsx'));
+const ReportPage = lazy(() => import('./ReportPage.jsx'));
+const TeamPage = lazy(() => import('./TeamPage.jsx'));
+const ContactPage = lazy(() => import('./ContactPage.jsx'));
 
 const suspenseFallback = (
   <div className="route-fallback" aria-live="polite">
@@ -29,6 +34,14 @@ function App() {
           }
         />
         <Route
+          path="/projects"
+          element={
+            <Suspense fallback={suspenseFallback}>
+              <ProjectsPage />
+            </Suspense>
+          }
+        />
+        <Route
           path="/projects/:projectId"
           element={
             <Suspense fallback={suspenseFallback}>
@@ -41,6 +54,38 @@ function App() {
           element={
             <Suspense fallback={suspenseFallback}>
               <TestimoniesPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/reports"
+          element={
+            <Suspense fallback={suspenseFallback}>
+              <ReportsPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/reports/:reportId"
+          element={
+            <Suspense fallback={suspenseFallback}>
+              <ReportPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/team"
+          element={
+            <Suspense fallback={suspenseFallback}>
+              <TeamPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/contact"
+          element={
+            <Suspense fallback={suspenseFallback}>
+              <ContactPage />
             </Suspense>
           }
         />

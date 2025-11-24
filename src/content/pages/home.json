@@ -15,15 +15,23 @@
   "showPartners": true,
   "showReports": true,
   "showTeam": true,
+  "staticRoutes": [
+    { "label": "Home", "to": "/home" },
+    { "label": "Projects", "to": "/projects" },
+    { "label": "Reports", "to": "/reports" },
+    { "label": "Testimonials", "to": "/testimonies" },
+    { "label": "Team", "to": "/team" },
+    { "label": "Contact", "to": "/contact" }
+  ],
   "actions": [
     {
-      "label": "Partner 🫱🏼‍🫲🏾",
+      "label": "Join Us 🫱🏼‍🫲🏾",
       "url": "#contact",
       "order": 0
     },
     {
-      "label": "Volunteer 🦺",
-      "url": "#contact",
+      "label": "Donate 💝",
+      "url": "https://www.chivecharities.nz/charity/kick-back-make-change",
       "order": 1
     }
   ],
