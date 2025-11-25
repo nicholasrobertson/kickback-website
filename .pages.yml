@@ -278,34 +278,9 @@ content:
       - { name: isPromoted, label: Promote this Article to top of the page, type: boolean, default: false }
       - { name: description, label: Short Description, type: text }
 
-  # Testimonials id, title, author, organisation, images, video, appearOnHome
-  - name: testimonials
-    label: Testimonials
-    type: collection
-    path: src/content/testimonials
-    filename: "{primary}.json"
-    format: json
-    view:
-      fields: [ name, order ]
-      primary: name
-      sort: [ order, name ]
-      default:
-        sort: order
-        order: asc
-    fields:
-      - { name: id, label: ID, type: string, required: true }
-      - { name: name, label: Name, type: string, required: true }
-      - { name: author, label: Author, type: string, required: true }
-      - { name: organisation, label: Organisation, type: string }
-      - { name: image, label: Image, type: image, options: { media: images } }
-      - { name: video, label: Video URL (optional), type: string }
-      - { name: content, label: Testimonial Content, type: rich-text, options: { media: images }, required: true }
-      - { name: order, label: Order (lower = earlier), type: number, default: 9 }
-      - { name: appearOnHome, label: Appear on Home Page, type: boolean, default: false }
-
   # Testimonies (stories/updates)
   - name: testimonies
-    label: Testimonies
+    label: Testimonials
     type: collection
     path: src/content/testimonies
     filename: "{primary}.json"
