@@ -346,6 +346,8 @@ header {
     display: flex;
     align-items: flex-start;
     gap: 1rem;
+    width: max-content;
+    pointer-events: none;
 }
 
 .safe-sidebar-toggle {
