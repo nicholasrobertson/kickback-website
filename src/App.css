@@ -153,11 +153,6 @@
 
 }
 
-.news {
-    margin-top: 10vh;
-}
-
-
 .img-hug {
     margin-top: -15rem;
 }
@@ -201,7 +196,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-    gap: 2rem;
+    gap: 6rem;
 }
 
 .project-card {
@@ -222,14 +217,14 @@
 
 .project-card:hover,
 .project-card:focus-visible {
-    transform: translateY(-0.5rem);
-    box-shadow: 1rem 1rem 0px 0px var(--color-tertiary);
+    transform: translateY(-0.1rem);
+    box-shadow: 1.5rem 1.5rem 0px 0px var(--color-tertiary);
     outline: none;
 }
 
 .project-card--mini {
-    width: 40rem;
-    height: 40rem;
+    width: 35rem;
+    height: 35rem;
     gap: 1.5rem;
 }
 
@@ -260,7 +255,7 @@
     justify-content: center;
 }
 .project-card h3 {
-    font-size: 5rem;
+    font-size: 4.6rem;
     margin: 0;
 }
 

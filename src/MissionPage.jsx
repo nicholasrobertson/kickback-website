@@ -28,6 +28,7 @@ export default function MissionPage() {
           <Mission previewOnly={false} />
         </section>
         <ProjectsSection projects={projectContent}/>
+        
       </main>
     </>
   );

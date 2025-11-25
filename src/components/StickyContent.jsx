@@ -215,7 +215,7 @@ export default function StickyContent({ showBackLink = false, backLinkTo = '/hom
               </Link>
             )}
             <div className="safe-sidebar-group">
-              <div className="safe-sidebar-heading">Pages</div>
+              
               <ul className="safe-sidebar-links">
                 {routeLinks.map((route) => (
                   <li key={route.to}>

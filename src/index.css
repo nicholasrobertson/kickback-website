@@ -467,6 +467,9 @@ header {
     width: 100%;
     overflow: visible;
     font-weight: normal;
+    transform: rotate(-2.5deg);
+    margin-top: 5rem;
+    margin-bottom: 3rem;
 }
 
 .highlight {
@@ -526,7 +529,7 @@ main
     width: 100vw;
 */
 
-h1 {
+.hero-h1 {
     font-family: Anton, sans-serif;
     font-weight: normal;
     font-size: 10.625rem;
@@ -538,6 +541,11 @@ h1 {
     flex-flow: column nowrap;
     line-height: 1;
     padding-bottom: 2.5rem;
+    transform: matrix(1, -0.087, 0, 1, 0, 0);
+}
+
+.hero-subhead {
+    transform: rotate(-5deg);
 }
 
 .italic {
@@ -1309,8 +1317,10 @@ nav {
 }
 
 #header-logo {
-    max-width: 37rem;
+    max-width: 30rem;
     padding-top: 0rem;
+    margin-bottom: 8rem;
+    margin-right: 8rem;
 }
 
 .fade-to-green {
