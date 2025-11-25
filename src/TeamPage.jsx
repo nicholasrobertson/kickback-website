@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
-import StickyContent from './components/StickyContent.jsx';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import StickyContent from './components/StickyContent.jsx';
+import Footer from './components/Footer.jsx';
 import { getContent } from './content/helper.js';
 
 const fallbackTeam = getContent('team');
@@ -20,6 +21,7 @@ export default function TeamPage() {
       <main className="project full team-page">
         <TeamSection members={team} />
       </main>
+      <Footer />
     </>
   );
 }
@@ -259,6 +261,7 @@ export function TeamMemberPage({ members = fallbackTeam }) {
             </Link>
           </section>
         </main>
+        <Footer />
       </>
     );
   }
@@ -315,6 +318,7 @@ export function TeamMemberPage({ members = fallbackTeam }) {
           )}
         </section>
       </main>
+      <Footer />
     </>
   );
 }

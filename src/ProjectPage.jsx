@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import './App.css';
 import { getContent } from './content/helper.js';
 import { ProjectMiniCard } from './components/ProjectMiniCard.jsx';
+import Footer from './components/Footer.jsx';
 import StickyContent from './components/StickyContent.jsx';
 import {
   formatInline,
@@ -63,6 +64,7 @@ function ProjectPage({ projects = fallbackProjects }) {
             </Link>
           </section>
         </main>
+        <Footer />
       </>
     );
   }
@@ -103,14 +105,7 @@ function ProjectPage({ projects = fallbackProjects }) {
               onClick={() => project.imageLink ? openLink(project.imageLink ?? project.link) : null}
             />
           </div>
-          <h2 className={titleClass}>{project.title}</h2>
-          {taglineHtml && (
-            <div className="p-header bold" dangerouslySetInnerHTML={{ __html: taglineHtml }} />
-          )}
-          {bodyHtml && (
-            <div className="p-body italic" dangerouslySetInnerHTML={{ __html: bodyHtml }} />
-          )}
-          
+          <h2 className={titleClass}>{project.title}</h2>          
           {actions.length > 0 && (
             <div className="socials detail">
               {actions.map((action, index) => {
@@ -189,6 +184,16 @@ function ProjectPage({ projects = fallbackProjects }) {
             </div>
           )}
         </div>
+        <div className="project-card--detail-meta">
+          <div className="mission-card">
+        {taglineHtml && (
+            <div className="p-header bold" dangerouslySetInnerHTML={{ __html: taglineHtml }} />
+          )}
+          {bodyHtml && (
+            <div className="p-body italic" dangerouslySetInnerHTML={{ __html: bodyHtml }} />
+          )}
+        </div>
+        </div>
         {galleryBlocks.length > 0 && (
           <div className="project-gallery">
             {galleryBlocks.map((block, index) => (
@@ -238,6 +243,7 @@ function ProjectPage({ projects = fallbackProjects }) {
         </section>
       )}
     </main>
+      <Footer />
     </>
   );
 }

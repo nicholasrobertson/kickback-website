@@ -4,6 +4,7 @@ import StickyContent from './components/StickyContent.jsx';
 import { getContent } from './content/helper.js';
 import { formatReadableDate } from './utils/dates.js';
 import homeContent from './content/pages/home.json';
+import Footer from './components/Footer.jsx';
 
 const fallbackReports = getContent('reports');
 const RSS_APP_WIDGET_ID = 'gs4Yd16Jo8dpY7kn';
@@ -84,6 +85,7 @@ export default function ReportsPage({ reports = fallbackReports }) {
           )}
         </section>
       </main>
+      <Footer />
     </>
   );
 }

@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import StickyContent from './components/StickyContent.jsx';
+import Footer from './components/Footer.jsx';
 import missionContent from './content/pages/mission.json';
 import { ProjectsSection } from './Home.jsx';
 import { getContent } from './content/helper.js';
@@ -30,6 +31,7 @@ export default function MissionPage() {
         <ProjectsSection projects={projectContent}/>
         
       </main>
+      <Footer />
     </>
   );
 }

@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import StickyContent from './components/StickyContent.jsx';
+import Footer from './components/Footer.jsx';
 import { getContent } from './content/helper.js';
 import { formatReadableDate } from './utils/dates.js';
 
@@ -35,6 +36,7 @@ export default function ReportPage({ reports = fallbackReports }) {
             </Link>
           </section>
         </main>
+        <Footer />
       </>
     );
   }
@@ -79,7 +81,7 @@ export default function ReportPage({ reports = fallbackReports }) {
           </article>
         </section>
       </main>
+      <Footer />
     </>
   );
 }
-

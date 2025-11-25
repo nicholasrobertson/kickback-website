@@ -1,6 +1,7 @@
 import { Suspense, lazy, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import StickyContent from './components/StickyContent.jsx';
+import Footer from './components/Footer.jsx';
 import landingContent from './content/pages/landing.json';
 import './Landing.css';
 
@@ -154,6 +155,7 @@ function LandingPage() {
           )}
         </div>
       </main>
+      <Footer />
     </>
   );
 }

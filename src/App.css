@@ -7,7 +7,7 @@
 
 .full {
     width: 100%;
-    max-width: 90vw;
+    
 }
 
 .hero {
@@ -388,7 +388,8 @@
 .socials.detail {
     flex-wrap: wrap;
     gap: 1.5rem;
-    justify-content: flex-start;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .modal-image-container.detail {
@@ -432,6 +433,13 @@
     box-shadow: 1.2rem 1.2rem 0 var(--color-tertiary);
     font-size: clamp(2.2rem, 1vw + 2rem, 3.2rem);
     line-height: 1.7;
+}
+
+.project-card--detail-meta {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    gap: 2rem;
 }
 
 .mission-card h1 {

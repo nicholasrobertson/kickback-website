@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import StickyContent from './components/StickyContent.jsx';
+import Footer from './components/Footer.jsx';
 import { getContent } from './content/helper.js';
 import { formatInline } from './utils/projects.js';
 
@@ -71,6 +72,7 @@ export default function TestimoniesPage({ testimonies = fallbackTestimonies }) {
           </div>
         )}
       </main>
+      <Footer />
     </>
   );
 }

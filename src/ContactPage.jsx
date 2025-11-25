@@ -1,5 +1,6 @@
-import StickyContent from './components/StickyContent.jsx';
 import homeContent from './content/pages/home.json';
+import StickyContent from './components/StickyContent.jsx';
+import Footer from './components/Footer.jsx';
 
 export default function ContactPage() {
   return (
@@ -8,6 +9,7 @@ export default function ContactPage() {
       <main className="project full contact-page">
         <ContactSection />
       </main>
+      <Footer />
     </>
   );
 }

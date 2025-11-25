@@ -505,7 +505,7 @@ main {
 }
 
 main, header, footer {
-    width: 100vw;
+    
     display: flex;
     flex-flow: column nowrap;
     align-items: center;

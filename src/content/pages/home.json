@@ -22,7 +22,8 @@
   "showTeam": true,
   "staticRoutes": [
     { "label": "Home", "to": "/home" },
-    { "label": "Projects", "to": "/projects" },
+    { "label": "Mission", "to": "/mission" },
+    { "label": "Services", "to": "/projects" },
     { "label": "Reports", "to": "/reports" },
     { "label": "Testimonials", "to": "/testimonials" },
     { "label": "Our Community", "to": "/team" },
