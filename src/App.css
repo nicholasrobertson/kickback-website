@@ -7,7 +7,7 @@
 
 .full {
     width: 100%;
-    
+    min-width: 90svw;
 }
 
 .hero {
@@ -104,6 +104,8 @@
     display: flex;
     flex-flow: row wrap;
     margin-bottom: 30vh;
+    transform: translateY(calc(var(--hero-scroll-boost, 0) * -0.4px));
+    transition: transform 0.14s ease-out;
 }
 
 .hero-btn div {
@@ -422,7 +424,7 @@
     background: white;
     color: var(--color-charcoal);
     width: 100%;
-    max-width: 90rem;
+    max-width: 80vw;
     margin-top: 1rem;
     border-radius: 2rem;
     padding: 3rem;

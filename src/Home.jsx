@@ -9,6 +9,7 @@ import { getDescriptionPreview } from './utils/projects.js';
 import { Mission } from './MissionPage.jsx';
 import { TeamSection } from './TeamPage.jsx';
 import { SubstackEmbed } from './ReportsPage.jsx';
+import { useEffect } from 'react';
 
 const projectContent = getContent('projects');
 const articleContent = getContent('articles');
@@ -27,6 +28,50 @@ const partnerTypeOrder = ['seed', 'corporate', 'local'];
 
 export default function Home() {
   const navigate = useNavigate();
+  useEffect(() => {
+    const root = document.documentElement;
+    const sections = Array.from(document.querySelectorAll('main.home-main > section'));
+    const handleScroll = () => {
+      const y = window.scrollY || 0;
+      const boost = Math.min(y * 0.18, 140);
+      root.style.setProperty('--hero-scroll-boost', boost.toFixed(2));
+      const vh = window.innerHeight || 1;
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        const distance = Math.min(rect.top, vh);
+        const progress = Math.max(0, Math.min(1, 1 - distance / (vh * 0.7)));
+        section.style.setProperty('--section-progress', progress.toFixed(3));
+      });
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('section-visible');
+          } else {
+            entry.target.classList.remove('section-visible');
+          }
+        });
+      },
+      {
+        threshold: 0.15,
+        rootMargin: '0px 0px -12% 0px',
+      },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+      observer.disconnect();
+      sections.forEach((section) => section.classList.remove('section-visible'));
+    };
+  }, []);
+
   const sortedActions = [...(homeContent.actions ?? [])].sort(
     (a, b) => (a.order ?? 0) - (b.order ?? 0),
   );
@@ -74,7 +119,7 @@ export default function Home() {
   return (
     <>
       <StickyContent />
-      <main>
+      <main className="home-main">
         <Hero
           rawHeroHeading={rawHeroHeading}
           heroDataText={heroDataText}

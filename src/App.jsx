@@ -25,6 +25,7 @@ function App() {
   return (
     <Router>
       <ScrollToTop />
+      <HeaderScrollEffect />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/landing" element={<LandingPage />} />
@@ -121,6 +122,39 @@ function ScrollToTop() {
       return;
     }
     window.scrollTo({ top: 0, behavior: 'auto' });
+  }, [location.pathname]);
+
+  return null;
+}
+
+function HeaderScrollEffect() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === '/home') {
+      return undefined;
+    }
+
+    const headers = Array.from(document.querySelectorAll('.header-2'));
+    const update = () => {
+      const vh = window.innerHeight || 1;
+      headers.forEach((node) => {
+        const rect = node.getBoundingClientRect();
+        const distance = Math.min(Math.max(rect.top, 0), vh);
+        const progress = Math.max(0, Math.min(1, 1 - distance / (vh * 0.7)));
+        node.style.setProperty('--section-progress', progress.toFixed(3));
+      });
+    };
+
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+
+    return () => {
+      window.removeEventListener('scroll', update);
+      window.removeEventListener('resize', update);
+      headers.forEach((node) => node.style.removeProperty('--section-progress'));
+    };
   }, [location.pathname]);
 
   return null;
