@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://www.kickbackmakechange.org/sitemap.xml
+Host: www.kickbackmakechange.org
