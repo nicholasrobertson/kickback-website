@@ -34,3 +34,34 @@ The site has evolved organically over time and there is currently renewed intere
 We are currently looking for help with web design and styling.
 
 If this sounds like you, please reach out to Nick at nicholas.robertson@sparefish.co.nz
+
+# User / Content Requirements
+Persona’s:
+- Corporate Funder
+- Volunteer
+- Rangatahi
+
+Important Non Functional:
+Needs to be performant for Rangatahi on bad network, can be achieved by
+- Minmal Thirparty JS Packages (bundle size) ✅
+- Landing page with minimal content rendered - avoid heavy image pdf loading ✅
+- Minmal Custom font on landing page. ✅
+Needs to be easy to update by non technical team members
+- Use of Pages CMS for content management ✅
+
+Content Requirements:
+Landing/ home page
+- Mission/ vision ✅ 
+- Photos of the space ✅ 
+- Testimonies ✅ 
+- Need support? ✅
+- Latest news/ media update ✅
+- Donate ✅ 
+Our community
+- Board ✅ 
+Services/ impact
+- The front door ✅
+- Safety net ✅
+- Publications ✅ 
+
+We discussed that the launch of the website could happen alongside our State of the Street event – early Nov to be confirmed/ discussed with Aaron.
