@@ -218,7 +218,8 @@ function LandingPage() {
               className="landing-logo"
               src={logo}
               alt={title ? `${title} logo` : 'Kickback logo'}
-              loading="lazy"
+              fetchpriority="high"
+              decoding="async"
             />
           )}
           {buttons.length > 0 && (
