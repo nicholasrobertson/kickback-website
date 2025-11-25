@@ -131,6 +131,7 @@ export default function Home() {
           actions={sortedActions}
           onHeroAction={handleHeroAction}
         />
+        <ProjectsGalleryMarquee projects={projectContent} />
         <MissionSection />
         <ProjectsSection projects={projectContent} />
         <PromotedArticles />
@@ -629,4 +630,45 @@ function BoardSection({ members = [] }) {
   }
 
   return <TeamSection sectionId="board" members={boardMembers} />;
+}
+
+function ProjectsGalleryMarquee({ projects = [] }) {
+  const galleryImages = (Array.isArray(projects) ? projects : []).flatMap((project) => {
+    const galleryBlocks = Array.isArray(project.gallery) ? project.gallery : [];
+    const projectTitle = project.title ?? 'Project';
+    return galleryBlocks.flatMap((block) => {
+      if (typeof block === 'string') {
+        return [{ src: block, alt: `${projectTitle} gallery` }];
+      }
+      if (Array.isArray(block?.images)) {
+        return block.images.map((src, idx) => ({
+          src,
+          alt: `${projectTitle} gallery ${idx + 1}`,
+        }));
+      }
+      return [];
+    });
+  });
+
+  if (galleryImages.length === 0) {
+    return null;
+  }
+
+  const animationDuration = `${Math.max(100, galleryImages.length * 4)}s`;
+
+  return (
+    <section className="project-gallery-marquee wide" aria-label="Project gallery highlights">
+      <div className="project-gallery-track" style={{ animationDuration }}>
+        {[...galleryImages, ...galleryImages].map((image, index) => (
+          <div
+            className="project-gallery-thumb marquee-thumb"
+            key={`${image.src}-${index}`}
+            aria-hidden={index >= galleryImages.length}
+          >
+            <img src={image.src} alt={image.alt} loading="lazy" />
+          </div>
+        ))}
+      </div>
+    </section>
+  );
 }

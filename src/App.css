@@ -10,6 +10,11 @@
     min-width: 90svw;
 }
 
+.wide {
+    width: 100%;
+    min-width: 100svw;
+}
+
 .hero {
     min-height: 40vh;
 }
@@ -323,6 +328,43 @@
     border-radius: 1.25rem;
     outline: solid 1.5rem white;
     border: 0.125rem solid black;
+    display: block;
+}
+
+.project-gallery-marquee {
+    width: 100%;
+    padding: 8rem 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.project-gallery-track {
+    display: flex;
+    gap: 6rem;
+    align-items: center;
+    width: max-content;
+    animation: project-gallery-pan 1000s linear infinite;
+    will-change: transform;
+    transform: translateZ(0);
+}
+
+.project-gallery-thumb.marquee-thumb {
+    flex: 0 0 auto;
+}
+
+@keyframes project-gallery-pan {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+    to {
+        transform: translate3d(-50%, 0, 0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .project-gallery-track {
+        animation: none;
+    }
 }
 
 .testimonies-section {

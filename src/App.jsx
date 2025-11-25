@@ -26,6 +26,7 @@ function App() {
     <Router>
       <ScrollToTop />
       <HeaderScrollEffect />
+      <SectionFadeIn />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/landing" element={<LandingPage />} />
@@ -154,6 +155,46 @@ function HeaderScrollEffect() {
       window.removeEventListener('scroll', update);
       window.removeEventListener('resize', update);
       headers.forEach((node) => node.style.removeProperty('--section-progress'));
+    };
+  }, [location.pathname]);
+
+  return null;
+}
+
+function SectionFadeIn() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === '/home') {
+      return undefined;
+    }
+
+    const sections = Array.from(document.querySelectorAll('main:not(.home-main) > section'));
+    if (sections.length === 0) {
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('section-visible');
+          } else {
+            entry.target.classList.remove('section-visible');
+          }
+        });
+      },
+      {
+        threshold: 0.12,
+        rootMargin: '0px 0px -12% 0px',
+      },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => {
+      observer.disconnect();
+      sections.forEach((section) => section.classList.remove('section-visible'));
     };
   }, [location.pathname]);
 

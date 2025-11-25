@@ -544,6 +544,19 @@ main section {
     opacity: 1;
 }
 
+main:not(.home-main) > section {
+    --section-enter-offset: -12px;
+    transform: translateY(var(--section-enter-offset));
+    opacity: 0;
+    transition: transform 0.2s ease-out, opacity 0.24s ease-out;
+}
+
+main:not(.home-main) > section.section-visible {
+    --section-enter-offset: 0px;
+    opacity: 1;
+    transform: translateY(0);
+}
+
 /*
 main
     padding-left: 5rem;
@@ -661,13 +674,18 @@ main
         --hero-scroll-boost: 0 !important;
     }
 
-    .hero, .hero-subhead, .home-main > section, .header-2, .hero-h1, #header-logo {
+    .hero, .hero-subhead, .home-main > section, .header-2, .hero-h1, #header-logo, main:not(.home-main) > section {
         transition: none;
         transform: none !important;
     }
 
     .home-main > section {
         --section-progress: 0 !important;
+        opacity: 1 !important;
+        --section-enter-offset: 0px !important;
+    }
+
+    main:not(.home-main) > section {
         opacity: 1 !important;
         --section-enter-offset: 0px !important;
     }

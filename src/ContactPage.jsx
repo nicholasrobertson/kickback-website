@@ -2,6 +2,12 @@ import homeContent from './content/pages/home.json';
 import StickyContent from './components/StickyContent.jsx';
 import Footer from './components/Footer.jsx';
 
+function openUrl(url) {
+  const target = (url ?? '').trim();
+  if (!target) return;
+  window.open(target, '_blank', 'noopener,noreferrer');
+}
+
 export default function ContactPage() {
   return (
     <>
