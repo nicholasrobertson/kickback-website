@@ -984,7 +984,6 @@ footer {
 .people-card {
     border: solid white 0.125rem;
     width: 67.5rem;
-    height: 35.188rem;
     border-radius: 1.375rem;
     padding: 3.125rem;
     background-color: var(--color-charcoal);
@@ -1038,9 +1037,10 @@ footer {
 }
 
 .pc-bio-preview {
-    font-size: 2rem;
+    font-size: 2.5rem;
     color: white;
-    margin-top: 1rem;
+    margin-top: 3rem;
+    line-height: 1.5;
 }
 
 .google-map {

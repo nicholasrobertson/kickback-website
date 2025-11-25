@@ -29,6 +29,8 @@ content:
       - { name: instagramLink, label: Instagram Link (URL), type: string, required: true }
       - { name: phoneDisplay, label: Phone Number (display), type: string, required: true }
       - { name: phoneLink, label: Phone Number (link), type: string, required: true }
+      - { name: address, label: Address, type: string }
+      - { name: mapsLink, label: Maps Link (URL), type: string }
       - { name: email, label: Contact Email, type: string, required: true }
       - { name: h1Text, label: H1 Text, type: string, required: true }
       - { name: h2Text, label: H2 Text, type: string, required: true }

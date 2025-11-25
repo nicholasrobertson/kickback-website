@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import StickyContent from './components/StickyContent.jsx';
 import { Link, useParams } from 'react-router-dom';
 import { getContent } from './content/helper.js';
@@ -106,6 +107,7 @@ function PeopleCard({ person }) {
 
   const handleOpen = (url, event) => {
     if (event) {
+      event.preventDefault();
       event.stopPropagation();
     }
     if (url) {
@@ -143,6 +145,7 @@ function PeopleCard({ person }) {
             </span>
           </div>
         )}
+        {person.bio && <div className="pc-bio-preview">{person.bio}</div>}
       </div>
       {socials.length > 0 && (
         <div className="socials hundy">
@@ -212,6 +215,10 @@ export function TeamMemberPage({ members = fallbackTeam }) {
     }) ?? null;
 
   const firstName = person?.name ? person.name.split(' ')[0] : null;
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  }, [memberId]);
 
   if (!person) {
     return (

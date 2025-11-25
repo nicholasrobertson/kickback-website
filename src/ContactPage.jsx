@@ -17,6 +17,12 @@ export function ContactSection({
   headingPrefix = 'Contact ',
   headingHighlight = 'Us',
 }) {
+  const email = homeContent.email;
+  const phoneDisplay = homeContent.phoneNumber;
+  const phoneLink = homeContent.phoneLink;
+  const address = homeContent.address;
+  const mapsLink = homeContent.mapsLink;
+
   return (
     <section className="people" id={sectionId}>
       <div className="header-2">
@@ -25,91 +31,42 @@ export function ContactSection({
           {headingHighlight}
         </h2>
       </div>
-      <div className="people-cards">
-        <div className="people-card">
-          <div className="pc-header">
-            <div>
-              <div className="edo name">Aaron Hendry</div>
-              <div className="italic prom-2 bold">Founder</div>
-            </div>
-            <div className="avatar-wrapper">
-              <div className="avatar"></div>
-            </div>
+      <div className="contact-card mission-card">
+        {email && (
+          <div className="contact-row">
+            <span className="italic prom-2">e: </span>
+            <a className="email" href={`mailto:${email}`}>
+              {email}
+            </a>
           </div>
-          <div className="pc-body">
-            <div className="pc-email">
-              <div className="">
-                <span className="italic prom-2">e: </span>
-                <span className="email" onClick={() => window.open('mailto:ajhendry@kickbackmakechange.org')}>
-                  ajhendry@kickbackmakechange.org
-                </span>
-              </div>
-            </div>
-            <div className="pc-phone">
-              <div className="">
-                <span className="italic prom-2">m: </span>
-                <span className="">027 534 4417</span>
-              </div>
-            </div>
+        )}
+        {phoneDisplay && (
+          <div className="contact-row">
+            <span className="italic prom-2">m: </span>
+            <a className="phone" href={phoneLink || `tel:${phoneDisplay}`}>
+              {phoneDisplay}
+            </a>
           </div>
-          <div className="socials hundy">
-            <div className="soc-item">
-              <a href="https://www.instagram.com/a.j.hendry/" target="_blank">
-                <span className="socicon socicon-instagram">
-                  <img src="/images/logo-w-insta.png" />
-                </span>
+        )}
+        {address && (
+          <div className="contact-row">
+            <span className="italic prom-2">a: </span>
+            {mapsLink ? (
+              <a className="address" href={mapsLink} target="_blank" rel="noreferrer">
+                {address}
               </a>
-            </div>
-            <div className="soc-item">
-              <a href="https://www.facebook.com/aejayhendry/" target="_blank">
-                <span className="socicon socicon-facebook">
-                  <img src="/images/logo-w-fb.png" />
-                </span>
-              </a>
-            </div>
-            <div className="soc-item">
-              <a
-                href="https://www.linkedin.com/in/aaron-hendry-2687929b/?trk=public_post_follow-view-profile&originalSubdomain=nz"
-                target="_blank"
-              >
-                <span className="socicon socicon-linkedin">
-                  <img src="/images/logo-w-linkedin.png" />
-                </span>
-              </a>
-            </div>
-            <div className="soc-item">
-              <a href="https://twitter.com/AeJayHendry" target="_blank">
-                <span className="socicon socicon-linkedin">
-                  <img src="/images/logo-w-x.png" />
-                </span>
-              </a>
-            </div>
-            <div className="soc-item">
-              <a href="https://open.spotify.com/show/5bNyvdQuTlicXECh340j2U" target="_blank">
-                <span className="socicon socicon-linkedin">
-                  <img src="/images/logo-w-spotify.png" />
-                </span>
-              </a>
-            </div>
-            <div className="soc-item">
-              <a href="https://www.tiktok.com/@a_j_hendry" target="_blank">
-                <span className="socicon socicon-linkedin">
-                  <img src="/images/logo-w-tiktok.webp" />
-                </span>
-              </a>
-            </div>
-            <div
-              className="btn give green"
-              onClick={() =>
-                window.open(
-                  'https://givealittle.co.nz/cause/help-us-kick-back-against-youth-homelessness',
-                  '_blank',
-                )
-              }
-            >
-              Give a Little!
-            </div>
+            ) : (
+              <span className="address">{address}</span>
+            )}
           </div>
+        )}
+      </div>
+            <div className="contact-socials">
+        <div className="messenger" onClick={() => openUrl(homeContent.messengerLink)}>
+          <img id="messenger" src="/images/messenger.svg" alt="Messenger" />
+        </div>
+        <div className="messenger" onClick={() => openUrl(homeContent.instagramLink)}>
+          <img id="messenger" src="/images/logo-insta-full.png" alt="Instagram" />
         </div>
       </div>
     </section>

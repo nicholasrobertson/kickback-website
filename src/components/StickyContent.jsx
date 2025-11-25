@@ -281,7 +281,7 @@ export default function StickyContent({ showBackLink = false, backLinkTo = '/hom
           </div>
           <div className="modal-body mc">
             <div className="messenger" onClick={() => openUrl(homeContent.messengerLink)}>
-              {/* messenger icon intentionally hidden but clickable */}
+              <img id="messenger" src="/images/messenger.svg" alt="Messenger" />
             </div>
             <div className="messenger" onClick={() => openUrl(homeContent.instagramLink)}>
               <img id="messenger" src="/images/logo-insta-full.png" alt="Instagram" />

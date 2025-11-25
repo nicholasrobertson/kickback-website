@@ -1,5 +1,5 @@
-import { Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { Suspense, lazy, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import StickyContent from './components/StickyContent.jsx';
 import landingContent from './content/pages/landing.json';
 import './Landing.css';
@@ -23,6 +23,7 @@ const suspenseFallback = (
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/landing" element={<LandingPage />} />
@@ -109,6 +110,19 @@ function App() {
       </Routes>
     </Router>
   );
+}
+
+function ScrollToTop() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === '/home') {
+      return;
+    }
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  }, [location.pathname]);
+
+  return null;
 }
 
 function LandingPage() {
