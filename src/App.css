@@ -329,6 +329,7 @@
     outline: solid 1.5rem white;
     border: 0.125rem solid black;
     display: block;
+    pointer-events: none;
 }
 
 .project-gallery-marquee {
@@ -343,9 +344,12 @@
     gap: 6rem;
     align-items: center;
     width: max-content;
-    animation: project-gallery-pan 1000s linear infinite;
+    animation: none;
     will-change: transform;
     transform: translateZ(0);
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-user-drag: none;
 }
 
 .project-gallery-thumb.marquee-thumb {

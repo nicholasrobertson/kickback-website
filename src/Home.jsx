@@ -9,7 +9,7 @@ import { getDescriptionPreview } from './utils/projects.js';
 import { Mission } from './MissionPage.jsx';
 import { TeamSection } from './TeamPage.jsx';
 import { SubstackEmbed } from './ReportsPage.jsx';
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const projectContent = getContent('projects');
 const articleContent = getContent('articles');
@@ -654,11 +654,111 @@ function ProjectsGalleryMarquee({ projects = [] }) {
     return null;
   }
 
-  const animationDuration = `${Math.max(100, galleryImages.length * 4)}s`;
+  const trackRef = useRef(null);
+  const frameRef = useRef(null);
+  const lastTimeRef = useRef(null);
+  const offsetRef = useRef(0);
+  const loopWidthRef = useRef(0);
+  const isPointerDownRef = useRef(false);
+  const startXRef = useRef(0);
+  const startOffsetRef = useRef(0);
+  const [isDragging, setIsDragging] = useState(false);
+
+  const applyTransform = () => {
+    const track = trackRef.current;
+    if (!track || loopWidthRef.current === 0) return;
+    track.style.transform = `translate3d(${-offsetRef.current}px, 0, 0)`;
+  };
+
+  const startAuto = () => {
+    stopAuto();
+    const speed = 12; // px per second
+    lastTimeRef.current = performance.now();
+    const step = (timestamp) => {
+      const last = lastTimeRef.current ?? timestamp;
+      const deltaSeconds = (timestamp - last) / 1000;
+      lastTimeRef.current = timestamp;
+      const loopWidth = loopWidthRef.current || 1;
+      offsetRef.current = (offsetRef.current + speed * deltaSeconds) % loopWidth;
+      applyTransform();
+      frameRef.current = requestAnimationFrame(step);
+    };
+    frameRef.current = requestAnimationFrame(step);
+  };
+
+  const stopAuto = () => {
+    if (frameRef.current) {
+      cancelAnimationFrame(frameRef.current);
+      frameRef.current = null;
+    }
+  };
+
+  const handlePointerDown = (event) => {
+    const x = event.clientX ?? event.touches?.[0]?.clientX;
+    if (typeof x !== 'number') return;
+    event.preventDefault();
+    isPointerDownRef.current = true;
+    setIsDragging(true);
+    stopAuto();
+    startXRef.current = x;
+    startOffsetRef.current = offsetRef.current;
+  };
+
+  const handlePointerMove = (event) => {
+    if (!isPointerDownRef.current) return;
+    const x = event.clientX ?? event.touches?.[0]?.clientX;
+    if (typeof x !== 'number') return;
+    event.preventDefault();
+    const delta = x - startXRef.current;
+    const loopWidth = loopWidthRef.current || 1;
+    let next = startOffsetRef.current - delta;
+    while (next < 0) {
+      next += loopWidth;
+    }
+    offsetRef.current = next % loopWidth;
+    applyTransform();
+  };
+
+  const handlePointerUp = () => {
+    if (!isPointerDownRef.current) return;
+    isPointerDownRef.current = false;
+    setIsDragging(false);
+    startAuto();
+  };
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return undefined;
+
+    const measure = () => {
+      const totalWidth = track.scrollWidth;
+      loopWidthRef.current = totalWidth / 2 || totalWidth || 1;
+      offsetRef.current = offsetRef.current % loopWidthRef.current;
+      applyTransform();
+    };
+
+    measure();
+    startAuto();
+
+    window.addEventListener('resize', measure);
+    return () => {
+      stopAuto();
+      window.removeEventListener('resize', measure);
+    };
+  }, [galleryImages.length]);
 
   return (
     <section className="project-gallery-marquee wide" aria-label="Project gallery highlights">
-      <div className="project-gallery-track" style={{ animationDuration }}>
+      <div
+        className="project-gallery-track"
+        ref={trackRef}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerUp}
+        onPointerCancel={handlePointerUp}
+        onDragStart={(e) => e.preventDefault()}
+        style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
+      >
         {[...galleryImages, ...galleryImages].map((image, index) => (
           <div
             className="project-gallery-thumb marquee-thumb"
