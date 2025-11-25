@@ -334,7 +334,7 @@
 
 .project-gallery-marquee {
     width: 100%;
-    padding: 8rem 0;
+    padding: 8rem 0 30rem 0;
     overflow: hidden;
     position: relative;
 }

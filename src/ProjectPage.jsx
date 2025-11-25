@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import './App.css';
 import { getContent } from './content/helper.js';
@@ -249,18 +249,40 @@ function ProjectPage({ projects = fallbackProjects }) {
 }
 
 function RssAppFeed({ feedId }) {
+  const feedContainerRef = useRef(null);
+
   useEffect(() => {
+    if (!feedId) {
+      return undefined;
+    }
+
+    const container = feedContainerRef.current;
+    if (container) {
+      container.innerHTML = '';
+      const widget = document.createElement('rssapp-imageboard');
+      widget.setAttribute('id', feedId);
+      container.appendChild(widget);
+    }
+
     const existing = document.querySelector('script[data-rssapp-widget="imageboard"]');
     if (existing) {
-      return;
+      existing.remove();
     }
+
     const script = document.createElement('script');
     script.src = 'https://widget.rss.app/v1/imageboard.js';
     script.type = 'text/javascript';
     script.async = true;
     script.dataset.rssappWidget = 'imageboard';
     document.body.appendChild(script);
-  }, []);
+
+    return () => {
+      script.remove();
+      if (container) {
+        container.innerHTML = '';
+      }
+    };
+  }, [feedId]);
 
   if (!feedId) {
     return null;
@@ -273,7 +295,7 @@ function RssAppFeed({ feedId }) {
               <span className="prom-2">Latest </span>News
             </h2>
           </div>
-            <div className="project-rssapp">
+            <div className="project-rssapp" ref={feedContainerRef}>
               <rssapp-imageboard id={feedId}></rssapp-imageboard>
             </div>
         </section>
