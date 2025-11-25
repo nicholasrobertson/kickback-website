@@ -41,6 +41,7 @@ function ProjectPage({ projects = fallbackProjects }) {
   const { projectId } = useParams();
   const project =
     projects.find((item) => (item.id ?? item.slug ?? item.title) === projectId) ?? null;
+  const showRssAppFeed = Boolean(project?.showRssAppFeed && project?.rssAppFeedId);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'auto' });
@@ -109,6 +110,7 @@ function ProjectPage({ projects = fallbackProjects }) {
           {bodyHtml && (
             <div className="p-body italic" dangerouslySetInnerHTML={{ __html: bodyHtml }} />
           )}
+          
           {actions.length > 0 && (
             <div className="socials detail">
               {actions.map((action, index) => {
@@ -219,6 +221,7 @@ function ProjectPage({ projects = fallbackProjects }) {
           </div>
         )}
       </section>
+      {showRssAppFeed && <RssAppFeed feedId={project.rssAppFeedId} />}
       {otherProjects.length > 0 && (
         <section className="project full">
           <div className="header-2">
@@ -236,6 +239,38 @@ function ProjectPage({ projects = fallbackProjects }) {
       )}
     </main>
     </>
+  );
+}
+
+function RssAppFeed({ feedId }) {
+  useEffect(() => {
+    const existing = document.querySelector('script[data-rssapp-widget="imageboard"]');
+    if (existing) {
+      return;
+    }
+    const script = document.createElement('script');
+    script.src = 'https://widget.rss.app/v1/imageboard.js';
+    script.type = 'text/javascript';
+    script.async = true;
+    script.dataset.rssappWidget = 'imageboard';
+    document.body.appendChild(script);
+  }, []);
+
+  if (!feedId) {
+    return null;
+  }
+
+  return (
+     <section className="project full">
+          <div className="header-2">
+            <h2 className="italic edo">
+              <span className="prom-2">Latest </span>News
+            </h2>
+          </div>
+            <div className="project-rssapp">
+              <rssapp-imageboard id={feedId}></rssapp-imageboard>
+            </div>
+        </section>
   );
 }
 

@@ -226,6 +226,8 @@ content:
         label: Description
         type: rich-text
         options: { media: images }
+      - { name: showRssAppFeed, label: Show RSS App Feed Link, type: boolean, default: false }
+      - { name: rssAppFeedId, label: RSS App Feed URL, type: string }
 
   # Partners
   - name: partners

@@ -315,7 +315,7 @@ function Testimonies({ testimonies = testimonyContent }) {
     if (!testimony?.id) {
       return;
     }
-    navigate(`/testimonies?id=${encodeURIComponent(testimony.id)}`);
+    navigate(`/testimonials?id=${encodeURIComponent(testimony.id)}`);
   };
 
   const renderMeta = (testimony) => {
@@ -327,7 +327,7 @@ function Testimonies({ testimonies = testimonyContent }) {
     <section className="project testimonies-section" id="testimonies">
       <div className="header-2">
         <h2 className="italic">
-          <span className="prom-2">Our </span>Testimonies
+          <span className="prom-2">Our </span>Testimonials
         </h2>
       </div>
       <div className="testimony-grid">

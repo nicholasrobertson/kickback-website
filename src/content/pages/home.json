@@ -21,7 +21,7 @@
     { "label": "Home", "to": "/home" },
     { "label": "Projects", "to": "/projects" },
     { "label": "Reports", "to": "/reports" },
-    { "label": "Testimonials", "to": "/testimonies" },
+    { "label": "Testimonials", "to": "/testimonials" },
     { "label": "Our Community", "to": "/team" },
     { "label": "Contact", "to": "/contact" }
   ],

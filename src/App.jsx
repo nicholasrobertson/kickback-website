@@ -50,7 +50,7 @@ function App() {
           }
         />
         <Route
-          path="/testimonies"
+          path="/testimonials"
           element={
             <Suspense fallback={suspenseFallback}>
               <TestimoniesPage />

@@ -43,5 +43,7 @@
       "url": "#contact",
       "order": 10
     }
-  ]
+  ],
+  "showRssAppFeed": true,
+  "rssAppFeedId": "IC6pJbnZmdFDZDec"
 }
