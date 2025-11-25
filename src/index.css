@@ -546,6 +546,77 @@ main
 
 .hero-subhead {
     transform: rotate(-5deg);
+    width: fit-content;
+}
+
+.hero-h1,
+.hero-subhead .end {
+    position: relative;
+    isolation: isolate;
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+    animation: graffiti-reveal .8s ease-out forwards;
+    
+}
+
+.hero-subhead .end {
+    animation-delay: 0.3s;
+}
+
+.hero-h1::after,
+.hero-subhead .end::after {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    white-space: pre-wrap;
+    color: var(--color-highlight);
+    opacity: 0.5;
+    filter: blur(0.65rem);
+    mix-blend-mode: screen;
+    pointer-events: none;
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+    background:
+        radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.35) 0, transparent 45%),
+        radial-gradient(circle at 80% 60%, rgba(255, 102, 196, 0.35) 0, transparent 55%);
+    animation: graffiti-reveal .8s ease-out forwards, graffiti-fade 2s ease-out forwards;
+}
+
+.hero-subhead .end::after {
+    animation-delay: 0.2s, 0.2s;
+}
+
+@keyframes graffiti-reveal {
+    to {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+}
+
+@keyframes graffiti-fade {
+    0% {
+        opacity: 0.65;
+        filter: blur(1rem);
+    }
+
+    70% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 0;
+        filter: blur(0.2rem);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-h1, .hero-subhead .end {
+        animation: none;
+        clip-path: none;
+    }
+
+    .hero-h1::after, .hero-subhead .end::after {
+        animation: none;
+        opacity: 0;
+        clip-path: none;
+    }
 }
 
 .italic {
@@ -1256,6 +1327,7 @@ footer {
     padding: 6rem 3rem 5rem;
     display: flex;
     justify-content: center;
+    width: 100svw;
 }
 
 .site-footer .footer-inner {
@@ -1427,7 +1499,7 @@ footer {
 
 .end {
     font-size: 6rem;
-    padding-bottom: 15rem;
+    margin-bottom: 15rem;
     font-weight: normal;
     font-family: 'Bebas Neue', sans-serif;
     color: var(--color-tertiary);       

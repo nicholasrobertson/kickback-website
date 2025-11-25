@@ -40,6 +40,9 @@ export default function Home() {
   } else if (heroWords.length === 1) {
     heroHighlight = heroWords[0];
   }
+  const heroDataText = heroHighlight
+    ? `${heroPrefix ? `${heroPrefix}\n` : ''}${heroHighlight}`
+    : rawHeroHeading;
   const subheadingText = (homeContent.h2Text ?? '').trim();
   const [subheadingFirstWord, ...subheadingRestWords] = subheadingText
     ? subheadingText.split(' ')
@@ -74,10 +77,12 @@ export default function Home() {
       <main>
         <Hero
           rawHeroHeading={rawHeroHeading}
+          heroDataText={heroDataText}
           heroHighlight={heroHighlight}
           heroPrefix={heroPrefix}
           subheadingFirstWord={subheadingFirstWord}
           subheadingRest={subheadingRest}
+          subheadingText={subheadingText}
           actions={sortedActions}
           onHeroAction={handleHeroAction}
         />
@@ -97,10 +102,12 @@ export default function Home() {
 
 function Hero({
   rawHeroHeading,
+  heroDataText = '',
   heroHighlight,
   heroPrefix,
   subheadingFirstWord,
   subheadingRest,
+  subheadingText = '',
   actions,
   onHeroAction,
 }) {
@@ -109,7 +116,7 @@ function Hero({
   return (
     <>
       <section className="hero">
-        <h1 className='hero-h1'>
+        <h1 className='hero-h1' data-text={heroDataText}>
           {heroHighlight ? (
             <>
               {heroPrefix && (
@@ -128,10 +135,12 @@ function Hero({
         </h1>
         <img id="header-logo" src="/images/logo-kickback-dark.svg" alt="Kick Back Logo" />
       </section>
-      <section className="hero-subhead">
-        <div className="end edo">
+      <section className="">
+        <div className="hero-subhead">
+        <div className="end edo" data-text={subheadingText}>
           {subheadingFirstWord && <span style={{ color: 'white' }}>{subheadingFirstWord}</span>}
           {subheadingRest && <span> {subheadingRest}</span>}
+        </div>
         </div>
       </section>
       {hasActions && (
