@@ -5,8 +5,6 @@ import App from './App.jsx';
 
 export function render(url) {
   return renderToString(
-    <StaticRouter location={url}>
-      <App />
-    </StaticRouter>,
+    <App RouterComponent={StaticRouter} routerProps={{ location: url }} />,
   );
 }

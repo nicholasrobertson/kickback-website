@@ -21,9 +21,9 @@ const suspenseFallback = (
   </div>
 );
 
-function App() {
+function App({ RouterComponent = Router, routerProps = {} }) {
   return (
-    <Router>
+    <RouterComponent {...routerProps}>
       <ScrollToTop />
       <HeaderScrollEffect />
       <SectionFadeIn />
@@ -111,7 +111,7 @@ function App() {
           }
         />
       </Routes>
-    </Router>
+    </RouterComponent>
   );
 }
 
@@ -218,7 +218,7 @@ function LandingPage() {
               className="landing-logo"
               src={logo}
               alt={title ? `${title} logo` : 'Kickback logo'}
-              fetchpriority="high"
+              fetchPriority="high"
               decoding="async"
             />
           )}

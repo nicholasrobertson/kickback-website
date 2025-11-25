@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { ssrLoadModule } from 'vite';
+import { createServer } from 'vite';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -79,9 +79,14 @@ async function prerender() {
   }
 
   const template = fs.readFileSync(path.join(distDir, 'index.html'), 'utf-8');
-  const { render } = await ssrLoadModule(path.join(projectRoot, 'src', 'entry-server.jsx'), {
+  const vite = await createServer({
     root: projectRoot,
+    logLevel: 'error',
+    server: { middlewareMode: true },
+    appType: 'custom',
   });
+
+  const { render } = await vite.ssrLoadModule('/src/entry-server.jsx');
 
   const routes = buildRouteList();
   console.log(`Prerendering ${routes.length} routes...`);
@@ -96,6 +101,8 @@ async function prerender() {
     fs.mkdirSync(path.dirname(outPath), { recursive: true });
     fs.writeFileSync(outPath, html, 'utf-8');
   }
+
+  await vite.close();
 
   writeRobots(routes);
   writeSitemap(routes);
