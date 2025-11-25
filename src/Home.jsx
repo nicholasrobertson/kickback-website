@@ -5,6 +5,7 @@ import { getContent } from './content/helper.js';
 import { ProjectMiniCard } from './components/ProjectMiniCard.jsx';
 import StickyContent from './components/StickyContent.jsx';
 import { getDescriptionPreview } from './utils/projects.js';
+import { Mission } from './MissionPage.jsx';
 
 const projectContent = getContent('projects');
 const articleContent = getContent('articles');
@@ -69,6 +70,7 @@ export default function Home() {
           actions={sortedActions}
           onHeroAction={handleHeroAction}
         />
+        <MissionSection />
         <ProjectsSection projects={projectContent} />
         <PromotedArticles />
         <Testimonies testimonies={testimonyContent} />
@@ -164,6 +166,25 @@ export function ProjectsSection({ projects = projectContent }) {
     </>
   );
 }
+
+function MissionSection() {
+
+  return (
+    <>
+      <section className="project" id="front-door-head">
+        <div className="header-2">
+          <h2 className="italic edo">
+            <span className="prom-2">Our </span>Mission
+          </h2>
+        </div>
+      </section>
+      <section className="project project-grid" id="front-door">
+        <Mission previewOnly={true} />
+      </section>
+    </>
+  );
+}
+
 
 
 function Gallery() {
@@ -332,7 +353,6 @@ function Testimonies({ testimonies = testimonyContent }) {
       </div>
       <div className="testimony-grid">
         {items.map((testimony) => {
-          const imageSrc = testimony.image || './images/header-placeholder.jpg';
           const bodyPreview = getDescriptionPreview(testimony.body ?? '', 120);
           return (
             <div
@@ -351,7 +371,6 @@ function Testimonies({ testimonies = testimonyContent }) {
               <div className="testimony-card-body">
                 {bodyPreview && <div className="testimony-quote">“{bodyPreview}”</div>}
                 <div className="testimony-meta">
-                  <img className="testimony-avatar" src={imageSrc} alt={`${testimony.author} avatar`} />
                   <span>{renderMeta(testimony) || testimony.author}</span>
                 </div>
                 {testimony.video && <div className="testimony-tag">Video</div>}

@@ -368,18 +368,8 @@
 .testimony-meta {
     font-size: 1.5rem;
     color: rgba(0, 0, 0, 0.75);
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 1rem;
-}
-
-.testimony-avatar {
-    width: 4.5rem;
-    height: 4.5rem;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 0.2rem solid var(--color-quarter);
-    background-color: white;
 }
 
 .testimony-tag {

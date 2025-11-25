@@ -18,7 +18,6 @@ function Card({ testimony, variant = 'secondary' }) {
   if (!testimony) {
     return null;
   }
-  const imageSrc = testimony.image || './images/header-placeholder.jpg';
   const className = `testimony-card${variant === 'primary' ? ' primary' : ''}`;
   const metaText = MetaText(testimony);
 
@@ -32,7 +31,6 @@ function Card({ testimony, variant = 'secondary' }) {
           />
         )}
         <div className="testimony-meta">
-          <img className="testimony-avatar" src={imageSrc} alt={`${testimony.author} avatar`} />
           <span>{metaText}</span>
         </div>
         {testimony.video && <div className="testimony-tag">Video</div>}

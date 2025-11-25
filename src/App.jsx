@@ -12,6 +12,7 @@ const ReportsPage = lazy(() => import('./ReportsPage.jsx'));
 const ReportPage = lazy(() => import('./ReportPage.jsx'));
 const TeamPage = lazy(() => import('./TeamPage.jsx'));
 const ContactPage = lazy(() => import('./ContactPage.jsx'));
+const MissionPage = lazy(() => import('./MissionPage.jsx'));
 
 const suspenseFallback = (
   <div className="route-fallback" aria-live="polite">
@@ -86,6 +87,14 @@ function App() {
           element={
             <Suspense fallback={suspenseFallback}>
               <ContactPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/mission"
+          element={
+            <Suspense fallback={suspenseFallback}>
+              <MissionPage />
             </Suspense>
           }
         />

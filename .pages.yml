@@ -299,7 +299,6 @@ content:
       - { name: title, label: Title, type: string, required: true }
       - { name: author, label: Author, type: string, required: true }
       - { name: organisation, label: Organisation, type: string }
-      - { name: image, label: Image, type: image, options: { media: images } }
       - { name: video, label: Video URL (optional), type: string }
       - { name: body, label: Body Content, type: rich-text, options: { media: images }, required: true }
       - { name: body, label: Body Content, type: rich-text, options: { media: images } }
