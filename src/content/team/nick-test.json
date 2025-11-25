@@ -1,0 +1,11 @@
+{
+  "name": "Nick Test",
+  "role": "Youth ",
+  "dept": "volunteers",
+  "phone": "0274129384",
+  "email": "nick@unit.nz",
+  "bio": "Nick wants to test whether this turns up on the home page, hopefully not",
+  "longBio": "Nick wants to test whether this turns up on the home page, hopefully not.\n\nThis is some more long text to round out the bio\n\n# header text to see if it renders\n\nNick nick nick",
+  "onHomePage": false,
+  "order": 9999
+}
