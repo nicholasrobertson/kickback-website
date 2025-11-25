@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import StickyContent from './components/StickyContent.jsx';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getContent } from './content/helper.js';
 
 const fallbackTeam = getContent('team');
@@ -96,14 +96,14 @@ function PeopleCard({ person }) {
   if (!person) {
     return null;
   }
+  const navigate = useNavigate();
   const deptLabel = deptLabels[person.dept] ?? person.dept ?? '';
   const socials = Array.isArray(person.social)
     ? [...person.social].sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
     : [];
   const avatarStyle = person.photo ? { backgroundImage: `url(${person.photo})` } : undefined;
   const detailPath = getPersonPath(person);
-  const CardComponent = detailPath ? Link : 'div';
-  const cardProps = detailPath ? { to: detailPath } : {};
+  const isNavigable = Boolean(detailPath);
 
   const handleOpen = (url, event) => {
     if (event) {
@@ -115,8 +115,31 @@ function PeopleCard({ person }) {
     }
   };
 
+  const handleCardActivate = (event) => {
+    if (!detailPath) return;
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    navigate(detailPath);
+  };
+
+  const handleKeyDown = (event) => {
+    if (!detailPath) return;
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      handleCardActivate(event);
+    }
+  };
+
   return (
-    <CardComponent className={`people-card${detailPath ? ' people-card-link' : ''}`} {...cardProps}>
+    <article
+      className={`people-card${isNavigable ? ' people-card-link' : ''}`}
+      role={isNavigable ? 'button' : undefined}
+      tabIndex={isNavigable ? 0 : undefined}
+      onClick={isNavigable ? handleCardActivate : undefined}
+      onKeyDown={isNavigable ? handleKeyDown : undefined}
+    >
       <div className="pc-header">
         <div>
           <div className="edo name">{person.name ?? 'Team member'}</div>
@@ -165,7 +188,7 @@ function PeopleCard({ person }) {
           ))}
         </div>
       )}
-    </CardComponent>
+    </article>
   );
 }
 
@@ -243,6 +266,20 @@ export function TeamMemberPage({ members = fallbackTeam }) {
   const bioHtml =
     person.longBio?.trim() ||
     (person.bio ? person.bio.replace(/\n/g, '<br />') : '<p>Bio coming soon.</p>');
+  const personDept = person.dept ?? '';
+  const deptLabel = (deptLabels[personDept] ?? personDept) || 'Team';
+  const personSlug = getPersonSlug(person);
+  const otherMembers = sortTeam(
+    list.filter((member) => {
+      if (!member) return false;
+      if ((member.dept ?? '') !== personDept) return false;
+      const memberSlug = getPersonSlug(member);
+      const sameId = Boolean(person.id) && member.id === person.id;
+      const sameSlug =
+        (memberSlug && memberSlug === memberId) || (personSlug && memberSlug === personSlug);
+      return member !== person && !sameId && !sameSlug;
+    }),
+  );
 
   return (
     <>
@@ -261,6 +298,21 @@ export function TeamMemberPage({ members = fallbackTeam }) {
           <article className="mission-card team-bio-card">
             <div className="mission-markdown" dangerouslySetInnerHTML={{ __html: bioHtml }} />
           </article>
+          {otherMembers.length > 0 && (
+            <section className="team-peers">
+              <div className="header-2">
+                <h2>
+                  <span className="italic prom-2">Other </span>
+                  {deptLabel}
+                </h2>
+              </div>
+              <div className="people-cards">
+                {otherMembers.map((member) => (
+                  <PeopleCard key={getPersonKey(member)} person={member} />
+                ))}
+              </div>
+            </section>
+          )}
         </section>
       </main>
     </>

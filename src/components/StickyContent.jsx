@@ -52,7 +52,7 @@ export default function StickyContent({ showBackLink = false, backLinkTo = '/hom
   const textInnerText = isHeaderOpen ? '' : headerButtonPrompt;
   const phoneLink = homeContent.phoneLink ?? 'tel:0800-5425-2225';
   const phoneDisplay = homeContent.phoneDisplay ?? 'Call 0800 kick back 📞';
-  const actions = useMemo(() => sortActions(homeContent.actions ?? [], {label: homeContent?.headerButtonText, url: '#contact'}), []);
+  const actions = useMemo(() => sortActions(homeContent.actions ?? [], {label: homeContent?.headerButtonText, url: '/contact'}), []);
   const staticRoutes = useMemo(
     () => (Array.isArray(homeContent.staticRoutes) ? homeContent.staticRoutes : []),
     []

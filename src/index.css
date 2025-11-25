@@ -1054,7 +1054,6 @@ footer {
     justify-content: center;
     align-items: center;
     background-color: #252525;
-    
     font-size: 2rem;
     letter-spacing: .3rem;
     text-transform: uppercase;
@@ -1245,6 +1244,127 @@ footer {
     100% {
         transform: rotateY(0deg);
         opacity: 1;
+    }
+}
+
+.site-footer {
+    background-color: var(--color-charcoal);
+    color: white;
+    font-size: 2.4rem;
+    letter-spacing: normal;
+    text-transform: none;
+    padding: 6rem 3rem 5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.site-footer .footer-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+}
+
+.site-footer .footer-brand {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2rem;
+}
+
+.site-footer .footer-heading {
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.site-footer .footer-logo {
+    height: 6rem;
+    width: auto;
+}
+
+.site-footer .footer-grid {
+    display: flex;
+    flex-flow: column wrap;
+}
+
+.site-footer .footer-nav {
+    position: static;
+    width: auto;
+    min-height: 0;
+    background: transparent;
+    color: inherit;
+    top: auto;
+    left: auto;
+    z-index: auto;
+}
+
+.site-footer .footer-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.site-footer .footer-subheading {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.site-footer .footer-contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.site-footer .footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.site-footer .footer-link {
+    color: white;
+    text-decoration: none;
+    font-size: 2.2rem;
+    font-weight: 500;
+}
+
+.site-footer .footer-link:hover,
+.site-footer .footer-link:focus {
+    color: var(--color-highlight);
+}
+
+.site-footer .footer-social-icons {
+    display: flex;
+    gap: 5rem;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 5rem;
+}
+
+.site-footer .footer-social-icons img {
+    width: 5rem;
+    height: 5rem;
+    object-fit: contain;
+    filter: drop-shadow(0 0 0.5rem rgba(0, 0, 0, 0.3));
+}
+
+@media (max-width: 768px) {
+    .site-footer {
+        padding: 5rem 2.4rem;
+    }
+
+    .site-footer .footer-heading {
+        font-size: 2.6rem;
+    }
+
+    .site-footer .footer-link {
+        font-size: 2rem;
     }
 }
 

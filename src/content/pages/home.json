@@ -31,7 +31,7 @@
   "actions": [
     {
       "label": "Join Us 🫱🏼‍🫲🏾",
-      "url": "#contact",
+      "url": "/contact",
       "order": 0
     },
     {

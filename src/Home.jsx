@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './App.css';
 import homeContent from './content/pages/home.json';
 import { getContent } from './content/helper.js';
@@ -6,12 +6,13 @@ import { ProjectMiniCard } from './components/ProjectMiniCard.jsx';
 import StickyContent from './components/StickyContent.jsx';
 import { getDescriptionPreview } from './utils/projects.js';
 import { Mission } from './MissionPage.jsx';
-import { ContactSection } from './ContactPage.jsx';
+import { TeamSection } from './TeamPage.jsx';
 
 const projectContent = getContent('projects');
 const articleContent = getContent('articles');
 const partnerContent = getContent('partners');
 const testimonyContent = getContent('testimonies');
+const teamContent = getContent('team');
 
 const partnerTypeLabels = {
   seed: 'Visionary Seed Funders',
@@ -22,6 +23,7 @@ const partnerTypeLabels = {
 const partnerTypeOrder = ['seed', 'corporate', 'local'];
 
 export default function Home() {
+  const navigate = useNavigate();
   const sortedActions = [...(homeContent.actions ?? [])].sort(
     (a, b) => (a.order ?? 0) - (b.order ?? 0),
   );
@@ -48,14 +50,19 @@ export default function Home() {
     }
   };
   const handleHeroAction = (action) => {
-    if (!action?.url) {
+    const target = action?.url?.trim();
+    if (!target) {
       return;
     }
-    if (action.url.startsWith('#')) {
-      scrollToId(action.url.slice(1));
-    } else {
-      window.open(action.url, '_blank');
+    if (target.startsWith('#')) {
+      scrollToId(target.slice(1));
+      return;
     }
+    if (target.startsWith('/')) {
+      navigate(target);
+      return;
+    }
+    window.open(target, '_blank');
   };
 
   return (
@@ -77,12 +84,9 @@ export default function Home() {
         <Testimonies testimonies={testimonyContent} />
         <Partners scrollToId={scrollToId} partners={partnerContent} />
         <Articles articles={articleContent} />
-        <ContactSection />
+        <BoardSection members={teamContent} />
       </main>
-      <footer>
-        <div className="footer">
-        </div>
-      </footer>
+      <HomeFooter routes={homeContent.staticRoutes} />
     </>
   );
 }
@@ -496,5 +500,90 @@ function Articles({ articles = [] }) {
         ))}
       </div>
     </section>
+  );
+}
+
+function BoardSection({ members = [] }) {
+  const boardMembers = Array.isArray(members)
+    ? members.filter(
+        (member) =>
+          (member?.dept ?? '').toLowerCase() === 'board' && member?.onHomePage !== false,
+      )
+    : [];
+
+  if (boardMembers.length === 0) {
+    return null;
+  }
+
+  return <TeamSection sectionId="board" members={boardMembers} />;
+}
+
+function HomeFooter({ routes = [] }) {
+  const phoneDisplay = homeContent.phoneNumber ?? homeContent.phoneDisplay;
+  const phoneLink = homeContent.phoneLink ?? (phoneDisplay ? `tel:${phoneDisplay}` : null);
+  const email = homeContent.email;
+  const address = homeContent.address;
+  const mapsLink = homeContent.mapsLink;
+  const messengerLink = homeContent.messengerLink;
+  const instagramLink = homeContent.instagramLink;
+
+  const navLinks = Array.isArray(routes)
+    ? routes.filter((route) => route?.label && route?.to)
+    : [];
+
+  return (
+    <footer className="site-footer" id="contact">
+      <div className="footer-inner">
+        <div className="footer-brand">
+          <div className="footer-heading">KICK BACK MAKE CHANGE CHARITABLE TRUST</div>
+          <img
+            className="footer-logo"
+            src="/images/logo-kickback-dark.svg"
+            alt="Kick Back Make Change logo"
+            loading="lazy"
+          />
+        </div>
+        <div className="footer-grid">
+          <div className="footer-column footer-contact">
+            <div className="footer-subheading">Contact</div>
+            <div className="footer-contact-details">
+              {email && (
+                <a className="footer-link" href={`mailto:${email}`}>
+                  {email}
+                </a>
+              )}
+              {phoneDisplay && (
+                <a className="footer-link" href={phoneLink ?? `tel:${phoneDisplay}`}>
+                  {phoneDisplay}
+                </a>
+              )}
+              {address && (
+                mapsLink ? (
+                  <a className="footer-link" href={mapsLink} target="_blank" rel="noreferrer">
+                    {address}
+                  </a>
+                ) : (
+                  <span className="footer-link">{address}</span>
+                )
+              )}
+            </div>
+          <div className="footer-column footer-social">
+            <div className="footer-social-icons">
+              {messengerLink && (
+                <a href={messengerLink} target="_blank" rel="noreferrer" aria-label="Messenger">
+                  <img src="/images/messenger.svg" alt="Messenger" />
+                </a>
+              )}
+              {instagramLink && (
+                <a href={instagramLink} target="_blank" rel="noreferrer" aria-label="Instagram">
+                  <img src="/images/logo-insta-full.png" alt="Instagram" />
+                </a>
+              )}
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </footer>
   );
 }

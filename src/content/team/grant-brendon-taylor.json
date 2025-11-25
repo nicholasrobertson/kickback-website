@@ -5,7 +5,7 @@
   "photo": "/images/grant.jpeg",
   "bio": "Grant has experience with governance, audit, and risk across community organisations.",
   "longBio": "Grant Brendon Taylor is a board member with governance, audit, and risk experience across community organisations. He has advised not-for-profits on financial stewardship and compliance, helping teams stay focused on their mission while meeting funder obligations.\n\nGrant cares deeply about safe, sustainable services for rangatahi and brings a steady hand to Kick Back's oversight and planning.",
-  "onHomePage": false,
+  "onHomePage": true,
   "order": 3,
   "social": [
     {

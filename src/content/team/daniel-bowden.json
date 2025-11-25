@@ -3,9 +3,9 @@
   "role": "Board Member",
   "dept": "board",
   "photo": "/images/dan.jpeg",
-  "bio": "Dan hasa background in finance and community fundraising for youth services.",
+  "bio": "Dan has a background in finance and community fundraising for youth services.",
   "longBio": "Daniel Bowden is a board member with a background in finance and community fundraising for youth services. He has supported housing and rangatahi-focused charities across Tāmaki Makaurau and brings a practical lens to budgeting and governance decisions.\n\nDaniel is passionate about making sure resources reach the front line and that every dollar goes further for young people experiencing homelessness.",
-  "onHomePage": false,
+  "onHomePage": true,
   "order": 2,
   "social": [
     {

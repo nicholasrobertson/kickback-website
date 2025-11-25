@@ -3,9 +3,9 @@
   "role": "Board Member",
   "dept": "board",
   "photo": "/images/peter.jpeg",
-  "bio": "Peter has with experience in operations, technology, and scaling community services.",
+  "bio": "Peter has experience in operations, technology, and scaling community services.",
   "longBio": "Peter Shimwell is a board member with experience in operations, technology, and scaling community services. He has supported teams rolling out digital tools to improve service delivery and is focused on practical systems that help rangatahi get support faster.\n\nPeter brings a solutions mindset to Kick Back, backing the mahi with process design and technical know-how.",
-  "onHomePage": false,
+  "onHomePage": true,
   "order": 4,
   "social": [
     {
