@@ -1,4 +1,5 @@
 import StickyContent from './components/StickyContent.jsx';
+import homeContent from './content/pages/home.json';
 
 export default function ContactPage() {
   return (

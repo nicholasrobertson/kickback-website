@@ -4,6 +4,7 @@ const collections = {
   partners: import.meta.glob('./partners/*.json', { eager: true }),
   testimonies: import.meta.glob('./testimonies/*.json', { eager: true }),
   reports: import.meta.glob('./reports/*.json', { eager: true }),
+  team: import.meta.glob('./team/*.json', { eager: true }),
 };
 
 const byOrder = (a, b) => {

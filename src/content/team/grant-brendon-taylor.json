@@ -1,0 +1,18 @@
+{
+  "name": "Grant Brendon Taylor",
+  "role": "Board Member",
+  "dept": "board",
+  "photo": "/images/profile-placeholder.jpg",
+  "bio": "Grant Brendon Taylor is a board member with governance, audit, and risk experience across community organisations.",
+  "longBio": "<p>Grant Brendon Taylor is a board member with governance, audit, and risk experience across community organisations. He has advised not-for-profits on financial stewardship and compliance, helping teams stay focused on their mission while meeting funder obligations.</p><p>Grant cares deeply about safe, sustainable services for rangatahi and brings a steady hand to Kick Back's oversight and planning.</p>",
+  "onHomePage": false,
+  "order": 3,
+  "social": [
+    {
+      "url": "https://www.linkedin.com/in/grant-taylor-b6397192/",
+      "icon": "/images/logo-w-linkedin.png",
+      "alt": "LinkedIn",
+      "order": 0
+    }
+  ]
+}

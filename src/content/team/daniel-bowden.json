@@ -1,0 +1,18 @@
+{
+  "name": "Daniel Bowden",
+  "role": "Board Member",
+  "dept": "board",
+  "photo": "/images/profile-placeholder.jpg",
+  "bio": "Daniel Bowden is a board member with a background in finance and community fundraising for youth services.",
+  "longBio": "<p>Daniel Bowden is a board member with a background in finance and community fundraising for youth services. He has supported housing and rangatahi-focused charities across Tāmaki Makaurau and brings a practical lens to budgeting and governance decisions.</p><p>Daniel is passionate about making sure resources reach the front line and that every dollar goes further for young people experiencing homelessness.</p>",
+  "onHomePage": false,
+  "order": 2,
+  "social": [
+    {
+      "url": "https://www.linkedin.com/in/dan-bowdennz/",
+      "icon": "/images/logo-w-linkedin.png",
+      "alt": "LinkedIn",
+      "order": 0
+    }
+  ]
+}

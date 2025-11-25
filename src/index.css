@@ -993,6 +993,12 @@ footer {
     font-size: 3rem;
 }
 
+.people-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
 .people-card:hover {
     box-shadow: 2rem 2rem 0px 0px var(--color-tertiary);
 }
@@ -1012,7 +1018,7 @@ footer {
 }
 
 .pc-header .name {
-    font-size: 5rem;
+    font-size: 4.1rem;
 }
 
 .bold {
@@ -1023,11 +1029,18 @@ footer {
     width: 16.063rem; /* Adjust as needed */
     height: 16.063rem; /* Should be equal to width for a perfect circle */
     border-radius: 50%;
-    background-image: url('/images/profile-aaron.jpg');
+    background-image: none;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     border: solid white 0.125rem;
+    background-color: var(--color-card-background);
+}
+
+.pc-bio-preview {
+    font-size: 2rem;
+    color: white;
+    margin-top: 1rem;
 }
 
 .google-map {
@@ -1058,6 +1071,9 @@ footer {
     color: var(--color-tertiary);
 }
 
+.team-group + .team-group {
+    margin-top: 3rem;
+}
 .adv-cards {
     display: flex;
     flex-flow: row wrap;

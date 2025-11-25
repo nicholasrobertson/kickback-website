@@ -130,7 +130,7 @@ content:
         label: Department
         type: select
         options:
-          values: [ board, staff, volunteer ]
+          values: [ board, team, volunteers ]
       - { name: phone, label: Phone, type: string }
       - { name: email, label: Email, type: string }
       - name: photo
@@ -138,6 +138,7 @@ content:
         type: image
         options: { media: images }
       - { name: bio, label: Short Bio, type: text }
+      - { name: longBio, label: Full Bio (rich text), type: rich-text, options: { media: images } }
       - { name: onHomePage, label: Show on Home, type: boolean, default: false }
       - { name: order, label: Order (lower = earlier), type: number, default: 9999 }
       # social media links repeatable - url and local and alt text

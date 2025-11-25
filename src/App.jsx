@@ -10,7 +10,7 @@ import ProjectPage from './ProjectPage.jsx';
 import TestimoniesPage from './TestimoniesPage.jsx';
 import ReportsPage from './ReportsPage.jsx';
 import ReportPage from './ReportPage.jsx';
-import TeamPage from './TeamPage.jsx';
+import TeamPage, { TeamMemberPage } from './TeamPage.jsx';
 import ContactPage from './ContactPage.jsx';
 import MissionPage from './MissionPage.jsx';
 
@@ -79,6 +79,14 @@ function App() {
           element={
             <Suspense fallback={suspenseFallback}>
               <TeamPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/team/:memberId"
+          element={
+            <Suspense fallback={suspenseFallback}>
+              <TeamMemberPage />
             </Suspense>
           }
         />

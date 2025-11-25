@@ -1,0 +1,18 @@
+{
+  "name": "Christina Sayers Wickstead",
+  "role": "Board Member",
+  "dept": "board",
+  "photo": "/images/profile-placeholder.jpg",
+  "bio": "Christina Sayers Wickstead is a board member with experience in communications, brand storytelling, and creative strategy.",
+  "longBio": "<p>Christina Sayers Wickstead is a board member with experience in communications, brand storytelling, and creative strategy. She has worked with social-impact organisations to amplify the voices of young people and is committed to building platforms that centre rangatahi lived experience.</p><p>Christina supports Kick Back with narrative strategy and helps ensure our kaupapa is communicated clearly to partners, funders, and the community.</p>",
+  "onHomePage": false,
+  "order": 1,
+  "social": [
+    {
+      "url": "https://www.linkedin.com/in/christina-sayers-wickstead-0295b240/",
+      "icon": "/images/logo-w-linkedin.png",
+      "alt": "LinkedIn",
+      "order": 0
+    }
+  ]
+}

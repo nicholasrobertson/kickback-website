@@ -434,6 +434,11 @@
     line-height: 1.7;
 }
 
+.mission-card h1 {
+    margin: 0;
+    font-size: 5rem;
+}
+
 .mission-card-title {
     font-size: clamp(3rem, 1vw + 2.6rem, 4rem);
     margin: 0;
@@ -518,4 +523,14 @@
     color: var(--color-highlight);
     text-decoration: none;
     font-size: 2rem;
+}
+
+.people-cards {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 8rem;
+}
+
+.team-bio-card {
+    margin-top: 10rem;
 }
