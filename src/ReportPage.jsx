@@ -42,40 +42,44 @@ export default function ReportPage({ reports = fallbackReports }) {
   const formattedDate = formatReadableDate(report.date);
   const fileUrl = report.file?.trim();
   const externalUrl = report.link?.trim();
+  const descriptionMarkdown = report?.description?.trim();
 
   return (
     <>
       <StickyContent showBackLink backLinkTo="/reports" />
-      <main className="project full report-detail-page">
-        <section className="project full">
+      <main className="project full reports-page">
+        <section className="project">
           <div className="header-2">
             <h2 className="italic edo">
               <span className="prom-2">Our </span>Report
             </h2>
           </div>
-          <article className="report-detail-card">
-            <h3 className="edo report-detail-title">{report.name ?? 'Report'}</h3>
-            {formattedDate && <p className="report-detail-date">{formattedDate}</p>}
-            {(fileUrl || externalUrl) && (
-              <div className="report-detail-actions">
-                {fileUrl && (
-                  <a className="btn cool" href={fileUrl} target="_blank" rel="noreferrer">
-                    Download PDF
-                  </a>
-                )}
-                {externalUrl && (
-                  <a className="btn cool" href={externalUrl} target="_blank" rel="noreferrer">
-                    Open link
-                  </a>
-                )}
-              </div>
-            )}
-            <Link className="report-detail-back" to="/reports">
-              ← Back to reports list
-            </Link>
+          <article className="report-card">
+            <div className="report-card-heading">
+              {formattedDate && <p className="report-card-date">{formattedDate}</p>}
+              <h3 className="report-card-title">{report.name ?? 'Report'}</h3>
+              {descriptionMarkdown && (
+                <div className="report-card-description">
+                  {descriptionMarkdown}
+                </div>
+              )}
+            </div>
+            <div className="report-card-actions">
+              {fileUrl && (
+                <a className="report-card-btn" href={fileUrl} target="_blank" rel="noreferrer">
+                  Download 📚
+                </a>
+              )}
+              {externalUrl && (
+                <a className="report-card-btn" href={externalUrl} target="_blank" rel="noreferrer">
+                  Download 📚
+                </a>
+              )}
+            </div>
           </article>
         </section>
       </main>
     </>
   );
 }
+

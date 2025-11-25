@@ -848,6 +848,7 @@ footer {
     min-height: 5.938rem;
     color: var(--color-charcoal);
     font-size: 5rem;
+    width: 100%;
 }
 
 .report-card-title {
@@ -872,19 +873,35 @@ footer {
 .report-detail-actions {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-end;
+    justify-content: flex-start;
     align-items: center;
+    margin-top: 2rem;
     gap: 1rem;
 }
 
-.report-card .btn,
-.reports-page .btn {
+
+.report-card-btn {
+    border: solid black 0.125rem;
+    min-width: 10rem;
+    text-align: center;
+    border-radius: 0.5rem;
+    
+    font-weight: bold;
+    transition: background-color 0.65s ease;
+
+
     text-decoration: none;
     color: black;
     padding: 2rem;
     font-family: 'Raleway', sans-serif;
-    font-size: 5rem;
+    font-size: 4rem;
 
+}
+
+.report-card-btn:hover {
+    background-color: var(--color-secondary);
+    color: var(--color-quarter);
+    cursor: pointer;
 }
 
 .report-detail-card {
