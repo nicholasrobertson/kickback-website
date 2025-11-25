@@ -1,0 +1,17 @@
+{
+  "title": "Publications",
+  "description": "**Public** _advocacy_\n\nOur vision is a cohesive support system for young people that is owned and managed by local communities\n\nFrom our work at The Front door and the Safety Net, we have access to real \"on the ground\" data.\n\nWe use this data to inform our advocacy efforts, ensuring that the voices of young people experiencing homelessness are heard by policymakers and the wider public.",
+  "link": "#contact",
+  "onHomePage": true,
+  "order": 2,
+  "id": "publications",
+  "font": "Bebas Nueue",
+  "banner": "/images/header-ed.jpg",
+  "actions": [
+    {
+      "label": "Read our Publications 📚",
+      "url": "/reports",
+      "order": 10
+    }
+  ]
+}

@@ -60,6 +60,7 @@ content:
       - { name: orderReports, label: Sort Order for Reports section, type: number }
       - { name: showTeam, label: Show Team section, type: boolean, default: true }
       - { name: orderTeam, label: Sort Order for Team section, type: number }
+      - { name: showSubstack, label: Show Substack section, type: boolean, default: true }
 
   - name: landing
     label: Landing Page

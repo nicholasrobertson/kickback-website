@@ -22,8 +22,10 @@ const detectInputMode = () => {
   return prefersFine ? 'pointer' : 'touch';
 };
 
-const sortActions = (actions = []) =>
-  [...actions].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+const sortActions = (actions = [], lastAction) => {
+  const sorted = [...actions].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+  return [...sorted, ...(lastAction ? [lastAction] : [])];
+};
 
 const createProjectRoutes = (projects = []) =>
   projects
@@ -50,7 +52,7 @@ export default function StickyContent({ showBackLink = false, backLinkTo = '/hom
   const textInnerText = isHeaderOpen ? '' : headerButtonPrompt;
   const phoneLink = homeContent.phoneLink ?? 'tel:0800-5425-2225';
   const phoneDisplay = homeContent.phoneDisplay ?? 'Call 0800 kick back 📞';
-  const actions = useMemo(() => sortActions(homeContent.actions ?? []), []);
+  const actions = useMemo(() => sortActions(homeContent.actions ?? [], {label: homeContent?.headerButtonText, url: '#contact'}), []);
   const staticRoutes = useMemo(
     () => (Array.isArray(homeContent.staticRoutes) ? homeContent.staticRoutes : []),
     []

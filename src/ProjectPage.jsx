@@ -99,7 +99,7 @@ function ProjectPage({ projects = fallbackProjects }) {
               className="p-header-img"
               src={bannerSrc}
               alt={`${project.title} banner`}
-              onClick={() => openLink(project.imageLink ?? project.link)}
+              onClick={() => project.imageLink ? openLink(project.imageLink ?? project.link) : null}
             />
           </div>
           <h2 className={titleClass}>{project.title}</h2>
@@ -223,7 +223,7 @@ function ProjectPage({ projects = fallbackProjects }) {
         <section className="project full">
           <div className="header-2">
             <h2 className="italic edo">
-              <span className="prom-2">Other </span>Projects
+              <span className="prom-2">Other </span>Services
             </h2>
           </div>
           <div className="project-grid">

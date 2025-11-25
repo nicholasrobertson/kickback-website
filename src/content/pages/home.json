@@ -1,7 +1,7 @@
 {
   "title": "Home",
   "headerText": "JOIN THE MOVEMENT",
-  "headerButtonText": "Are you safe tonight?",
+  "headerButtonText": "Need Support?",
   "messengerLink": "https://m.me/121841164182718",
   "instagramLink": "https://ig.me/m/kick_back_make_change",
   "phoneDisplay": "Call 0800 kick back 📞",
@@ -14,6 +14,8 @@
   "showProjects": true,
   "showPartners": true,
   "showReports": true,
+  "showSubstack": true,
+  "substackFeed": "https://wlas.substack.com/feed",
   "showTeam": true,
   "staticRoutes": [
     { "label": "Home", "to": "/home" },

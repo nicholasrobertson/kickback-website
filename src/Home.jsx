@@ -151,7 +151,7 @@ export function ProjectsSection({ projects = projectContent }) {
       <section className="project" id="front-door-head">
         <div className="header-2">
           <h2 className="italic edo">
-            <span className="prom-2">Our </span>Mahi
+            <span className="prom-2">Our </span>Services
           </h2>
         </div>
       </section>
