@@ -88,7 +88,7 @@ export default function ReportsPage({ reports = fallbackReports }) {
   );
 }
 
-function SubstackEmbed({ title = 'Substack' }) {
+export function SubstackEmbed({ title = 'Substack' }) {
   useEffect(() => {
     const existing = document.querySelector('script[data-rssapp-widget="imageboard"]');
     if (existing) {

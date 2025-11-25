@@ -7,9 +7,11 @@ import StickyContent from './components/StickyContent.jsx';
 import { getDescriptionPreview } from './utils/projects.js';
 import { Mission } from './MissionPage.jsx';
 import { TeamSection } from './TeamPage.jsx';
+import { SubstackEmbed } from './ReportsPage.jsx';
 
 const projectContent = getContent('projects');
 const articleContent = getContent('articles');
+const reportContent = getContent('reports');
 const partnerContent = getContent('partners');
 const testimonyContent = getContent('testimonies');
 const teamContent = getContent('team');
@@ -83,6 +85,7 @@ export default function Home() {
         <PromotedArticles />
         <Testimonies testimonies={testimonyContent} />
         <Partners scrollToId={scrollToId} partners={partnerContent} />
+        <Publications reports={reportContent} />
         <Articles articles={articleContent} />
         <BoardSection members={teamContent} />
       </main>
@@ -459,6 +462,61 @@ function Partners({ scrollToId, partners = partnerContent }) {
         </div>
       </section>
     </>
+  );
+}
+
+function Publications({ reports = [] }) {
+  const navigate = useNavigate();
+  const items = Array.isArray(reports)
+    ? reports.filter((report) => report?.onHomePage !== false)
+    : [];
+
+  if (items.length === 0) {
+    return null;
+  }
+
+  const openReport = (report) => {
+    if (!report) {
+      return;
+    }
+    const fileUrl = report.file?.trim();
+    const linkUrl = report.link?.trim();
+    const targetUrl = fileUrl || linkUrl;
+    if (targetUrl) {
+      window.open(targetUrl, '_blank');
+      return;
+    }
+
+    const key = report.id ?? report.slug ?? report.name;
+    if (key) {
+      navigate(`/reports/${encodeURIComponent(key)}`);
+    }
+  };
+
+  return (
+    <section className="project" id="publications">
+      <div className="header-2">
+        <h2 className="italic">
+          <span className="prom-2">Our </span>Publications
+        </h2>
+      </div>
+      <div className="adv-cards">
+        {items.map((report) => (
+          <div
+            key={report.id ?? report.slug ?? report.name ?? report.link ?? report.file}
+            className="news-card"
+            onClick={() => navigate('/reports')}
+          >
+            <div className="cd-logo">
+              <img src="/images/logo-kickback-black.svg" alt="Kick Back publication" />
+            </div>
+            <div className="cd-header">Kick Back</div>
+            {report.name && <div className="italic">{report.name}</div>}
+          </div>
+        ))}
+      </div>
+      <SubstackEmbed />
+    </section>
   );
 }
 
