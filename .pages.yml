@@ -155,11 +155,11 @@ content:
     label: Reports
     type: collection
     path: src/content/reports
-    filename: "{year}-{month}-{day}-{primary}.json"
+    filename: "{primary}.json"
     format: json
     view:
       fields: [id, name, date, onHomePage, order ]
-      primary: name
+      primary: id
       sort: [ date, order, name ]
       default:
         sort: order
@@ -167,6 +167,7 @@ content:
     fields:
       - { name: id, label: ID, type: string, required: true }
       - { name: name, label: Name, type: string, required: true }
+      - { name: description, label: Description, type: rich-text, options: { media: images } }
       - { name: date, label: Date, type: date, required: true }
       - name: file
         label: Upload (PDF)

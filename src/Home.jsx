@@ -78,10 +78,6 @@ export default function Home() {
       </main>
       <footer>
         <div className="footer">
-          website donated with 🩷 by{' '}
-          <span className="prom bold sf" onClick={() => window.open('https://sparefish.co.nz', '_blank')}>
-            SPAREFISH
-          </span>
         </div>
       </footer>
     </>

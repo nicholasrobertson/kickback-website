@@ -20,7 +20,7 @@
     { "label": "Projects", "to": "/projects" },
     { "label": "Reports", "to": "/reports" },
     { "label": "Testimonials", "to": "/testimonies" },
-    { "label": "Team", "to": "/team" },
+    { "label": "Our Community", "to": "/team" },
     { "label": "Contact", "to": "/contact" }
   ],
   "actions": [

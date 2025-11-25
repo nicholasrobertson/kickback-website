@@ -6,7 +6,7 @@ export default function TeamPage() {
     <>
       <StickyContent showBackLink />
       <main className="project full team-page">
-        <ContactSection headingPrefix="Our " headingHighlight="Team" />
+        <ContactSection headingPrefix="Our " headingHighlight="Community" />
       </main>
     </>
   );

@@ -50,7 +50,7 @@ export default function ReportPage({ reports = fallbackReports }) {
         <section className="project full">
           <div className="header-2">
             <h2 className="italic edo">
-              <span className="prom-2">Report </span>Details
+              <span className="prom-2">Our </span>Report
             </h2>
           </div>
           <article className="report-detail-card">

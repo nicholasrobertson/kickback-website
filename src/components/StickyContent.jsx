@@ -69,7 +69,7 @@ export default function StickyContent({ showBackLink = false, backLinkTo = '/hom
 
   const closeSidebar = () => setIsSidebarOpen(false);
 
-  const routeLinks = useMemo(() => staticRoutes.concat(projectRoutes), [staticRoutes]);
+  const routeLinks = useMemo(() => staticRoutes, [staticRoutes]);
 
   useEffect(() => {
     if (typeof window === 'undefined') {

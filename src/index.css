@@ -821,9 +821,19 @@ footer {
 
 .reports-grid {
     margin-top: 2rem;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
-    gap: 2rem;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 10rem;
+}
+
+.report-card-heading {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 2.5rem;
 }
 
 .report-card {
@@ -835,31 +845,46 @@ footer {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    min-height: 5.938rem;
+    color: var(--color-charcoal);
+    font-size: 5rem;
 }
 
 .report-card-title {
-    font-size: 2.6rem;
     margin: 0;
+    color: black;
 }
 
 .report-card-date {
     margin: 0;
-    font-size: 1.6rem;
     color: var(--color-highlight);
+    font-size: smaller;
+}
+
+.report-card-description {
+    margin: 0;
+    flex-grow: 1;
+    color: black;
+    font-size: 3rem;
 }
 
 .report-card-actions,
 .report-detail-actions {
     display: flex;
     flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
     gap: 1rem;
 }
 
 .report-card .btn,
 .reports-page .btn {
-    font-size: 1.6rem;
-    min-width: 0;
-    padding: 0.6rem 1.2rem;
+    text-decoration: none;
+    color: black;
+    padding: 2rem;
+    font-family: 'Raleway', sans-serif;
+    font-size: 5rem;
+
 }
 
 .report-detail-card {
@@ -876,25 +901,21 @@ footer {
 }
 
 .report-detail-title {
-    font-size: 3.2rem;
     margin: 0;
 }
 
 .report-detail-date {
     margin: 0;
     color: var(--color-highlight);
-    font-size: 1.8rem;
 }
 
 .report-detail-back {
-    font-size: 1.6rem;
     text-decoration: none;
     color: var(--color-kb-card);
 }
 
 .reports-empty {
     margin-top: 2rem;
-    font-size: 1.8rem;
 }
 
 .partner-link {
