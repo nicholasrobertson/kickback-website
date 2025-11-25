@@ -4,15 +4,15 @@ import StickyContent from './components/StickyContent.jsx';
 import landingContent from './content/pages/landing.json';
 import './Landing.css';
 
-const Home = lazy(() => import('./Home.jsx'));
-const ProjectsPage = lazy(() => import('./ProjectsPage.jsx'));
-const ProjectPage = lazy(() => import('./ProjectPage.jsx'));
-const TestimoniesPage = lazy(() => import('./TestimoniesPage.jsx'));
-const ReportsPage = lazy(() => import('./ReportsPage.jsx'));
-const ReportPage = lazy(() => import('./ReportPage.jsx'));
-const TeamPage = lazy(() => import('./TeamPage.jsx'));
-const ContactPage = lazy(() => import('./ContactPage.jsx'));
-const MissionPage = lazy(() => import('./MissionPage.jsx'));
+import Home from './Home.jsx';
+import ProjectsPage from './ProjectsPage.jsx';
+import ProjectPage from './ProjectPage.jsx';
+import TestimoniesPage from './TestimoniesPage.jsx';
+import ReportsPage from './ReportsPage.jsx';
+import ReportPage from './ReportPage.jsx';
+import TeamPage from './TeamPage.jsx';
+import ContactPage from './ContactPage.jsx';
+import MissionPage from './MissionPage.jsx';
 
 const suspenseFallback = (
   <div className="route-fallback" aria-live="polite">

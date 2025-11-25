@@ -412,3 +412,107 @@
     font-family: 'Bebas Neue', sans-serif;
     font-weight: 200;
 }
+
+/* Mission page */
+.mission-card {
+    background: white;
+    color: var(--color-charcoal);
+    width: 100%;
+    max-width: 90rem;
+    margin-top: 1rem;
+    border-radius: 2rem;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border: 0.2rem solid var(--color-kb-card-stroke);
+    box-shadow: 1.2rem 1.2rem 0 var(--color-tertiary);
+    font-size: clamp(2.2rem, 1vw + 2rem, 3.2rem);
+    line-height: 1.7;
+}
+
+.mission-card-title {
+    font-size: clamp(3rem, 1vw + 2.6rem, 4rem);
+    margin: 0;
+    color: black;
+}
+
+.mission-card-body {
+    margin: 0;
+}
+
+.mission-markdown {
+    color: var(--color-charcoal);
+    font-size: 3rem;
+    line-height: 1.7;
+}
+
+.mission-markdown h1,
+.mission-markdown h2,
+.mission-markdown h3 {
+    margin: 0 0 1rem 0;
+    color: black;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 6rem;
+    line-height: 1.1;
+}
+
+.mission-markdown h1 {
+    font-size: 10rem;
+}
+
+.mission-markdown p {
+    margin: 0 0 1.4rem 0;
+}
+
+.mission-markdown a {
+    color: var(--color-highlight);
+}
+
+.mission-card-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 1.4rem 2rem;
+    border-radius: 0.8rem;
+    border: 0.2rem solid black;
+    background: white;
+    color: black;
+    text-decoration: none;
+    font-size: 2.2rem;
+    font-weight: 700;
+    
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.mission-card-btn:hover,
+.mission-card-btn:focus-visible {
+    transform: translateY(-0.15rem);
+    box-shadow: 0.8rem 0.8rem 0 var(--color-tertiary);
+}
+
+.mission-downloads {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.mission-downloads h4 {
+    margin: 0 0 1rem 0;
+    font-size: 2.4rem;
+    color: black;
+}
+
+.mission-downloads ul {
+    margin: 0;
+    padding-left: 1.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.mission-downloads a {
+    color: var(--color-highlight);
+    text-decoration: none;
+    font-size: 2rem;
+}
