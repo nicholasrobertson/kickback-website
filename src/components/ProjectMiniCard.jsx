@@ -24,8 +24,10 @@ export function ProjectMiniCard({ project }) {
       <div className="project-thumb">
         <img src={imageSrc} alt={`${titleText} banner`} />
       </div>
+      <div className="project-card-mini-text" >
       <h3 className={titleClass}>{titleText}</h3>
-      {preview && <p className="project-preview">{preview}</p>}
+      </div>
+      {/*preview && <p className="project-preview">{preview}</p>*/}
     </Link>
   );
 }
