@@ -1,9 +1,8 @@
 {
-  "id": "another-report-test",
-  "name": "Title of the Report",
-  "description": "A long description of the report goes here.",
-  "date": "2025-11-04",
-  "file": "/files/STRATA PLUS - NZ6975-2 Body Corporate Liability App Form 04-24_web.pdf",
+  "id": "denied-report",
+  "name": "Denied: The Growing Cost of Denying Youth People Access to Shelter",
+  "description": "A reflection on the Coalition Government’s recent changes to the Emergency Housing System",
+  "date": "2024-12-24",
   "onHomePage": true,
   "order": 1
 }
