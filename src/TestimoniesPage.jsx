@@ -57,7 +57,8 @@ export default function TestimoniesPage({ testimonies = fallbackTestimonies }) {
   return (
     <>
       <StickyContent showBackLink />
-      <main className="project full testimonies-page">
+      <main className="project testimonies-page">
+        <section className="testimonies-section">
         <div className="header-2">
           <h2 className="italic edo">
             <span className="prom-2">Our </span>Testimonials
@@ -71,6 +72,7 @@ export default function TestimoniesPage({ testimonies = fallbackTestimonies }) {
             ))}
           </div>
         )}
+        </section>
       </main>
       <Footer />
     </>
