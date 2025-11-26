@@ -23,25 +23,19 @@ export default function Footer({ routes = homeContent.staticRoutes }) {
       <div className="footer-inner">
         <div className="footer-brand">
           <div className="footer-heading">KICK BACK MAKE CHANGE CHARITABLE TRUST</div>
-          <img
-            className="footer-logo"
-            src="/images/logo-kickback-dark.svg"
-            alt="Kick Back Make Change logo"
-            loading="lazy"
-          />
         </div>
         <div className="footer-grid">
           <div className="footer-column footer-contact">
             <div className="footer-subheading">Contact</div>
             <div className="footer-contact-details">
-              {email && (
-                <a className="footer-link" href={`mailto:${email}`}>
-                  {email}
-                </a>
-              )}
               {phoneDisplay && (
                 <a className="footer-link" href={phoneLink ?? `tel:${phoneDisplay}`}>
                   {phoneDisplay}
+                </a>
+              )}
+              {email && (
+                <a className="footer-link" href={`mailto:${email}`}>
+                  {email}
                 </a>
               )}
               {address &&

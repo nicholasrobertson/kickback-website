@@ -1410,8 +1410,8 @@ footer {
 
 .site-footer .footer-brand {
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
+    flex-flow: column nowrap;
+    align-items: flex-start;
     gap: 2rem;
 }
 
@@ -1423,7 +1423,7 @@ footer {
 }
 
 .site-footer .footer-logo {
-    height: 6rem;
+    height: 30rem;
     width: auto;
 }
 
