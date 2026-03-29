@@ -3,13 +3,11 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Link,
+  Navigate,
   useLocation,
 } from "react-router-dom";
 import StickyContent from "./components/StickyContent.jsx";
 import Footer from "./components/Footer.jsx";
-import landingContent from "./content/pages/landing.json";
-import "./Landing.css";
 
 import Home from "./Home.jsx";
 import ProjectsPage from "./ProjectsPage.jsx";
@@ -38,8 +36,8 @@ function App({ RouterComponent = Router, routerProps = {} }) {
       <HeaderScrollEffect />
       <SectionFadeIn />
       <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/landing" element={<LandingPage />} />
+        <Route path="/" element={<Navigate to="/home" replace />} />
+        <Route path="/landing" element={<Navigate to="/home" replace />} />
         <Route
           path="/home"
           element={

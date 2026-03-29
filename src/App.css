@@ -1086,3 +1086,77 @@
     width: 100%;
   }
 }
+
+/* ── Approach Page ── */
+
+.approach-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.approach-hero {
+  text-align: center;
+}
+
+.approach-intro {
+  max-width: 72rem;
+  margin: 2rem auto 0;
+  font-size: clamp(2.2rem, 1vw + 2rem, 3rem);
+  line-height: 1.7;
+  color: var(--color-charcoal);
+  text-align: center;
+}
+
+.approach-pillar-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3rem;
+  max-width: 90rem;
+  margin: 0 auto;
+}
+
+.approach-pillar-card {
+  background: white;
+  border: 0.2rem solid var(--color-kb-card-stroke);
+  border-radius: 2rem;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  box-shadow: 0.8rem 0.8rem 0 var(--color-tertiary);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.approach-pillar-card:hover {
+  transform: translateY(-0.3rem);
+  box-shadow: 1rem 1rem 0 var(--color-tertiary);
+}
+
+.approach-pillar-title {
+  font-size: clamp(3rem, 1vw + 2.4rem, 4.2rem);
+  margin: 0;
+  line-height: 1.15;
+  color: black;
+}
+
+.approach-pillar-subtitle {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--color-quarter);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.approach-pillar-body {
+  font-size: clamp(1.8rem, 0.8vw + 1.6rem, 2.4rem);
+  line-height: 1.65;
+  color: var(--color-charcoal);
+  margin: 0.4rem 0 0;
+}
+
+@media screen and (max-width: 750px) {
+  .approach-pillar-grid {
+    grid-template-columns: 1fr;
+  }
+}
