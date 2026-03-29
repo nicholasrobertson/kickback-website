@@ -6,8 +6,6 @@ import {
   Navigate,
   useLocation,
 } from "react-router-dom";
-import StickyContent from "./components/StickyContent.jsx";
-import Footer from "./components/Footer.jsx";
 
 import Home from "./Home.jsx";
 import ProjectsPage from "./ProjectsPage.jsx";
@@ -245,73 +243,6 @@ function SectionFadeIn() {
   }, [location.pathname]);
 
   return null;
-}
-
-function LandingPage() {
-  const buttons = Array.isArray(landingContent.buttons)
-    ? [...landingContent.buttons].sort(
-        (a, b) => (a.order ?? 0) - (b.order ?? 0),
-      )
-    : [];
-  const title = (landingContent.title ?? "").trim();
-  const logo = (landingContent.logo ?? "").trim();
-
-  return (
-    <>
-      <StickyContent />
-      <main className="landing">
-        <div className="landing-card">
-          {logo && (
-            <img
-              className="landing-logo"
-              src={logo}
-              alt={title ? `${title} logo` : "Kickback logo"}
-              fetchPriority="high"
-              decoding="async"
-            />
-          )}
-          {buttons.length > 0 && (
-            <div className="landing-actions">
-              {buttons.map((button) => (
-                <LandingButton
-                  key={`${button.url ?? ""}-${button.label ?? ""}`}
-                  button={button}
-                />
-              ))}
-            </div>
-          )}
-        </div>
-      </main>
-      <Footer />
-    </>
-  );
-}
-
-function LandingButton({ button }) {
-  if (!button?.url) {
-    return null;
-  }
-
-  const label = button.label ?? "Learn more";
-  const url = button.url.trim();
-  const isExternal =
-    /^https?:\/\//i.test(url) ||
-    url.startsWith("mailto:") ||
-    url.startsWith("tel:");
-
-  if (isExternal) {
-    return (
-      <a className="landing-btn" href={url} target="_blank" rel="noreferrer">
-        {label}
-      </a>
-    );
-  }
-
-  return (
-    <Link className="btn cool landing-btn" to={url}>
-      {label}
-    </Link>
-  );
 }
 
 export default App;
