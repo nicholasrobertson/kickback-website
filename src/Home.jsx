@@ -1,46 +1,47 @@
-import { Link, useNavigate } from 'react-router-dom';
-import './App.css';
-import homeContent from './content/pages/home.json';
-import { getContent } from './content/helper.js';
-import { ProjectMiniCard } from './components/ProjectMiniCard.jsx';
-import StickyContent from './components/StickyContent.jsx';
-import Footer from './components/Footer.jsx';
-import { getDescriptionPreview } from './utils/projects.js';
-import { Mission } from './MissionPage.jsx';
-import { TeamSection } from './TeamPage.jsx';
-import { SubstackEmbed } from './ReportsPage.jsx';
-import { useEffect, useRef, useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
+import "./App.css";
+import homeContent from "./content/pages/home.json";
+import { getContent } from "./content/helper.js";
+import { ProjectMiniCard } from "./components/ProjectMiniCard.jsx";
+import StickyContent from "./components/StickyContent.jsx";
+import Footer from "./components/Footer.jsx";
+import { getDescriptionPreview } from "./utils/projects.js";
+import { Mission } from "./MissionPage.jsx";
+import { TeamSection } from "./TeamPage.jsx";
+import { SubstackEmbed } from "./ReportsPage.jsx";
+import { useEffect, useRef, useState } from "react";
 
-const projectContent = getContent('projects');
-const articleContent = getContent('articles');
-const reportContent = getContent('reports');
-const partnerContent = getContent('partners');
-const testimonyContent = getContent('testimonies');
-const teamContent = getContent('team');
+const projectContent = getContent("projects");
+const articleContent = getContent("articles");
+const reportContent = getContent("reports");
+const partnerContent = getContent("partners");
+const testimonyContent = getContent("testimonies");
+const teamContent = getContent("team");
 
 const partnerTypeLabels = {
-  seed: 'Visionary Seed Funders',
-  corporate: 'Corporate Supporters',
-  local: 'Local Socially Conscious Businesses',
+  seed: "Visionary Seed Funders",
+  corporate: "Corporate Supporters",
+  local: "Local Socially Conscious Businesses",
 };
 
-const partnerTypeOrder = ['seed', 'corporate', 'local'];
+const partnerTypeOrder = ["seed", "corporate", "local"];
 
 export default function Home() {
-  const navigate = useNavigate();
   useEffect(() => {
     const root = document.documentElement;
-    const sections = Array.from(document.querySelectorAll('main.home-main > section'));
+    const sections = Array.from(
+      document.querySelectorAll("main.home-main > section"),
+    );
     const handleScroll = () => {
       const y = window.scrollY || 0;
       const boost = Math.min(y * 0.18, 140);
-      root.style.setProperty('--hero-scroll-boost', boost.toFixed(2));
+      root.style.setProperty("--hero-scroll-boost", boost.toFixed(2));
       const vh = window.innerHeight || 1;
       sections.forEach((section) => {
         const rect = section.getBoundingClientRect();
         const distance = Math.min(rect.top, vh);
         const progress = Math.max(0, Math.min(1, 1 - distance / (vh * 0.7)));
-        section.style.setProperty('--section-progress', progress.toFixed(3));
+        section.style.setProperty("--section-progress", progress.toFixed(3));
       });
     };
 
@@ -48,89 +49,44 @@ export default function Home() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('section-visible');
+            entry.target.classList.add("section-visible");
           } else {
-            entry.target.classList.remove('section-visible');
+            entry.target.classList.remove("section-visible");
           }
         });
       },
       {
         threshold: 0.15,
-        rootMargin: '0px 0px -12% 0px',
+        rootMargin: "0px 0px -12% 0px",
       },
     );
 
     sections.forEach((section) => observer.observe(section));
     handleScroll();
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
       observer.disconnect();
-      sections.forEach((section) => section.classList.remove('section-visible'));
+      sections.forEach((section) =>
+        section.classList.remove("section-visible"),
+      );
     };
   }, []);
-
-  const sortedActions = [...(homeContent.actions ?? [])].sort(
-    (a, b) => (a.order ?? 0) - (b.order ?? 0),
-  );
-  const rawHeroHeading = (homeContent.headerText ?? homeContent.h1Text ?? '').trim();
-  const heroWords = rawHeroHeading ? rawHeroHeading.split(' ') : [];
-  let heroPrefix = '';
-  let heroHighlight = '';
-  if (heroWords.length > 1) {
-    heroHighlight = heroWords.pop();
-    heroPrefix = heroWords.join(' ');
-  } else if (heroWords.length === 1) {
-    heroHighlight = heroWords[0];
-  }
-  const heroDataText = heroHighlight
-    ? `${heroPrefix ? `${heroPrefix}\n` : ''}${heroHighlight}`
-    : rawHeroHeading;
-  const subheadingText = (homeContent.h2Text ?? '').trim();
-  const [subheadingFirstWord, ...subheadingRestWords] = subheadingText
-    ? subheadingText.split(' ')
-    : [];
-  const subheadingRest = subheadingRestWords.join(' ');
 
   const scrollToId = (id) => {
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: "smooth" });
     }
-  };
-  const handleHeroAction = (action) => {
-    const target = action?.url?.trim();
-    if (!target) {
-      return;
-    }
-    if (target.startsWith('#')) {
-      scrollToId(target.slice(1));
-      return;
-    }
-    if (target.startsWith('/')) {
-      navigate(target);
-      return;
-    }
-    window.open(target, '_blank');
   };
 
   return (
     <>
       <StickyContent />
       <main className="home-main">
-        <Hero
-          rawHeroHeading={rawHeroHeading}
-          heroDataText={heroDataText}
-          heroHighlight={heroHighlight}
-          heroPrefix={heroPrefix}
-          subheadingFirstWord={subheadingFirstWord}
-          subheadingRest={subheadingRest}
-          subheadingText={subheadingText}
-          actions={sortedActions}
-          onHeroAction={handleHeroAction}
-        />
+        <Hero />
         <ProjectsGalleryMarquee projects={projectContent} />
         <MissionSection />
         <ProjectsSection projects={projectContent} />
@@ -146,63 +102,29 @@ export default function Home() {
   );
 }
 
-function Hero({
-  rawHeroHeading,
-  heroDataText = '',
-  heroHighlight,
-  heroPrefix,
-  subheadingFirstWord,
-  subheadingRest,
-  subheadingText = '',
-  actions,
-  onHeroAction,
-}) {
-  const hasActions = Array.isArray(actions) && actions.length > 0;
-
+function Hero() {
   return (
-    <>
-      <section className="hero">
-        <h1 className='hero-h1' data-text={heroDataText}>
-          {heroHighlight ? (
-            <>
-              {heroPrefix && (
-                <span>
-                  {heroPrefix}
-                  <br />
-                </span>
-              )}
-              <span id="movement" className="prom">
-                {heroHighlight}
-              </span>
-            </>
-          ) : (
-            <span>{rawHeroHeading}</span>
-          )}
+    <section className="hero">
+      <div className="hero-content">
+        <h1 className="hero-h1 edo">
+          <span>Need a safe</span>
+          <span className="prom">place?</span>
         </h1>
-        <img id="header-logo" src="/images/logo-kickback-dark.svg" alt="Kick Back Logo" />
-      </section>
-      <section className="">
-        <div className="hero-subhead">
-        <div className="end edo" data-text={subheadingText}>
-          {subheadingFirstWord && <span style={{ color: 'white' }}>{subheadingFirstWord}</span>}
-          {subheadingRest && <span> {subheadingRest}</span>}
+        <p className="hero-tagline">
+          You don't have to figure this out alone. Kick Back is here for you — a
+          warm meal, a safe space, someone to talk to, and real help getting
+          back on your feet. No judgement, just aroha.
+        </p>
+        <div className="hero-ctas">
+          <Link to="/help" className="hero-cta hero-cta--primary">
+            Get Help Now
+          </Link>
+          <Link to="/about" className="hero-cta hero-cta--secondary">
+            Learn More
+          </Link>
         </div>
-        </div>
-      </section>
-      {hasActions && (
-        <section className="hero-btn">
-          {actions.map((action) => (
-            <div
-              key={`${action.label}-${action.url}`}
-              className="btn med cool"
-              onClick={() => onHeroAction(action)}
-            >
-              {action.label}
-            </div>
-          ))}
-        </section>
-      )}
-    </>
+      </div>
+    </section>
   );
 }
 
@@ -232,7 +154,6 @@ export function ProjectsSection({ projects = projectContent }) {
 }
 
 function MissionSection() {
-
   return (
     <>
       <section className="project" id="front-door-head">
@@ -248,8 +169,6 @@ function MissionSection() {
     </>
   );
 }
-
-
 
 function Gallery() {
   return (
@@ -302,8 +221,8 @@ function PromotedArticles() {
           className="news-card"
           onClick={() =>
             window.open(
-              'https://www.rnz.co.nz/news/national/505952/auckland-couple-going-without-to-help-homeless-youth',
-              '_blank',
+              "https://www.rnz.co.nz/news/national/505952/auckland-couple-going-without-to-help-homeless-youth",
+              "_blank",
             )
           }
         >
@@ -311,14 +230,16 @@ function PromotedArticles() {
             <img src="/images/logo-rnz.png" alt="News 1" />
           </div>
           <div className="cd-header">RNZ</div>
-          <div className="italic">Auckland couple going without to help homeless youth</div>
+          <div className="italic">
+            Auckland couple going without to help homeless youth
+          </div>
         </div>
         <div
           className="news-card"
           onClick={() =>
             window.open(
-              'https://www.nzherald.co.nz/nz/a-social-workers-novel-solution-for-homeless-youth-his-own-home/3HQMB5DRFFBL5D37DYA2KUAQY4/',
-              '_blank',
+              "https://www.nzherald.co.nz/nz/a-social-workers-novel-solution-for-homeless-youth-his-own-home/3HQMB5DRFFBL5D37DYA2KUAQY4/",
+              "_blank",
             )
           }
         >
@@ -326,14 +247,17 @@ function PromotedArticles() {
             <img src="/images/logo-herald.png" alt="News 2" />
           </div>
           <div className="cd-header">NZ Herald</div>
-          <div className="italic">A youth worker came up with a novel solution for homeless teens: His own home</div>
+          <div className="italic">
+            A youth worker came up with a novel solution for homeless teens: His
+            own home
+          </div>
         </div>
         <div
           className="news-card"
           onClick={() =>
             window.open(
-              'https://www.odt.co.nz/news/national/couple-spend-savings-centre-homeless-youth',
-              '_blank',
+              "https://www.odt.co.nz/news/national/couple-spend-savings-centre-homeless-youth",
+              "_blank",
             )
           }
         >
@@ -341,7 +265,9 @@ function PromotedArticles() {
             <img src="/images/logo-odt.png" alt="News 3" />
           </div>
           <div className="cd-header">ODT</div>
-          <div className="italic">Couple spend savings on centre for homeless youth</div>
+          <div className="italic">
+            Couple spend savings on centre for homeless youth
+          </div>
         </div>
       </div>
       <div className="videos">
@@ -351,8 +277,8 @@ function PromotedArticles() {
             className="play-icon cambo"
             onClick={() =>
               window.open(
-                'https://www.1news.co.nz/2019/09/11/national-response-to-youth-homelessness-problem-needed-frontline-worker-says/',
-                '_blank',
+                "https://www.1news.co.nz/2019/09/11/national-response-to-youth-homelessness-problem-needed-frontline-worker-says/",
+                "_blank",
               )
             }
           >
@@ -369,8 +295,8 @@ function PromotedArticles() {
             className="play-icon newshub"
             onClick={() =>
               window.open(
-                'https://www.1news.co.nz/2024/02/21/sanctions-dont-work-hipkins-on-govts-benefit-changes',
-                '_blank',
+                "https://www.1news.co.nz/2024/02/21/sanctions-dont-work-hipkins-on-govts-benefit-changes",
+                "_blank",
               )
             }
           >
@@ -405,7 +331,7 @@ function Testimonies({ testimonies = testimonyContent }) {
 
   const renderMeta = (testimony) => {
     const parts = [testimony.author, testimony.organisation].filter(Boolean);
-    return parts.join(' · ');
+    return parts.join(" · ");
   };
 
   return (
@@ -417,7 +343,7 @@ function Testimonies({ testimonies = testimonyContent }) {
       </div>
       <div className="testimony-grid">
         {items.map((testimony) => {
-          const bodyPreview = getDescriptionPreview(testimony.body ?? '', 120);
+          const bodyPreview = getDescriptionPreview(testimony.body ?? "", 120);
           return (
             <div
               key={testimony.id ?? testimony.title}
@@ -426,14 +352,16 @@ function Testimonies({ testimonies = testimonyContent }) {
               tabIndex={0}
               onClick={() => handleSelect(testimony)}
               onKeyDown={(event) => {
-                if (event.key === 'Enter' || event.key === ' ') {
+                if (event.key === "Enter" || event.key === " ") {
                   event.preventDefault();
                   handleSelect(testimony);
                 }
               }}
             >
               <div className="testimony-card-body">
-                {bodyPreview && <div className="testimony-quote">“{bodyPreview}”</div>}
+                {bodyPreview && (
+                  <div className="testimony-quote">“{bodyPreview}”</div>
+                )}
                 <div className="testimony-meta">
                   <span>{renderMeta(testimony) || testimony.author}</span>
                 </div>
@@ -453,8 +381,8 @@ function Partners({ scrollToId, partners = partnerContent }) {
     : [];
 
   const renderLogo = (partner) => {
-    const logoSrc = partner.logo || '/images/logo-kickback-dark.svg';
-    const altText = partner.name ? `${partner.name} logo` : 'Partner logo';
+    const logoSrc = partner.logo || "/images/logo-kickback-dark.svg";
+    const altText = partner.name ? `${partner.name} logo` : "Partner logo";
     const logoImage = <img src={logoSrc} alt={altText} />;
 
     if (partner.url) {
@@ -463,7 +391,7 @@ function Partners({ scrollToId, partners = partnerContent }) {
           href={partner.url}
           target="_blank"
           rel="noreferrer"
-          aria-label={`Visit ${partner.name ?? 'partner'} website`}
+          aria-label={`Visit ${partner.name ?? "partner"} website`}
         >
           {logoImage}
         </a>
@@ -482,7 +410,9 @@ function Partners({ scrollToId, partners = partnerContent }) {
           </h2>
         </div>
         {partnerTypeOrder.map((type) => {
-          const sectionPartners = items.filter((partner) => partner.type === type);
+          const sectionPartners = items.filter(
+            (partner) => partner.type === type,
+          );
           if (sectionPartners.length === 0) {
             return null;
           }
@@ -494,7 +424,9 @@ function Partners({ scrollToId, partners = partnerContent }) {
                 {sectionPartners.map((partner) => (
                   <div
                     className="partner-card"
-                    key={partner.id ?? partner.slug ?? partner.name ?? partner.logo}
+                    key={
+                      partner.id ?? partner.slug ?? partner.name ?? partner.logo
+                    }
                     style={
                       partner.backgroundColor
                         ? { backgroundColor: partner.backgroundColor }
@@ -512,7 +444,7 @@ function Partners({ scrollToId, partners = partnerContent }) {
       <section className="partner-links">
         <div className="partner-link">
           <div className="cd-header">Becoming a Partner</div>
-          <div className="btn cool" onClick={() => scrollToId('contact')}>
+          <div className="btn cool" onClick={() => scrollToId("contact")}>
             Contact us to find out more
           </div>
         </div>
@@ -539,7 +471,7 @@ function Publications({ reports = [] }) {
     const linkUrl = report.link?.trim();
     const targetUrl = fileUrl || linkUrl;
     if (targetUrl) {
-      window.open(targetUrl, '_blank');
+      window.open(targetUrl, "_blank");
       return;
     }
 
@@ -559,12 +491,21 @@ function Publications({ reports = [] }) {
       <div className="adv-cards">
         {items.map((report) => (
           <div
-            key={report.id ?? report.slug ?? report.name ?? report.link ?? report.file}
+            key={
+              report.id ??
+              report.slug ??
+              report.name ??
+              report.link ??
+              report.file
+            }
             className="news-card"
-            onClick={() => navigate('/reports')}
+            onClick={() => navigate("/reports")}
           >
             <div className="cd-logo">
-              <img src="/images/logo-kickback-black.svg" alt="Kick Back publication" />
+              <img
+                src="/images/logo-kickback-black.svg"
+                alt="Kick Back publication"
+              />
             </div>
             <div className="cd-header">Kick Back</div>
             {report.name && <div className="italic">{report.name}</div>}
@@ -586,7 +527,7 @@ function Articles({ articles = [] }) {
       return;
     }
 
-    window.open(url, '_blank');
+    window.open(url, "_blank");
   };
 
   return (
@@ -609,7 +550,9 @@ function Articles({ articles = [] }) {
               </div>
             )}
             <div className="cd-header">{article.title}</div>
-            {article.description && <div className="italic">{article.description}</div>}
+            {article.description && (
+              <div className="italic">{article.description}</div>
+            )}
           </div>
         ))}
       </div>
@@ -621,7 +564,8 @@ function BoardSection({ members = [] }) {
   const boardMembers = Array.isArray(members)
     ? members.filter(
         (member) =>
-          (member?.dept ?? '').toLowerCase() === 'board' && member?.onHomePage !== false,
+          (member?.dept ?? "").toLowerCase() === "board" &&
+          member?.onHomePage !== false,
       )
     : [];
 
@@ -633,22 +577,26 @@ function BoardSection({ members = [] }) {
 }
 
 function ProjectsGalleryMarquee({ projects = [] }) {
-  const galleryImages = (Array.isArray(projects) ? projects : []).flatMap((project) => {
-    const galleryBlocks = Array.isArray(project.gallery) ? project.gallery : [];
-    const projectTitle = project.title ?? 'Project';
-    return galleryBlocks.flatMap((block) => {
-      if (typeof block === 'string') {
-        return [{ src: block, alt: `${projectTitle} gallery` }];
-      }
-      if (Array.isArray(block?.images)) {
-        return block.images.map((src, idx) => ({
-          src,
-          alt: `${projectTitle} gallery ${idx + 1}`,
-        }));
-      }
-      return [];
-    });
-  });
+  const galleryImages = (Array.isArray(projects) ? projects : []).flatMap(
+    (project) => {
+      const galleryBlocks = Array.isArray(project.gallery)
+        ? project.gallery
+        : [];
+      const projectTitle = project.title ?? "Project";
+      return galleryBlocks.flatMap((block) => {
+        if (typeof block === "string") {
+          return [{ src: block, alt: `${projectTitle} gallery` }];
+        }
+        if (Array.isArray(block?.images)) {
+          return block.images.map((src, idx) => ({
+            src,
+            alt: `${projectTitle} gallery ${idx + 1}`,
+          }));
+        }
+        return [];
+      });
+    },
+  );
 
   if (galleryImages.length === 0) {
     return null;
@@ -679,7 +627,8 @@ function ProjectsGalleryMarquee({ projects = [] }) {
       const deltaSeconds = (timestamp - last) / 1000;
       lastTimeRef.current = timestamp;
       const loopWidth = loopWidthRef.current || 1;
-      offsetRef.current = (offsetRef.current + speed * deltaSeconds) % loopWidth;
+      offsetRef.current =
+        (offsetRef.current + speed * deltaSeconds) % loopWidth;
       applyTransform();
       frameRef.current = requestAnimationFrame(step);
     };
@@ -695,7 +644,7 @@ function ProjectsGalleryMarquee({ projects = [] }) {
 
   const handlePointerDown = (event) => {
     const x = event.clientX ?? event.touches?.[0]?.clientX;
-    if (typeof x !== 'number') return;
+    if (typeof x !== "number") return;
     event.preventDefault();
     isPointerDownRef.current = true;
     setIsDragging(true);
@@ -707,7 +656,7 @@ function ProjectsGalleryMarquee({ projects = [] }) {
   const handlePointerMove = (event) => {
     if (!isPointerDownRef.current) return;
     const x = event.clientX ?? event.touches?.[0]?.clientX;
-    if (typeof x !== 'number') return;
+    if (typeof x !== "number") return;
     event.preventDefault();
     const delta = x - startXRef.current;
     const loopWidth = loopWidthRef.current || 1;
@@ -740,15 +689,18 @@ function ProjectsGalleryMarquee({ projects = [] }) {
     measure();
     startAuto();
 
-    window.addEventListener('resize', measure);
+    window.addEventListener("resize", measure);
     return () => {
       stopAuto();
-      window.removeEventListener('resize', measure);
+      window.removeEventListener("resize", measure);
     };
   }, [galleryImages.length]);
 
   return (
-    <section className="project-gallery-marquee wide" aria-label="Project gallery highlights">
+    <section
+      className="project-gallery-marquee wide"
+      aria-label="Project gallery highlights"
+    >
       <div
         className="project-gallery-track"
         ref={trackRef}
@@ -757,7 +709,7 @@ function ProjectsGalleryMarquee({ projects = [] }) {
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerUp}
         onDragStart={(e) => e.preventDefault()}
-        style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
+        style={{ cursor: isDragging ? "grabbing" : "grab" }}
       >
         {[...galleryImages, ...galleryImages].map((image, index) => (
           <div

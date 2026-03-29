@@ -7,16 +7,10 @@
 
 .full {
     width: 100%;
-    min-width: 90svw;
 }
 
 .wide {
     width: 100%;
-    min-width: 100svw;
-}
-
-.hero {
-    min-height: 40vh;
 }
 
 .videos {
@@ -103,18 +97,6 @@
 
 .socials img {
     max-width: 4rem;
-}
-
-.hero-btn {
-    display: flex;
-    flex-flow: row wrap;
-    margin-bottom: 30vh;
-    transform: translateY(calc(var(--hero-scroll-boost, 0) * -0.4px));
-    transition: transform 0.14s ease-out;
-}
-
-.hero-btn div {
-    margin-right: 8rem;
 }
 
 .btn.cool.med {
