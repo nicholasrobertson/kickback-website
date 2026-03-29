@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import homeContent from "./content/pages/home.json";
 import StickyContent from "./components/StickyContent.jsx";
 import Footer from "./components/Footer.jsx";
@@ -92,7 +93,9 @@ export default function OfferHelpPage() {
                 Help cook meals, mentor rangatahi, assist with events, or lend
                 your skills. We'll find the right fit for you.
               </p>
-              <ContactLinks />
+              <Link to="/volunteer" className="oh-way-cta oh-way-cta--secondary">
+                Find Out More
+              </Link>
             </div>
 
             <div className="oh-way-card">
