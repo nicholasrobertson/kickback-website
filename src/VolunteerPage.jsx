@@ -62,7 +62,9 @@ export default function VolunteerPage() {
       <StickyContent />
       <main className="project full volunteer-page">
         <section className="vol-hero">
-          <Link to="/offer-help" className="vol-back">← Back to Offer Help</Link>
+          <Link to="/offer-help" className="vol-back">
+            ← Back to Offer Help
+          </Link>
           <h1 className="vol-hero-heading edo">
             <span className="prom">Volunteer</span> With Us
           </h1>
@@ -110,7 +112,7 @@ export default function VolunteerPage() {
             {CONTACT_METHODS.map((method) => (
               <a
                 key={method.url}
-                className="oh-contact-row"
+                className=""
                 href={method.url}
                 target="_blank"
                 rel="noreferrer"

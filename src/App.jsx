@@ -23,6 +23,7 @@ import HelpPage from "./HelpPage.jsx";
 import OfferHelpPage from "./OfferHelpPage.jsx";
 import VolunteerPage from "./VolunteerPage.jsx";
 import MissionPage from "./MissionPage.jsx";
+import ApproachPage from "./ApproachPage.jsx";
 
 const suspenseFallback = (
   <div className="route-fallback" aria-live="polite">
@@ -140,6 +141,14 @@ function App({ RouterComponent = Router, routerProps = {} }) {
           element={
             <Suspense fallback={suspenseFallback}>
               <MissionPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/approach"
+          element={
+            <Suspense fallback={suspenseFallback}>
+              <ApproachPage />
             </Suspense>
           }
         />

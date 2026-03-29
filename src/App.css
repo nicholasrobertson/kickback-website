@@ -462,6 +462,95 @@
   font-weight: 200;
 }
 
+/* Homepage mission section */
+
+.home-mission {
+    padding-bottom: 20rem;
+    width: 100%;
+}
+
+.home-mission-card {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    background: white;
+    border-radius: 2rem;
+    border: 0.2rem solid black;
+    box-shadow: 1.2rem 1.2rem 0 var(--color-tertiary);
+    overflow: hidden;
+}
+
+.home-mission-left {
+    flex: 0 0 45%;
+    background: var(--color-charcoal);
+    padding: 5rem 4rem;
+    display: flex;
+    align-items: center;
+}
+
+.home-mission-quote {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 4rem;
+    font-weight: 800;
+    line-height: 1.35;
+    color: white;
+    margin: 0;
+    font-style: italic;
+}
+
+.home-mission-right {
+    flex: 1;
+    padding: 5rem 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3rem;
+}
+
+.home-mission-body {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 2.8rem;
+    line-height: 1.7;
+    color: var(--color-charcoal);
+    margin: 0;
+}
+
+.home-mission-cta {
+    display: inline-flex;
+    align-items: center;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 2.6rem;
+    font-weight: 700;
+    color: var(--color-quarter);
+    text-decoration: none;
+    transition: gap 0.2s ease;
+    gap: 0.5rem;
+}
+
+.home-mission-cta:hover {
+    gap: 1rem;
+    color: var(--color-tertiary);
+}
+
+@media screen and (max-width: 750px) {
+    .home-mission-card {
+        flex-direction: column;
+    }
+
+    .home-mission-left {
+        flex: none;
+        padding: 4rem 3rem;
+    }
+
+    .home-mission-right {
+        padding: 3rem;
+    }
+
+    .home-mission-quote {
+        font-size: 3.4rem;
+    }
+}
+
 /* Mission page */
 .mission-card {
   background: white;

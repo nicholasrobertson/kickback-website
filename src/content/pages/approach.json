@@ -1,0 +1,26 @@
+{
+  "title": "Our Approach",
+  "intro": "We believe that by focusing on the margins, we can build services and systems that serve all our rangatahi. Our approach is grounded in aroha, innovation, and a commitment to closing the gaps.",
+  "pillars": [
+    {
+      "title": "Te Ara o Te Aroha",
+      "subtitle": "Love is The Way",
+      "body": "Everything we do is rooted in Love. We believe that healing, transformation, and change happen when we have the courage to step into solidarity with one another — meeting rangatahi exactly where they are, without judgement."
+    },
+    {
+      "title": "Serving the Gaps",
+      "subtitle": "Designing for the margins",
+      "body": "We focus on developing solutions for those who have been most structurally marginalised within our society. By designing services for those at the margins, we create systems that work for everyone."
+    },
+    {
+      "title": "Innovation & Evidence",
+      "subtitle": "Piloting change",
+      "body": "Our work is focused on piloting and developing innovative solutions to youth homelessness, building evidence and expanding our collective mātauranga, and gifting what we learn to the sector to drive change further and faster."
+    },
+    {
+      "title": "A Housing Continuum",
+      "subtitle": "Closing the gaps in services",
+      "body": "We're working to build a continuum within the housing sector — from immediate crisis support through to long-term independence — so rangatahi can access the right support at the right time."
+    }
+  ]
+}

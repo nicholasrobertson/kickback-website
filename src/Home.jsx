@@ -6,7 +6,6 @@ import { ProjectMiniCard } from "./components/ProjectMiniCard.jsx";
 import StickyContent from "./components/StickyContent.jsx";
 import Footer from "./components/Footer.jsx";
 import { getDescriptionPreview } from "./utils/projects.js";
-import { Mission } from "./MissionPage.jsx";
 import { TeamSection } from "./TeamPage.jsx";
 import { SubstackEmbed } from "./ReportsPage.jsx";
 import { useEffect, useRef, useState } from "react";
@@ -94,7 +93,6 @@ export default function Home() {
         <Testimonies testimonies={testimonyContent} />
         <Partners scrollToId={scrollToId} partners={partnerContent} />
         <Publications reports={reportContent} />
-        <BoardSection members={teamContent} />
       </main>
       <Footer routes={homeContent.staticRoutes} />
     </>
@@ -113,8 +111,8 @@ function Hero() {
         </div>
         <div className="hero-right">
           <p className="hero-tagline">
-            You don't have to figure this out alone. Kick Back is here for you — a
-            warm meal, a safe space, someone to talk to, and real help getting
+            You don't have to figure this out alone. Kick Back is here for you —
+            a warm meal, a safe space, someone to talk to, and real help getting
             back on your feet. No judgement, just aroha.
           </p>
           <div className="hero-ctas">
@@ -158,18 +156,32 @@ export function ProjectsSection({ projects = projectContent }) {
 
 function MissionSection() {
   return (
-    <>
-      <section className="project" id="front-door-head">
-        <div className="header-2">
-          <h2 className="italic edo">
-            <span className="prom-2">Our </span>Mission
-          </h2>
+    <section className="home-mission" id="mission">
+      <div className="header-2">
+        <h2 className="italic edo">
+          <span className="prom-2">Our </span>Mission
+        </h2>
+      </div>
+      <div className="home-mission-card">
+        <div className="home-mission-left">
+          <p className="home-mission-quote">
+            No young person belongs in the too hard basket. In fact, we don't
+            even think the thing exists.
+          </p>
         </div>
-      </section>
-      <section className="project project-grid" id="front-door">
-        <Mission previewOnly={true} />
-      </section>
-    </>
+        <div className="home-mission-right">
+          <p className="home-mission-body">
+            We're a Youth Development and Social Justice movement innovating for
+            change and kicking back against the status quo. Our mission is to do
+            our part in the fight to end the injustice of homelessness facing
+            our rangatahi.
+          </p>
+          <Link to="/mission" className="home-mission-cta">
+            Read Our Full Mission →
+          </Link>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -506,22 +518,6 @@ function Publications({ reports = [] }) {
       <SubstackEmbed />
     </section>
   );
-}
-
-function BoardSection({ members = [] }) {
-  const boardMembers = Array.isArray(members)
-    ? members.filter(
-        (member) =>
-          (member?.dept ?? "").toLowerCase() === "board" &&
-          member?.onHomePage !== false,
-      )
-    : [];
-
-  if (boardMembers.length === 0) {
-    return null;
-  }
-
-  return <TeamSection sectionId="board" members={boardMembers} compact />;
 }
 
 function ProjectsGalleryMarquee({ projects = [] }) {
