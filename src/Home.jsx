@@ -1,46 +1,46 @@
-import { Link, useNavigate } from 'react-router-dom';
-import './App.css';
-import homeContent from './content/pages/home.json';
-import { getContent } from './content/helper.js';
-import { ProjectMiniCard } from './components/ProjectMiniCard.jsx';
-import StickyContent from './components/StickyContent.jsx';
-import Footer from './components/Footer.jsx';
-import { getDescriptionPreview } from './utils/projects.js';
-import { Mission } from './MissionPage.jsx';
-import { TeamSection } from './TeamPage.jsx';
-import { SubstackEmbed } from './ReportsPage.jsx';
-import { useEffect, useRef, useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
+import "./App.css";
+import homeContent from "./content/pages/home.json";
+import { getContent } from "./content/helper.js";
+import { ProjectMiniCard } from "./components/ProjectMiniCard.jsx";
+import StickyContent from "./components/StickyContent.jsx";
+import Footer from "./components/Footer.jsx";
+import { getDescriptionPreview } from "./utils/projects.js";
+import { TeamSection } from "./TeamPage.jsx";
+import { SubstackEmbed } from "./ReportsPage.jsx";
+import { useEffect, useRef, useState } from "react";
 
-const projectContent = getContent('projects');
-const articleContent = getContent('articles');
-const reportContent = getContent('reports');
-const partnerContent = getContent('partners');
-const testimonyContent = getContent('testimonies');
-const teamContent = getContent('team');
+const projectContent = getContent("projects");
+const articleContent = getContent("articles");
+const reportContent = getContent("reports");
+const partnerContent = getContent("partners");
+const testimonyContent = getContent("testimonies");
+const teamContent = getContent("team");
 
 const partnerTypeLabels = {
-  seed: 'Visionary Seed Funders',
-  corporate: 'Corporate Supporters',
-  local: 'Local Socially Conscious Businesses',
+  seed: "Visionary Seed Funders",
+  corporate: "Corporate Supporters",
+  local: "Local Socially Conscious Businesses",
 };
 
-const partnerTypeOrder = ['seed', 'corporate', 'local'];
+const partnerTypeOrder = ["seed", "corporate", "local"];
 
 export default function Home() {
-  const navigate = useNavigate();
   useEffect(() => {
     const root = document.documentElement;
-    const sections = Array.from(document.querySelectorAll('main.home-main > section'));
+    const sections = Array.from(
+      document.querySelectorAll("main.home-main > section"),
+    );
     const handleScroll = () => {
       const y = window.scrollY || 0;
       const boost = Math.min(y * 0.18, 140);
-      root.style.setProperty('--hero-scroll-boost', boost.toFixed(2));
+      root.style.setProperty("--hero-scroll-boost", boost.toFixed(2));
       const vh = window.innerHeight || 1;
       sections.forEach((section) => {
         const rect = section.getBoundingClientRect();
         const distance = Math.min(rect.top, vh);
         const progress = Math.max(0, Math.min(1, 1 - distance / (vh * 0.7)));
-        section.style.setProperty('--section-progress', progress.toFixed(3));
+        section.style.setProperty("--section-progress", progress.toFixed(3));
       });
     };
 
@@ -48,161 +48,84 @@ export default function Home() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('section-visible');
+            entry.target.classList.add("section-visible");
           } else {
-            entry.target.classList.remove('section-visible');
+            entry.target.classList.remove("section-visible");
           }
         });
       },
       {
         threshold: 0.15,
-        rootMargin: '0px 0px -12% 0px',
+        rootMargin: "0px 0px -12% 0px",
       },
     );
 
     sections.forEach((section) => observer.observe(section));
     handleScroll();
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
       observer.disconnect();
-      sections.forEach((section) => section.classList.remove('section-visible'));
+      sections.forEach((section) =>
+        section.classList.remove("section-visible"),
+      );
     };
   }, []);
-
-  const sortedActions = [...(homeContent.actions ?? [])].sort(
-    (a, b) => (a.order ?? 0) - (b.order ?? 0),
-  );
-  const rawHeroHeading = (homeContent.headerText ?? homeContent.h1Text ?? '').trim();
-  const heroWords = rawHeroHeading ? rawHeroHeading.split(' ') : [];
-  let heroPrefix = '';
-  let heroHighlight = '';
-  if (heroWords.length > 1) {
-    heroHighlight = heroWords.pop();
-    heroPrefix = heroWords.join(' ');
-  } else if (heroWords.length === 1) {
-    heroHighlight = heroWords[0];
-  }
-  const heroDataText = heroHighlight
-    ? `${heroPrefix ? `${heroPrefix}\n` : ''}${heroHighlight}`
-    : rawHeroHeading;
-  const subheadingText = (homeContent.h2Text ?? '').trim();
-  const [subheadingFirstWord, ...subheadingRestWords] = subheadingText
-    ? subheadingText.split(' ')
-    : [];
-  const subheadingRest = subheadingRestWords.join(' ');
 
   const scrollToId = (id) => {
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: "smooth" });
     }
-  };
-  const handleHeroAction = (action) => {
-    const target = action?.url?.trim();
-    if (!target) {
-      return;
-    }
-    if (target.startsWith('#')) {
-      scrollToId(target.slice(1));
-      return;
-    }
-    if (target.startsWith('/')) {
-      navigate(target);
-      return;
-    }
-    window.open(target, '_blank');
   };
 
   return (
     <>
       <StickyContent />
       <main className="home-main">
-        <Hero
-          rawHeroHeading={rawHeroHeading}
-          heroDataText={heroDataText}
-          heroHighlight={heroHighlight}
-          heroPrefix={heroPrefix}
-          subheadingFirstWord={subheadingFirstWord}
-          subheadingRest={subheadingRest}
-          subheadingText={subheadingText}
-          actions={sortedActions}
-          onHeroAction={handleHeroAction}
-        />
+        <Hero />
         <ProjectsGalleryMarquee projects={projectContent} />
         <MissionSection />
         <ProjectsSection projects={projectContent} />
-        <PromotedArticles />
+        <PromotedArticles articles={articleContent} />
         <Testimonies testimonies={testimonyContent} />
         <Partners scrollToId={scrollToId} partners={partnerContent} />
         <Publications reports={reportContent} />
-        <Articles articles={articleContent} />
-        <BoardSection members={teamContent} />
       </main>
       <Footer routes={homeContent.staticRoutes} />
     </>
   );
 }
 
-function Hero({
-  rawHeroHeading,
-  heroDataText = '',
-  heroHighlight,
-  heroPrefix,
-  subheadingFirstWord,
-  subheadingRest,
-  subheadingText = '',
-  actions,
-  onHeroAction,
-}) {
-  const hasActions = Array.isArray(actions) && actions.length > 0;
-
+function Hero() {
   return (
-    <>
-      <section className="hero">
-        <h1 className='hero-h1' data-text={heroDataText}>
-          {heroHighlight ? (
-            <>
-              {heroPrefix && (
-                <span>
-                  {heroPrefix}
-                  <br />
-                </span>
-              )}
-              <span id="movement" className="prom">
-                {heroHighlight}
-              </span>
-            </>
-          ) : (
-            <span>{rawHeroHeading}</span>
-          )}
-        </h1>
-        <img id="header-logo" src="/images/logo-kickback-dark.svg" alt="Kick Back Logo" />
-      </section>
-      <section className="">
-        <div className="hero-subhead">
-        <div className="end edo" data-text={subheadingText}>
-          {subheadingFirstWord && <span style={{ color: 'white' }}>{subheadingFirstWord}</span>}
-          {subheadingRest && <span> {subheadingRest}</span>}
+    <section className="hero">
+      <div className="hero-content">
+        <div className="hero-left">
+          <h1 className="hero-h1 edo">
+            <span>Need a </span>
+            <span className="prom">safe place?</span>
+          </h1>
         </div>
+        <div className="hero-right">
+          <p className="hero-tagline">
+            You don't have to figure this out alone. Kick Back is here for you —
+            a warm meal, a safe space, someone to talk to, and real help getting
+            back on your feet. No judgement, just aroha.
+          </p>
+          <div className="hero-ctas">
+            <Link to="/help" className="hero-cta hero-cta--primary">
+              Get Help Now
+            </Link>
+            <Link to="/mission" className="hero-cta hero-cta--secondary">
+              Learn More
+            </Link>
+          </div>
         </div>
-      </section>
-      {hasActions && (
-        <section className="hero-btn">
-          {actions.map((action) => (
-            <div
-              key={`${action.label}-${action.url}`}
-              className="btn med cool"
-              onClick={() => onHeroAction(action)}
-            >
-              {action.label}
-            </div>
-          ))}
-        </section>
-      )}
-    </>
+      </div>
+    </section>
   );
 }
 
@@ -232,24 +155,35 @@ export function ProjectsSection({ projects = projectContent }) {
 }
 
 function MissionSection() {
-
   return (
-    <>
-      <section className="project" id="front-door-head">
-        <div className="header-2">
-          <h2 className="italic edo">
-            <span className="prom-2">Our </span>Mission
-          </h2>
+    <section className="home-mission" id="mission">
+      <div className="header-2">
+        <h2 className="italic edo">
+          <span className="prom-2">Our </span>Mission
+        </h2>
+      </div>
+      <div className="home-mission-card">
+        <div className="home-mission-left">
+          <p className="home-mission-quote">
+            No young person belongs in the too hard basket. In fact, we don't
+            even think the thing exists.
+          </p>
         </div>
-      </section>
-      <section className="project project-grid" id="front-door">
-        <Mission previewOnly={true} />
-      </section>
-    </>
+        <div className="home-mission-right">
+          <p className="home-mission-body">
+            We're a Youth Development and Social Justice movement innovating for
+            change and kicking back against the status quo. Our mission is to do
+            our part in the fight to end the injustice of homelessness facing
+            our rangatahi.
+          </p>
+          <Link to="/mission" className="home-mission-cta">
+            Read Our Full Mission →
+          </Link>
+        </div>
+      </div>
+    </section>
   );
 }
-
-
 
 function Gallery() {
   return (
@@ -289,98 +223,70 @@ function Gallery() {
   );
 }
 
-function PromotedArticles() {
+function PromotedArticles({ articles = [] }) {
+  const items = Array.isArray(articles)
+    ? articles.filter((article) => article?.onHomePage !== false)
+    : [];
+
+  const videoItems = [
+    {
+      thumb: "/images/video_2.png",
+      alt: "1 News interview about youth homelessness",
+      url: "https://www.1news.co.nz/2019/09/11/national-response-to-youth-homelessness-problem-needed-frontline-worker-says/",
+    },
+    {
+      thumb: "/images/video_1.png",
+      alt: "1 News interview about benefit changes",
+      url: "https://www.1news.co.nz/2024/02/21/sanctions-dont-work-hipkins-on-govts-benefit-changes",
+    },
+  ];
+
   return (
-    <section className="news">
+    <section className="news" id="advocacy">
       <div className="header-2">
         <h2 className="edo">
           <span className="italic prom-2">In the</span> News
         </h2>
       </div>
-      <div className="news-cards">
-        <div
-          className="news-card"
-          onClick={() =>
-            window.open(
-              'https://www.rnz.co.nz/news/national/505952/auckland-couple-going-without-to-help-homeless-youth',
-              '_blank',
-            )
-          }
-        >
-          <div className="cd-logo">
-            <img src="/images/logo-rnz.png" alt="News 1" />
-          </div>
-          <div className="cd-header">RNZ</div>
-          <div className="italic">Auckland couple going without to help homeless youth</div>
-        </div>
-        <div
-          className="news-card"
-          onClick={() =>
-            window.open(
-              'https://www.nzherald.co.nz/nz/a-social-workers-novel-solution-for-homeless-youth-his-own-home/3HQMB5DRFFBL5D37DYA2KUAQY4/',
-              '_blank',
-            )
-          }
-        >
-          <div className="cd-logo">
-            <img src="/images/logo-herald.png" alt="News 2" />
-          </div>
-          <div className="cd-header">NZ Herald</div>
-          <div className="italic">A youth worker came up with a novel solution for homeless teens: His own home</div>
-        </div>
-        <div
-          className="news-card"
-          onClick={() =>
-            window.open(
-              'https://www.odt.co.nz/news/national/couple-spend-savings-centre-homeless-youth',
-              '_blank',
-            )
-          }
-        >
-          <div className="cd-logo">
-            <img src="/images/logo-odt.png" alt="News 3" />
-          </div>
-          <div className="cd-header">ODT</div>
-          <div className="italic">Couple spend savings on centre for homeless youth</div>
-        </div>
+      <div className="news-grid">
+        {items.map((article) => (
+          <a
+            key={article.id ?? article.slug ?? article.url}
+            className="news-grid-card"
+            href={article.url}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {article.image && (
+              <div className="news-grid-logo">
+                <img src={article.image} alt={`${article.title} logo`} />
+              </div>
+            )}
+            <div className="news-grid-body">
+              <span className="news-grid-outlet">{article.title}</span>
+              {article.description && (
+                <span className="news-grid-headline">
+                  {article.description}
+                </span>
+              )}
+            </div>
+            <span className="news-grid-arrow">→</span>
+          </a>
+        ))}
       </div>
-      <div className="videos">
-        <div className="video-wrapper">
-          <img className="video" src="/images/video_2.png" alt="Video 2" />
-          <div
-            className="play-icon cambo"
-            onClick={() =>
-              window.open(
-                'https://www.1news.co.nz/2019/09/11/national-response-to-youth-homelessness-problem-needed-frontline-worker-says/',
-                '_blank',
-              )
-            }
+      <div className="news-videos">
+        {videoItems.map((vid) => (
+          <a
+            key={vid.url}
+            className="news-video-card"
+            href={vid.url}
+            target="_blank"
+            rel="noreferrer"
           >
-            {/*<svg id="play-icon" width="110" height="122" viewBox="0 0 110 122" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M102.5 48.0096C112.5 53.7831 112.5 68.2169 102.5 73.9904L23 119.89C13 125.663 0.499994 118.446 0.499994 106.899L0.499998 15.1006C0.499999 3.55364 13 -3.66324 23 2.11027L102.5 48.0096Z"
-                            fill="var(--color-video-icon)" fill-opacity="0.9" />
-                    </svg>*/}
-          </div>
-        </div>
-        <div className="video-wrapper">
-          <img className="video" src="/images/video_1.png" alt="Video 1" />
-          <div
-            className="play-icon newshub"
-            onClick={() =>
-              window.open(
-                'https://www.1news.co.nz/2024/02/21/sanctions-dont-work-hipkins-on-govts-benefit-changes',
-                '_blank',
-              )
-            }
-          >
-            {/*<svg id="play-icon" width="110" height="122" viewBox="0 0 110 122" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M102.5 48.0096C112.5 53.7831 112.5 68.2169 102.5 73.9904L23 119.89C13 125.663 0.499994 118.446 0.499994 106.899L0.499998 15.1006C0.499999 3.55364 13 -3.66324 23 2.11027L102.5 48.0096Z"
-                            fill="var(--color-video-icon)" fill-opacity="0.9" />
-                    </svg>*/}
-          </div>
-        </div>
+            <img src={vid.thumb} alt={vid.alt} />
+            <div className="news-video-play">▶</div>
+          </a>
+        ))}
       </div>
     </section>
   );
@@ -405,7 +311,7 @@ function Testimonies({ testimonies = testimonyContent }) {
 
   const renderMeta = (testimony) => {
     const parts = [testimony.author, testimony.organisation].filter(Boolean);
-    return parts.join(' · ');
+    return parts.join(" · ");
   };
 
   return (
@@ -417,7 +323,7 @@ function Testimonies({ testimonies = testimonyContent }) {
       </div>
       <div className="testimony-grid">
         {items.map((testimony) => {
-          const bodyPreview = getDescriptionPreview(testimony.body ?? '', 120);
+          const bodyPreview = getDescriptionPreview(testimony.body ?? "", 120);
           return (
             <div
               key={testimony.id ?? testimony.title}
@@ -426,14 +332,16 @@ function Testimonies({ testimonies = testimonyContent }) {
               tabIndex={0}
               onClick={() => handleSelect(testimony)}
               onKeyDown={(event) => {
-                if (event.key === 'Enter' || event.key === ' ') {
+                if (event.key === "Enter" || event.key === " ") {
                   event.preventDefault();
                   handleSelect(testimony);
                 }
               }}
             >
               <div className="testimony-card-body">
-                {bodyPreview && <div className="testimony-quote">“{bodyPreview}”</div>}
+                {bodyPreview && (
+                  <div className="testimony-quote">“{bodyPreview}”</div>
+                )}
                 <div className="testimony-meta">
                   <span>{renderMeta(testimony) || testimony.author}</span>
                 </div>
@@ -453,8 +361,8 @@ function Partners({ scrollToId, partners = partnerContent }) {
     : [];
 
   const renderLogo = (partner) => {
-    const logoSrc = partner.logo || '/images/logo-kickback-dark.svg';
-    const altText = partner.name ? `${partner.name} logo` : 'Partner logo';
+    const logoSrc = partner.logo || "/images/logo-kickback-dark.svg";
+    const altText = partner.name ? `${partner.name} logo` : "Partner logo";
     const logoImage = <img src={logoSrc} alt={altText} />;
 
     if (partner.url) {
@@ -463,7 +371,7 @@ function Partners({ scrollToId, partners = partnerContent }) {
           href={partner.url}
           target="_blank"
           rel="noreferrer"
-          aria-label={`Visit ${partner.name ?? 'partner'} website`}
+          aria-label={`Visit ${partner.name ?? "partner"} website`}
         >
           {logoImage}
         </a>
@@ -482,7 +390,9 @@ function Partners({ scrollToId, partners = partnerContent }) {
           </h2>
         </div>
         {partnerTypeOrder.map((type) => {
-          const sectionPartners = items.filter((partner) => partner.type === type);
+          const sectionPartners = items.filter(
+            (partner) => partner.type === type,
+          );
           if (sectionPartners.length === 0) {
             return null;
           }
@@ -494,7 +404,9 @@ function Partners({ scrollToId, partners = partnerContent }) {
                 {sectionPartners.map((partner) => (
                   <div
                     className="partner-card"
-                    key={partner.id ?? partner.slug ?? partner.name ?? partner.logo}
+                    key={
+                      partner.id ?? partner.slug ?? partner.name ?? partner.logo
+                    }
                     style={
                       partner.backgroundColor
                         ? { backgroundColor: partner.backgroundColor }
@@ -512,7 +424,7 @@ function Partners({ scrollToId, partners = partnerContent }) {
       <section className="partner-links">
         <div className="partner-link">
           <div className="cd-header">Becoming a Partner</div>
-          <div className="btn cool" onClick={() => scrollToId('contact')}>
+          <div className="btn cool" onClick={() => scrollToId("contact")}>
             Contact us to find out more
           </div>
         </div>
@@ -539,7 +451,7 @@ function Publications({ reports = [] }) {
     const linkUrl = report.link?.trim();
     const targetUrl = fileUrl || linkUrl;
     if (targetUrl) {
-      window.open(targetUrl, '_blank');
+      window.open(targetUrl, "_blank");
       return;
     }
 
@@ -556,18 +468,50 @@ function Publications({ reports = [] }) {
           <span className="prom-2">Our </span>Publications
         </h2>
       </div>
-      <div className="adv-cards">
+      <div className="pub-cards">
         {items.map((report) => (
           <div
-            key={report.id ?? report.slug ?? report.name ?? report.link ?? report.file}
-            className="news-card"
-            onClick={() => navigate('/reports')}
+            key={
+              report.id ??
+              report.slug ??
+              report.name ??
+              report.link ??
+              report.file
+            }
+            className="pub-card"
+            role="button"
+            tabIndex={0}
+            onClick={() => openReport(report)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                openReport(report);
+              }
+            }}
           >
-            <div className="cd-logo">
-              <img src="/images/logo-kickback-black.svg" alt="Kick Back publication" />
+            <div className="pub-card-accent" />
+            <div className="pub-card-body">
+              <div className="pub-card-org">Kick Back</div>
+              {report.name && (
+                <div className="pub-card-title">{report.name}</div>
+              )}
+              {report.description && (
+                <div className="pub-card-desc">{report.description}</div>
+              )}
+              <div className="pub-card-footer">
+                {report.date && (
+                  <span className="pub-card-date">
+                    {new Date(report.date).toLocaleDateString("en-NZ", {
+                      year: "numeric",
+                      month: "short",
+                    })}
+                  </span>
+                )}
+                <span className="pub-card-action">
+                  {report.file ? "Read PDF →" : "View →"}
+                </span>
+              </div>
             </div>
-            <div className="cd-header">Kick Back</div>
-            {report.name && <div className="italic">{report.name}</div>}
           </div>
         ))}
       </div>
@@ -576,79 +520,27 @@ function Publications({ reports = [] }) {
   );
 }
 
-function Articles({ articles = [] }) {
-  const items = Array.isArray(articles)
-    ? articles.filter((article) => article?.onHomePage !== false)
-    : [];
-
-  const openArticle = (url) => {
-    if (!url) {
-      return;
-    }
-
-    window.open(url, '_blank');
-  };
-
-  return (
-    <section className="project" id="advocacy">
-      <div className="header-2">
-        <h2 className="italic">
-          <span className="prom-2">Our </span>Advocacy
-        </h2>
-      </div>
-      <div className="adv-cards">
-        {items.map((article) => (
-          <div
-            key={article.id ?? article.slug ?? article.url}
-            className="news-card"
-            onClick={() => openArticle(article.url)}
-          >
-            {article.image && (
-              <div className="cd-logo">
-                <img src={article.image} alt={article.title} />
-              </div>
-            )}
-            <div className="cd-header">{article.title}</div>
-            {article.description && <div className="italic">{article.description}</div>}
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function BoardSection({ members = [] }) {
-  const boardMembers = Array.isArray(members)
-    ? members.filter(
-        (member) =>
-          (member?.dept ?? '').toLowerCase() === 'board' && member?.onHomePage !== false,
-      )
-    : [];
-
-  if (boardMembers.length === 0) {
-    return null;
-  }
-
-  return <TeamSection sectionId="board" members={boardMembers} />;
-}
-
 function ProjectsGalleryMarquee({ projects = [] }) {
-  const galleryImages = (Array.isArray(projects) ? projects : []).flatMap((project) => {
-    const galleryBlocks = Array.isArray(project.gallery) ? project.gallery : [];
-    const projectTitle = project.title ?? 'Project';
-    return galleryBlocks.flatMap((block) => {
-      if (typeof block === 'string') {
-        return [{ src: block, alt: `${projectTitle} gallery` }];
-      }
-      if (Array.isArray(block?.images)) {
-        return block.images.map((src, idx) => ({
-          src,
-          alt: `${projectTitle} gallery ${idx + 1}`,
-        }));
-      }
-      return [];
-    });
-  });
+  const galleryImages = (Array.isArray(projects) ? projects : []).flatMap(
+    (project) => {
+      const galleryBlocks = Array.isArray(project.gallery)
+        ? project.gallery
+        : [];
+      const projectTitle = project.title ?? "Project";
+      return galleryBlocks.flatMap((block) => {
+        if (typeof block === "string") {
+          return [{ src: block, alt: `${projectTitle} gallery` }];
+        }
+        if (Array.isArray(block?.images)) {
+          return block.images.map((src, idx) => ({
+            src,
+            alt: `${projectTitle} gallery ${idx + 1}`,
+          }));
+        }
+        return [];
+      });
+    },
+  );
 
   if (galleryImages.length === 0) {
     return null;
@@ -679,7 +571,8 @@ function ProjectsGalleryMarquee({ projects = [] }) {
       const deltaSeconds = (timestamp - last) / 1000;
       lastTimeRef.current = timestamp;
       const loopWidth = loopWidthRef.current || 1;
-      offsetRef.current = (offsetRef.current + speed * deltaSeconds) % loopWidth;
+      offsetRef.current =
+        (offsetRef.current + speed * deltaSeconds) % loopWidth;
       applyTransform();
       frameRef.current = requestAnimationFrame(step);
     };
@@ -695,7 +588,7 @@ function ProjectsGalleryMarquee({ projects = [] }) {
 
   const handlePointerDown = (event) => {
     const x = event.clientX ?? event.touches?.[0]?.clientX;
-    if (typeof x !== 'number') return;
+    if (typeof x !== "number") return;
     event.preventDefault();
     isPointerDownRef.current = true;
     setIsDragging(true);
@@ -707,7 +600,7 @@ function ProjectsGalleryMarquee({ projects = [] }) {
   const handlePointerMove = (event) => {
     if (!isPointerDownRef.current) return;
     const x = event.clientX ?? event.touches?.[0]?.clientX;
-    if (typeof x !== 'number') return;
+    if (typeof x !== "number") return;
     event.preventDefault();
     const delta = x - startXRef.current;
     const loopWidth = loopWidthRef.current || 1;
@@ -740,15 +633,18 @@ function ProjectsGalleryMarquee({ projects = [] }) {
     measure();
     startAuto();
 
-    window.addEventListener('resize', measure);
+    window.addEventListener("resize", measure);
     return () => {
       stopAuto();
-      window.removeEventListener('resize', measure);
+      window.removeEventListener("resize", measure);
     };
   }, [galleryImages.length]);
 
   return (
-    <section className="project-gallery-marquee wide" aria-label="Project gallery highlights">
+    <section
+      className="project-gallery-marquee wide"
+      aria-label="Project gallery highlights"
+    >
       <div
         className="project-gallery-track"
         ref={trackRef}
@@ -757,7 +653,7 @@ function ProjectsGalleryMarquee({ projects = [] }) {
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerUp}
         onDragStart={(e) => e.preventDefault()}
-        style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
+        style={{ cursor: isDragging ? "grabbing" : "grab" }}
       >
         {[...galleryImages, ...galleryImages].map((image, index) => (
           <div
