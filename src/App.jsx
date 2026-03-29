@@ -20,6 +20,7 @@ import ReportPage from "./ReportPage.jsx";
 import TeamPage, { TeamMemberPage } from "./TeamPage.jsx";
 import ContactPage from "./ContactPage.jsx";
 import HelpPage from "./HelpPage.jsx";
+import OfferHelpPage from "./OfferHelpPage.jsx";
 import MissionPage from "./MissionPage.jsx";
 
 const suspenseFallback = (
@@ -114,6 +115,14 @@ function App({ RouterComponent = Router, routerProps = {} }) {
           element={
             <Suspense fallback={suspenseFallback}>
               <HelpPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/offer-help"
+          element={
+            <Suspense fallback={suspenseFallback}>
+              <OfferHelpPage />
             </Suspense>
           }
         />

@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 const NAV_ITEMS = [
-  { label: "Offer Help", to: "/contact" },
+  { label: "Offer Help", to: "/offer-help" },
   { label: "About Us", to: "/mission" },
   {
     label: "Donate",

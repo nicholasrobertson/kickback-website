@@ -90,11 +90,10 @@ export default function Home() {
         <ProjectsGalleryMarquee projects={projectContent} />
         <MissionSection />
         <ProjectsSection projects={projectContent} />
-        <PromotedArticles />
+        <PromotedArticles articles={articleContent} />
         <Testimonies testimonies={testimonyContent} />
         <Partners scrollToId={scrollToId} partners={partnerContent} />
         <Publications reports={reportContent} />
-        <Articles articles={articleContent} />
         <BoardSection members={teamContent} />
       </main>
       <Footer routes={homeContent.staticRoutes} />
@@ -106,22 +105,26 @@ function Hero() {
   return (
     <section className="hero">
       <div className="hero-content">
-        <h1 className="hero-h1 edo">
-          <span>Need a safe</span>
-          <span className="prom">place?</span>
-        </h1>
-        <p className="hero-tagline">
-          You don't have to figure this out alone. Kick Back is here for you — a
-          warm meal, a safe space, someone to talk to, and real help getting
-          back on your feet. No judgement, just aroha.
-        </p>
-        <div className="hero-ctas">
-          <Link to="/help" className="hero-cta hero-cta--primary">
-            Get Help Now
-          </Link>
-          <Link to="/about" className="hero-cta hero-cta--secondary">
-            Learn More
-          </Link>
+        <div className="hero-left">
+          <h1 className="hero-h1 edo">
+            <span>Need a </span>
+            <span className="prom">safe place?</span>
+          </h1>
+        </div>
+        <div className="hero-right">
+          <p className="hero-tagline">
+            You don't have to figure this out alone. Kick Back is here for you — a
+            warm meal, a safe space, someone to talk to, and real help getting
+            back on your feet. No judgement, just aroha.
+          </p>
+          <div className="hero-ctas">
+            <Link to="/help" className="hero-cta hero-cta--primary">
+              Get Help Now
+            </Link>
+            <Link to="/mission" className="hero-cta hero-cta--secondary">
+              Learn More
+            </Link>
+          </div>
         </div>
       </div>
     </section>
@@ -208,105 +211,70 @@ function Gallery() {
   );
 }
 
-function PromotedArticles() {
+function PromotedArticles({ articles = [] }) {
+  const items = Array.isArray(articles)
+    ? articles.filter((article) => article?.onHomePage !== false)
+    : [];
+
+  const videoItems = [
+    {
+      thumb: "/images/video_2.png",
+      alt: "1 News interview about youth homelessness",
+      url: "https://www.1news.co.nz/2019/09/11/national-response-to-youth-homelessness-problem-needed-frontline-worker-says/",
+    },
+    {
+      thumb: "/images/video_1.png",
+      alt: "1 News interview about benefit changes",
+      url: "https://www.1news.co.nz/2024/02/21/sanctions-dont-work-hipkins-on-govts-benefit-changes",
+    },
+  ];
+
   return (
-    <section className="news">
+    <section className="news" id="advocacy">
       <div className="header-2">
         <h2 className="edo">
           <span className="italic prom-2">In the</span> News
         </h2>
       </div>
-      <div className="news-cards">
-        <div
-          className="news-card"
-          onClick={() =>
-            window.open(
-              "https://www.rnz.co.nz/news/national/505952/auckland-couple-going-without-to-help-homeless-youth",
-              "_blank",
-            )
-          }
-        >
-          <div className="cd-logo">
-            <img src="/images/logo-rnz.png" alt="News 1" />
-          </div>
-          <div className="cd-header">RNZ</div>
-          <div className="italic">
-            Auckland couple going without to help homeless youth
-          </div>
-        </div>
-        <div
-          className="news-card"
-          onClick={() =>
-            window.open(
-              "https://www.nzherald.co.nz/nz/a-social-workers-novel-solution-for-homeless-youth-his-own-home/3HQMB5DRFFBL5D37DYA2KUAQY4/",
-              "_blank",
-            )
-          }
-        >
-          <div className="cd-logo">
-            <img src="/images/logo-herald.png" alt="News 2" />
-          </div>
-          <div className="cd-header">NZ Herald</div>
-          <div className="italic">
-            A youth worker came up with a novel solution for homeless teens: His
-            own home
-          </div>
-        </div>
-        <div
-          className="news-card"
-          onClick={() =>
-            window.open(
-              "https://www.odt.co.nz/news/national/couple-spend-savings-centre-homeless-youth",
-              "_blank",
-            )
-          }
-        >
-          <div className="cd-logo">
-            <img src="/images/logo-odt.png" alt="News 3" />
-          </div>
-          <div className="cd-header">ODT</div>
-          <div className="italic">
-            Couple spend savings on centre for homeless youth
-          </div>
-        </div>
+      <div className="news-grid">
+        {items.map((article) => (
+          <a
+            key={article.id ?? article.slug ?? article.url}
+            className="news-grid-card"
+            href={article.url}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {article.image && (
+              <div className="news-grid-logo">
+                <img src={article.image} alt={`${article.title} logo`} />
+              </div>
+            )}
+            <div className="news-grid-body">
+              <span className="news-grid-outlet">{article.title}</span>
+              {article.description && (
+                <span className="news-grid-headline">
+                  {article.description}
+                </span>
+              )}
+            </div>
+            <span className="news-grid-arrow">→</span>
+          </a>
+        ))}
       </div>
-      <div className="videos">
-        <div className="video-wrapper">
-          <img className="video" src="/images/video_2.png" alt="Video 2" />
-          <div
-            className="play-icon cambo"
-            onClick={() =>
-              window.open(
-                "https://www.1news.co.nz/2019/09/11/national-response-to-youth-homelessness-problem-needed-frontline-worker-says/",
-                "_blank",
-              )
-            }
+      <div className="news-videos">
+        {videoItems.map((vid) => (
+          <a
+            key={vid.url}
+            className="news-video-card"
+            href={vid.url}
+            target="_blank"
+            rel="noreferrer"
           >
-            {/*<svg id="play-icon" width="110" height="122" viewBox="0 0 110 122" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M102.5 48.0096C112.5 53.7831 112.5 68.2169 102.5 73.9904L23 119.89C13 125.663 0.499994 118.446 0.499994 106.899L0.499998 15.1006C0.499999 3.55364 13 -3.66324 23 2.11027L102.5 48.0096Z"
-                            fill="var(--color-video-icon)" fill-opacity="0.9" />
-                    </svg>*/}
-          </div>
-        </div>
-        <div className="video-wrapper">
-          <img className="video" src="/images/video_1.png" alt="Video 1" />
-          <div
-            className="play-icon newshub"
-            onClick={() =>
-              window.open(
-                "https://www.1news.co.nz/2024/02/21/sanctions-dont-work-hipkins-on-govts-benefit-changes",
-                "_blank",
-              )
-            }
-          >
-            {/*<svg id="play-icon" width="110" height="122" viewBox="0 0 110 122" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M102.5 48.0096C112.5 53.7831 112.5 68.2169 102.5 73.9904L23 119.89C13 125.663 0.499994 118.446 0.499994 106.899L0.499998 15.1006C0.499999 3.55364 13 -3.66324 23 2.11027L102.5 48.0096Z"
-                            fill="var(--color-video-icon)" fill-opacity="0.9" />
-                    </svg>*/}
-          </div>
-        </div>
+            <img src={vid.thumb} alt={vid.alt} />
+            <div className="news-video-play">▶</div>
+          </a>
+        ))}
       </div>
     </section>
   );
@@ -488,7 +456,7 @@ function Publications({ reports = [] }) {
           <span className="prom-2">Our </span>Publications
         </h2>
       </div>
-      <div className="adv-cards">
+      <div className="pub-cards">
         {items.map((report) => (
           <div
             key={
@@ -498,64 +466,44 @@ function Publications({ reports = [] }) {
               report.link ??
               report.file
             }
-            className="news-card"
-            onClick={() => navigate("/reports")}
+            className="pub-card"
+            role="button"
+            tabIndex={0}
+            onClick={() => openReport(report)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                openReport(report);
+              }
+            }}
           >
-            <div className="cd-logo">
-              <img
-                src="/images/logo-kickback-black.svg"
-                alt="Kick Back publication"
-              />
+            <div className="pub-card-accent" />
+            <div className="pub-card-body">
+              <div className="pub-card-org">Kick Back</div>
+              {report.name && (
+                <div className="pub-card-title">{report.name}</div>
+              )}
+              {report.description && (
+                <div className="pub-card-desc">{report.description}</div>
+              )}
+              <div className="pub-card-footer">
+                {report.date && (
+                  <span className="pub-card-date">
+                    {new Date(report.date).toLocaleDateString("en-NZ", {
+                      year: "numeric",
+                      month: "short",
+                    })}
+                  </span>
+                )}
+                <span className="pub-card-action">
+                  {report.file ? "Read PDF →" : "View →"}
+                </span>
+              </div>
             </div>
-            <div className="cd-header">Kick Back</div>
-            {report.name && <div className="italic">{report.name}</div>}
           </div>
         ))}
       </div>
       <SubstackEmbed />
-    </section>
-  );
-}
-
-function Articles({ articles = [] }) {
-  const items = Array.isArray(articles)
-    ? articles.filter((article) => article?.onHomePage !== false)
-    : [];
-
-  const openArticle = (url) => {
-    if (!url) {
-      return;
-    }
-
-    window.open(url, "_blank");
-  };
-
-  return (
-    <section className="project" id="advocacy">
-      <div className="header-2">
-        <h2 className="italic">
-          <span className="prom-2">Our </span>Advocacy
-        </h2>
-      </div>
-      <div className="adv-cards">
-        {items.map((article) => (
-          <div
-            key={article.id ?? article.slug ?? article.url}
-            className="news-card"
-            onClick={() => openArticle(article.url)}
-          >
-            {article.image && (
-              <div className="cd-logo">
-                <img src={article.image} alt={article.title} />
-              </div>
-            )}
-            <div className="cd-header">{article.title}</div>
-            {article.description && (
-              <div className="italic">{article.description}</div>
-            )}
-          </div>
-        ))}
-      </div>
     </section>
   );
 }
@@ -573,7 +521,7 @@ function BoardSection({ members = [] }) {
     return null;
   }
 
-  return <TeamSection sectionId="board" members={boardMembers} />;
+  return <TeamSection sectionId="board" members={boardMembers} compact />;
 }
 
 function ProjectsGalleryMarquee({ projects = [] }) {

@@ -94,15 +94,16 @@ function getBioPreview(person, max = 100) {
   return `${bio.slice(0, max).trimEnd()}…`;
 }
 
-function PeopleCard({ person }) {
+function PeopleCard({ person, compact = false }) {
   if (!person) {
     return null;
   }
   const navigate = useNavigate();
   const deptLabel = deptLabels[person.dept] ?? person.dept ?? '';
-  const socials = Array.isArray(person.social)
+  const allSocials = Array.isArray(person.social)
     ? [...person.social].sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
     : [];
+  const socials = compact ? allSocials.slice(0, 3) : allSocials;
   const avatarStyle = person.photo ? { backgroundImage: `url(${person.photo})` } : undefined;
   const detailPath = getPersonPath(person);
   const isNavigable = Boolean(detailPath);
@@ -154,7 +155,7 @@ function PeopleCard({ person }) {
         </div>
       </div>
       <div className="pc-body">
-        {person.email && (
+        {!compact && person.email && (
           <div className="pc-email">
             <span className="italic prom-2">e: </span>
             <span className="email" onClick={(event) => handleOpen(`mailto:${person.email}`, event)}>
@@ -162,7 +163,7 @@ function PeopleCard({ person }) {
             </span>
           </div>
         )}
-        {person.phone && (
+        {!compact && person.phone && (
           <div className="pc-phone">
             <span className="italic prom-2">m: </span>
             <span className="phone" onClick={(event) => handleOpen(`tel:${person.phone}`, event)}>
@@ -197,6 +198,7 @@ function PeopleCard({ person }) {
 export function TeamSection({
   sectionId = 'contact',
   members = fallbackTeam,
+  compact = false,
 }) {
   const items = sortTeam(Array.isArray(members) ? members : []);
   const groups = groupTeam(items);
@@ -218,6 +220,7 @@ export function TeamSection({
                 <PeopleCard
                   key={person.name ?? person.email ?? person.phone ?? Math.random()}
                   person={person}
+                  compact={compact}
                 />
               ))}
             </div>

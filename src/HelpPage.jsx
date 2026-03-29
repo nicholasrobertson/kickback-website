@@ -72,17 +72,6 @@ export default function HelpPage() {
           <div className="help-contact-list">
             <div
               className="help-contact-row"
-              onClick={() => openUrl(homeContent.messengerLink)}
-            >
-              <img
-                className="help-contact-icon"
-                src="/images/messenger.svg"
-                alt="Messenger"
-              />
-              <span className="help-contact-text">Message us on Facebook</span>
-            </div>
-            <div
-              className="help-contact-row"
               onClick={() => openUrl(homeContent.instagramLink)}
             >
               <img
@@ -92,6 +81,18 @@ export default function HelpPage() {
               />
               <span className="help-contact-text">DM us on Instagram</span>
             </div>
+            <div
+              className="help-contact-row"
+              onClick={() => openUrl(homeContent.messengerLink)}
+            >
+              <img
+                className="help-contact-icon"
+                src="/images/messenger.svg"
+                alt="Messenger"
+              />
+              <span className="help-contact-text">Message us on Facebook</span>
+            </div>
+
             {phoneDisplay && (
               <a
                 className="help-contact-row"
